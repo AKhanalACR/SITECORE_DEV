@@ -1,0 +1,41 @@
+﻿@inherits Glass.Mapper.Sc.Web.Mvc.GlassView<ACRHelix.Feature.PageContent.ViewModels.LinkSectionViewModel>
+
+
+<div class="content section-spacing">
+    @if (Model.DisplayHeader)
+    {
+    <h2>@Editable(x => x.Title)</h2>
+    <hr>
+    @:<div class="indented-section">
+    if (Model.SubTitle != "" || Sitecore.Context.PageMode.IsExperienceEditorEditing)
+        {
+    <div class="text-size-1p25 pad-bottom-1em">@Editable(x => x.SubTitle)</div>
+    }
+    }
+    @if (Model.Links != null)
+    {
+    <div class="row-adjust inline-block-cols has-dark-blue-anchor">
+        @foreach (var link in Model.Links)
+        {
+            string iconClass;
+            switch (link.Extension)
+            {
+                //case "pdf":
+                //    iconClass = "icon-pdf";
+                //    break;
+                default:
+                    iconClass = "icon-document";
+                    break;
+            }
+        <div class="xl-col-6 additional-resource-item">
+            <span class="acr-icon text-orange @iconClass"></span>
+            <a href="@link.Url"><strong>@Editable(link, x => x.Title)</strong></a>
+        </div>
+        }
+    </div>
+    }
+    @if (Model.DisplayHeader)
+    {
+    @:</div>
+    }
+</div>

@@ -1,0 +1,137 @@
+﻿@inherits Glass.Mapper.Sc.Web.Mvc.GlassView<ACRHelix.Feature.MembershipTestimonials.ViewModels.SubmitTestimonialViewModel>
+@using System.Collections.Specialized;
+@using (Html.BeginForm("SubmitTestimonial", "MembershipTestimonials", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    <div class="content">
+        @Html.AntiForgeryToken()
+        @Html.HiddenFor(model => model.TestimonialFolder.Id)
+        @Html.HiddenFor(model => model.Testimonial.CustomerId)
+        @Html.Hidden("CroppedImagePath")
+        <div class="section-spacing">
+            <h3>Member Profile</h3>
+            <hr />
+            <div class="indented-section section-spacing-top">
+                <h3>@Model.Testimonial.FullName</h3>
+                @Html.HiddenFor(model => model.Testimonial.FullName)
+                @if (!string.IsNullOrWhiteSpace(Model.Testimonial.Chapter))
+                {
+                    @Html.Raw("Chapter: " + Model.Testimonial.Chapter + "<br>")
+                }
+                
+                @Html.HiddenFor(model => model.Testimonial.Chapter)
+                @if (Model.Testimonial.MemberDate != DateTime.MinValue)
+                {
+                    @Html.Raw("Member Date: " + Model.Testimonial.MemberDate.ToShortDateString() + "<br>")
+                }
+                @Html.HiddenFor(model => model.Testimonial.MemberDate)
+                <br />
+                @using (BeginRenderLink(x => x.EditProfilePageUrl, new { @class = "button", id = "lnkEditProfile", target = "_blank" }, isEditable: true))
+                {
+                    @Html.Raw("Edit");
+                }
+                @*<a href="@Model.EditProfilePageUrl" id="lnkEditProfile" class="button" target="_blank">Edit</a>*@ @*btn-ghost-blue*@
+                <br />
+                @Editable(x => x.EditProfileInstruction)
+                                
+            </div>
+        </div>
+        <div class="section-spacing">
+            <h3>Tell Your Story</h3>
+            <hr />
+            <div class="row-adjust">
+                <div class="mt-catLst xl-col-6 input-container">
+                    <label for="ddlCatagory"> </label>
+                    @Html.DropDownList("Category", Model.Categories, "I am a ", new { id = "ddlCatagory", @class = "category-filter mt-dropdown" })
+                </div>
+            </div>
+
+            <div class="row-adjust">
+                <div class="xl-col-6">
+                    <div class="row-adjust">
+                        <div class="xl-col-6 input-container">
+                            <label for="txtFacebook">Your Facebook: </label>
+                            @Html.TextBoxFor(model => model.Testimonial.FaceBook, new { id = "txtFacebook", placeholder = "Enter Facebook URL" })
+                        </div>
+                    </div>
+                    <div class="row-adjust">
+                        <div class="xl-col-6 input-container">
+                            <label for="txtTwitterHandle">Your Twitter: </label>
+                            @Html.TextBoxFor(model => model.Testimonial.TwitterHandle, new { id = "txtTwitterHandle", placeholder = "Enter Twitter URL" })
+                        </div>
+                    </div>
+                    <div class="row-adjust">
+                        <div class="xl-col-6 input-container">
+                            <label for="txtLinkedIn">Your LinkedIn: </label>
+                            @Html.TextBoxFor(model => model.Testimonial.LinkedIn, new { id = "txtLinkedIn", placeholder = "Enter LinkedIn URL" })
+                        </div>
+                    </div>
+                    <div class="row-adjust">
+                        <div class="xl-col-6 input-container">
+                            <label for="txtEngageProfile">Your ACR Engage Profile: </label>
+                            @Html.TextBoxFor(model => model.Testimonial.EngageProfile, new { id = "txtEngageProfile", placeholder = "Enter ACR Engage Profile URL" }) <a class="tool-tip tip-question" href="#" title="@Editable(x => x.EngageProfileHelpText)"></a>
+                        </div>
+                    </div>
+                    
+                </div>
+                <div class="xl-col-6">
+                    <div class="row-adjust">
+                        <div class="xl-col-6 input-container">
+                            <label for="txtYouTubeLink">YouTube Video URL: </label>
+                            @Html.TextBoxFor(model => model.Testimonial.YouTubeLink, new { id = "txtYouTubeLink", placeholder = "Enter Your YouTube Video Link" }) <a class="tool-tip tip-question" href="#" title="@Editable(x => x.YouTubeLinkHelpText)"></a>
+                        </div>
+                    </div>
+                    <div class="row-adjust">
+                        <div class="xl-col-6 input-container">
+                            <label for="txtTestimonialMessage">Upload Image: </label>
+                            <p>
+                                @Editable(x => x.UploadImageInstruction) 
+                                @*Please upload your photograph or the image you would like to display with your story/testimonial. Email membership@acr.org if you need assistance.*@
+                            </p>
+                            <div class="mtFile-div">
+                                <span class="input-field" style="background: #f2f2f2; border: 1px solid #f2f2f2;">
+                                    <span>filename</span>
+                                    <a href="javascript:void(0);" style="float:right">x</a>
+                                </span>
+                            </div>
+                            
+                            <input type="button" class="button browse" value="Browse" />
+                            <input type="file" name="ImageFile" class="file" accept="image/*" >
+                            <br />
+                            <span id="spFile" class="required">Required</span>
+                        </div>
+                    </div>
+                    @*<div class="input-container">                      
+                        <div class="input-container">
+                            <input type="text" class="input-field" disabled />
+                            <input type="button" class="browse input-button" value="Browse" /> data-toggle="popover"
+
+                        </div>
+                        
+                        <input type="file" name="ImageFile" class="file">
+                        <p>
+                            <canvas id="canvas" height="5" width="5" style="vertical-align:top;"></canvas>
+                        </p>
+                    </div>*@
+                </div>
+            </div>
+            <div class="row-adjust">
+                <div class="xl-col-12 input-container">
+                    <label for="txtTestimonialMessage">Testimonial (<span id="totalChars">0</span> used of 2,000 character maximum): </label>
+                    @Html.TextAreaFor(model => model.Testimonial.TesimonialMessage, new { id = "txtTestimonialMessage", rows="12", cols = "15" })
+                    <span id="spMessage" class="required">Required</span>
+                </div>
+            </div>
+            <div class="row-adjust">
+                
+            </div>
+
+            <div class="row-adjust">
+                <div class="sm-col-6">
+                    <br />
+                    <input type="submit" id="btnSave" value="Submit" />
+                </div>
+            </div>
+        </div>
+        <popover></popover>        
+    </div>
+}

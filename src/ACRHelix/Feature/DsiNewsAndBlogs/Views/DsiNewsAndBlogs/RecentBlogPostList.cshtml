@@ -1,0 +1,28 @@
+﻿@inherits Glass.Mapper.Sc.Web.Mvc.GlassView<ACRHelix.Feature.DsiNewsAndBlogs.ViewModels.RecentBlogPostListViewModel>
+
+
+        <h3 acr>@Editable(x => x.Title)</h3>
+        <div acr="list" style="--gap: 15px; padding-top: 20px;">
+            @foreach (var blogposts in Model.BlogPosts)
+            {
+                using (BeginEditFrame(blogposts, "Blog Posts", x => x.Title))
+                {
+                    <div acr="list-column" class="blog-summary">
+
+                        @if (blogposts.FeaturedImage != null)
+                        {
+                            @RenderImage(blogposts, x => x.FeaturedImage, new { @style = "width:100px;height:100px;" })
+                        }
+                        else
+                        {
+                            <img src="/images/DsiNewsAndBlogs/Blog.JPG" />
+                        }
+                        <a href="@blogposts.Url">@Editable(blogposts, x => x.Title)</a>						
+                
+                    </div>
+                }
+            }
+        </div>
+        @RenderLink(Model, x => x.ArchivesLink, new { @acr = "btn", @class = "new-home-page-btn" }, isEditable: true)
+
+ 

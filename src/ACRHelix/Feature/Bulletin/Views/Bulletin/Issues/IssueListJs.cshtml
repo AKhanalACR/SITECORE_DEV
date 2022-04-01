@@ -1,0 +1,22 @@
+﻿@inherits Glass.Mapper.Sc.Web.Mvc.GlassView<List<ACRHelix.Feature.Bulletin.Models.IssueSearchItem>>
+
+@foreach (var issue in Model)
+{
+    string link = Sitecore.Links.LinkManager.GetItemUrl(issue.GetItem());
+    string linkText = (string.IsNullOrWhiteSpace(issue.LinkText) ? issue.IssueName : issue.LinkText);
+    <section class="xl-col-4 md-col-12 lg-col-6">
+        <div class="archive-tile spaced-item">
+            <figure>
+                <a href="@link" class="block">
+                    <img src="@issue.TileImageUrl" alt="@issue.IssueName">
+                </a>
+            </figure>
+            <footer>
+                <a href="@link" class="rec-read-title" tabindex="0">
+                    @linkText
+                    <i class="read-more-arrow" aria-hidden="true"></i>
+                </a>
+            </footer>
+        </div>
+    </section>
+}

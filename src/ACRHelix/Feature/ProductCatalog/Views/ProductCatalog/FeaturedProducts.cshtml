@@ -1,0 +1,112 @@
+@inherits Glass.Mapper.Sc.Web.Mvc.GlassView<ACRHelix.Feature.ProductCatalog.Models.FeaturedProducts>
+	@using Sitecore.Foundation.SitecoreExtensions.Extensions
+	@using ACR.Foundation.Personify.Helpers
+
+
+<div class="featured-products-rendering">
+
+
+    <div class="content section-spacing-top">
+        <section>
+            <header class="header-underrule">
+                <div class="space-between">
+
+                    <h2>@Editable(x => x.SectionTitle)</h2>
+
+                  
+                        <div class="inline-block filter-select-holder">
+                            <!--#dev re-using from dropdown.transition.min.css-->
+                            <div id="filter-tab-outer">
+                                <div class="select-outer">
+                                    <div class="selection ui dropdown" tabindex="0" id="filter-tab">
+                                        <div class="default text">Filter</div>
+                                        <i class="dropdown icon"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    
+                </div>
+            </header>
+        </section>
+    </div>
+
+    @Html.Sitecore().DynamicPlaceholder("ProductDropDown", true)
+
+    <div class="section-spacing">
+        <div class="content product-search-results inline-block-cols">
+
+            @Html.Sitecore().DynamicPlaceholder("ProductCatalog", true)
+
+            @foreach (var product in Model.Products)
+            {
+                var buyNow = false;//product.ProductBuyNow();
+                var productUrl = product.GetProductDetailUrl();
+
+                <div class="xl-col-6 md-col-12 product-item">
+                    <div class="row-adjust">
+                        <figure class="product-image-holder xl-col-4 col-3"><a target="_blank" class="no-target-icon" href="@productUrl"><img src="@ProductHelper.BuildProductImageUrl(product.ImageLargeUrl)" alt="@product.PName"></a></figure>
+                        <div class="xl-col-7 col-9 product-text-action">
+                            <h3 class="font-inherit-body"><a target="_blank" class="no-target-icon" href="@productUrl">@product.LongName</a></h3>
+                            <div class="row-adjust text-size-p875">
+                                @if (!string.IsNullOrWhiteSpace(product.MITPrice))
+                                {
+                                    <div class="xl-col-5 lg-col-6 col-6 prod-detail-column">
+                                        MIT:<br>
+                                        <strong>@product.MITPrice</strong>
+                                    </div>
+                                }
+                                @if (!string.IsNullOrWhiteSpace(product.TechnologistsPrice))
+                                {
+                                    <div class="xl-col-5 lg-col-6 col-6 prod-detail-column">
+                                        Technologists:<br>
+                                        <strong>@product.TechnologistsPrice</strong>
+                                    </div>
+                                }
+                                @if (!string.IsNullOrWhiteSpace(product.MemberPrice))
+                                {
+                                    <div class="xl-col-5 lg-col-6 col-6 prod-detail-column">
+                                        Member:<br>
+                                        <strong>@product.MemberPrice</strong>
+                                    </div>
+                                }
+                                @if (!string.IsNullOrWhiteSpace(product.ListPrice))
+                                {
+                                    <div class="xl-col-5 lg-col-6 col-6 prod-detail-column">
+                                        Nonmember:<br>
+                                        <strong>@product.ListPrice</strong>
+                                    </div>
+                                }
+
+                                @*<div class="xl-col-5 lg-col-6 col-6 prod-detail-column"><a href="@Model.JoinLink.Url" target="@Model.JoinLink.Target" class="text-green text-size-1p125"><i class="acr-icon icon-shake-hands"></i> @Model.JoinLink.Text</a></div>*@
+                                <div class="col-12 prod-detail-column">
+                                    @if (buyNow)
+                                    {
+                                        var buyNowText = "Buy Now";
+                                        if (product.GetStockStatusCssClass() != " stock")
+                                        {
+                                            buyNowText = product.GetStockStatusText();
+                                        }
+                                        <a target="_blank " href="@product.GetProductDetailUrl()" class="button no-target-icon addCartBtn @product.GetStockStatusCssClass()" data-personifyId="@product.PersonifyID" data-stockStatus="@product.GetStockStatusText()">@buyNowText</a>
+                                        <div class="input-horiz-space"></div>
+                                    }
+                                    else
+                                    {
+                                        <a target="_blank " href="@product.GetProductDetailUrl()" class="button no-target-icon" data-personifyId="@product.PersonifyID" data-stockStatus="@product.GetStockStatusText()">View Details</a>
+                                        <div class="input-horiz-space"></div>
+                                    }
+                                    <a href="@Model.JoinLink.Url" target="@Model.JoinLink.Target" class="text-green text-size-1p125 no-target-icon"><i class="acr-icon icon-shake-hands"></i> @Model.JoinLink.Text</a>
+                                    @if (buyNow)
+                                    {
+                                        <a target="_blank " href="@product.GetProductDetailUrl()" data-personifyId="@product.PersonifyID" data-stockStatus="@product.GetStockStatusText()" class="no-wrap save-later-link no-target-icon"><i class="acr-icon icon-heart"></i> Save for Later</a>
+                                    }
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+
+        </div>
+    </div>
+</div>

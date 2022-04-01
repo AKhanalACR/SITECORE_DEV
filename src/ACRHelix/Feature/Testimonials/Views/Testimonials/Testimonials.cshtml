@@ -1,0 +1,35 @@
+﻿@inherits Glass.Mapper.Sc.Web.Mvc.GlassView<ACRHelix.Feature.Testimonials.ViewModels.TestimonialsViewModel>
+@using Sitecore.Mvc;
+@using ACRHelix.Foundation.EditFrames;
+
+@*<style>
+    .testimonials .scLooseFrameZone {
+        width: 33%;
+    }
+
+    .testimonials div.scLooseFrameZone .xl-col-4 {
+        width: 100%;
+    }
+</style>*@
+
+<section class="testimonials content">
+    <header class="header-underrule">
+        <h2>@Editable(x => x.Title)</h2>
+    </header>
+
+    <!--start: Module -->
+    <div class="content section-spacing">
+        <div class="indented-section">
+            @foreach (var item in Model.Testimonials)
+            {
+                using (BeginEditFrame(EditFrameConstants.Paths.Edit, item.Id.ToString(), "Testimonial"))
+                {
+                    <blockquote>
+                        <p class="text-size-1p25">&ldquo;@Editable(item, x => x.Quote)&rdquo;</p>
+                        <cite><strong>&mdash;@Editable(item, x => x.Citation)</strong></cite>
+                    </blockquote>
+                }
+            }
+        </div>
+    </div>
+</section>

@@ -1,0 +1,156 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="ACRHelix_dashboardModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Bookmarks">
+          <Key>
+            <PropertyRef Name="BookmarkID" />
+          </Key>
+          <Property Name="BookmarkID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="SitecoreID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="PersonifyID" Type="nvarchar" MaxLength="200" Nullable="false" />
+          <Property Name="CreatedDate" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="QuickLinks">
+          <Key>
+            <PropertyRef Name="LinkId" />
+          </Key>
+          <Property Name="LinkId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="PersonifyID" Type="nvarchar" MaxLength="200" Nullable="false" />
+          <Property Name="LinkName" Type="nvarchar" MaxLength="200" Nullable="false" />
+          <Property Name="LinkUrl" Type="nvarchar(max)" Nullable="false" />
+        </EntityType>
+        <EntityType Name="QuickLinksInitialized">
+          <Key>
+            <PropertyRef Name="PersonifyID" />
+          </Key>
+          <Property Name="PersonifyID" Type="nvarchar" MaxLength="200" Nullable="false" />
+        </EntityType>
+        <EntityType Name="RecommendedArticles">
+          <Key>
+            <PropertyRef Name="UID" />
+          </Key>
+          <Property Name="UID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="SitecoreID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="PersonifyID" Type="nvarchar" MaxLength="200" Nullable="false" />
+          <Property Name="CreatedDate" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityContainer Name="ACRHelix_dashboardModelStoreContainer">
+          <EntitySet Name="Bookmarks" EntityType="Self.Bookmarks" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="QuickLinks" EntityType="Self.QuickLinks" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="QuickLinksInitialized" EntityType="Self.QuickLinksInitialized" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="RecommendedArticles" EntityType="Self.RecommendedArticles" Schema="dbo" store:Type="Tables" />
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="ACRHelix_dashboardModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Bookmark">
+          <Key>
+            <PropertyRef Name="BookmarkID" />
+          </Key>
+          <Property Name="BookmarkID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="SitecoreID" Type="Guid" Nullable="false" />
+          <Property Name="PersonifyID" Type="String" MaxLength="200" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="CreatedDate" Type="DateTime" Nullable="false" Precision="3" />
+        </EntityType>
+        <EntityType Name="RecommendedArticle">
+          <Key>
+            <PropertyRef Name="UID" />
+          </Key>
+          <Property Name="UID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="SitecoreID" Type="Guid" Nullable="false" />
+          <Property Name="PersonifyID" Type="String" MaxLength="200" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="CreatedDate" Type="DateTime" Nullable="false" Precision="3" />
+        </EntityType>
+        <EntityContainer Name="ACRHelix_dashboardEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Bookmarks" EntityType="Self.Bookmark" />
+          <EntitySet Name="RecommendedArticles" EntityType="Self.RecommendedArticle" />
+          <EntitySet Name="QuickLinks" EntityType="ACRHelix_dashboardModel.QuickLink" />
+          <EntitySet Name="QuickLinksInitializeds" EntityType="ACRHelix_dashboardModel.QuickLinksInitialized" />
+        </EntityContainer>
+        <EntityType Name="QuickLink">
+          <Key>
+            <PropertyRef Name="LinkId" />
+          </Key>
+          <Property Name="LinkId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="PersonifyID" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="LinkName" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="LinkUrl" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="QuickLinksInitialized">
+          <Key>
+            <PropertyRef Name="PersonifyID" />
+          </Key>
+          <Property Name="PersonifyID" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="true" />
+        </EntityType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="ACRHelix_dashboardModelStoreContainer" CdmEntityContainer="ACRHelix_dashboardEntities">
+          <EntitySetMapping Name="Bookmarks">
+            <EntityTypeMapping TypeName="ACRHelix_dashboardModel.Bookmark">
+              <MappingFragment StoreEntitySet="Bookmarks">
+                <ScalarProperty Name="BookmarkID" ColumnName="BookmarkID" />
+                <ScalarProperty Name="SitecoreID" ColumnName="SitecoreID" />
+                <ScalarProperty Name="PersonifyID" ColumnName="PersonifyID" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="RecommendedArticles">
+            <EntityTypeMapping TypeName="ACRHelix_dashboardModel.RecommendedArticle">
+              <MappingFragment StoreEntitySet="RecommendedArticles">
+                <ScalarProperty Name="UID" ColumnName="UID" />
+                <ScalarProperty Name="SitecoreID" ColumnName="SitecoreID" />
+                <ScalarProperty Name="PersonifyID" ColumnName="PersonifyID" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="QuickLinks">
+            <EntityTypeMapping TypeName="ACRHelix_dashboardModel.QuickLink">
+              <MappingFragment StoreEntitySet="QuickLinks">
+                <ScalarProperty Name="LinkUrl" ColumnName="LinkUrl" />
+                <ScalarProperty Name="LinkName" ColumnName="LinkName" />
+                <ScalarProperty Name="PersonifyID" ColumnName="PersonifyID" />
+                <ScalarProperty Name="LinkId" ColumnName="LinkId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="QuickLinksInitializeds">
+            <EntityTypeMapping TypeName="ACRHelix_dashboardModel.QuickLinksInitialized">
+              <MappingFragment StoreEntitySet="QuickLinksInitialized">
+                <ScalarProperty Name="PersonifyID" ColumnName="PersonifyID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

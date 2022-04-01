@@ -1,0 +1,28 @@
+﻿@inherits Glass.Mapper.Sc.Web.Mvc.GlassView<ACRHelix.Feature.RelatedArticles.ViewModels.RelatedArticlesViewModel>
+
+@if (Model.Articles.Count() > 0 || Sitecore.Context.PageMode.IsExperienceEditorEditing)
+{
+<!-- BEGIN NOINDEX -->
+<div class="content">
+    <!--start: Module -->
+    <section class="section-borders bdr-grey">
+        <div class="section-spacing">
+            <h2>Related Articles</h2>
+			@if (Model.Articles != null)
+			{
+            <ul class="two-column-ul related-articles">
+                @foreach (var article in Model.Articles)
+				{
+                    <li>
+                        <span class="text-size-p75">@Editable(article, x => x.Date, x => x.Date.ToString("MMMM dd, yyyy"))</span> <br>
+                        <h3> <a class="read-more-link" href="@article.Url">@Editable(article, x => x.Title)</a> </h3>
+                    </li>
+				}
+            </ul>
+			}
+        </div>
+    </section>
+    <!--end: Module -->
+</div>
+<!-- END NOINDEX -->
+}

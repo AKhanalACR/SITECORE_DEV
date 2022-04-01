@@ -1,0 +1,45 @@
+﻿@using Sitecore.Feature.XBlog.Areas.XBlog.Items.Blog
+@using Sitecore.Feature.XBlog.Areas.XBlog.Models.Blog
+@using Sitecore.Feature.XBlog.Areas.XBlog.Search
+@using Sitecore.Feature.XBlog.Areas.XBlog.General
+@using Sitecore.Data.Items
+@using Sitecore.Mvc
+@using Sitecore.Links
+@using Sitecore.Resources.Media
+@model Sitecore.Feature.XBlog.Areas.XBlog.Models.Blog.VorBlogCommentsModel
+
+@{ if (Model.VORBlogComments == null || !Model.VORBlogComments.Any())
+    {
+    }
+    else
+    {
+
+
+        <h3>Comments on <span>@Model.Title</span> </h3>
+        <div class="comments">
+            <ul class="main-node">
+                @foreach (VORBlogComment comment in Model.VORBlogComments)
+                {
+                    <li>
+                        @{
+                            string date = "";
+                            date = comment.InnerItem.Created.ToLocalTime().ToString("MMMM dd");
+                            date = date + ", " + comment.InnerItem.Created.ToLocalTime().ToString("yyyy");
+                            date = date + " at " + comment.InnerItem.Created.ToLocalTime().ToString("hh:mm tt");
+                        }
+                        <span>
+                            <span class="message-head">@date | @comment.CommentName says:</span>
+                            <span class="message-content">@comment.Comment</span>
+                        </span>
+                    </li>
+                }
+
+
+                <li class="reply-node">
+                    <span class="link" style="cursor:pointer">Reply</span>
+                </li>
+            </ul>
+        </div>
+}
+}
+

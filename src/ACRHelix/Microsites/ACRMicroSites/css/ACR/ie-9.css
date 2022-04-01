@@ -1,0 +1,219 @@
+/*******************************************************************************
+
+	CSS on Sails Framework
+	Internet Explorer 7 & Under stylesheet
+	Author: XHTMLized (http://www.xhtmlized.com/)
+
+*******************************************************************************/
+
+
+/* 2. COMMON
+--------------------------------------------------------------------------------
+==============================================================================*/
+
+/* Container */
+.container { 
+	-pie-background: linear-gradient(#38869f, #fff);
+	behavior: url(/js/ACR/PIE.htc);
+}
+
+/* Header */
+header {
+	-pie-background: linear-gradient(#0a4569, #072b3f);
+	behavior: url(/js/ACR/PIE.htc);
+}
+
+.btn-cart, .btn-catalog, .btn-donate, .btn-account, .btn-join {
+	-pie-background: linear-gradient(#4b9839, #3c7a2e);
+	behavior: url(/js/ACR/PIE.htc);
+}
+
+.nav-global ul.main { 
+	-pie-background: linear-gradient(#0d7d9f, #105b73);
+	behavior: url(/js/ACR/PIE.htc); 
+}
+
+.nav-global ul.main li.current-menu > a {
+	position: relative;
+	-pie-background: linear-gradient(#1f9ec5, #16718e);
+	behavior: url(/js/ACR/PIE.htc);
+}
+
+.nav-global ul li ul { 
+	-pie-background: linear-gradient(#fff, #b3d1da); 
+	box-shadow: 1px 2px 0px rgba(0, 0, 0, 0.07);
+	behavior: url(/js/ACR/PIE.htc);
+}
+
+.nav-secondary .heading {
+	position: relative;
+	-pie-background: linear-gradient(#1d98be, #1983a3);
+	behavior: url(/js/ACR/PIE.htc);
+}
+
+header .nav-utility {
+  top: 6px;
+}
+
+header .nav-utility .join-btn {
+  top: 0;
+}
+
+header .nav-utility .join-btn.logged-in {
+	top: 0px;
+}
+
+
+
+/* Tabs */
+.tabs a { 
+	-pie-background: linear-gradient(#1d97bc, #177795);
+	behavior: url(/js/ACR/PIE.htc);
+}
+
+.tabs a:hover {
+	-pie-background: linear-gradient(#099fd0, #077ea4);
+	behavior: url(/js/ACR/PIE.htc);	
+}
+
+.tabs li a.current {	
+	-pie-background: linear-gradient(#fff, #fff);
+	behavior: url(/js/ACR/PIE.htc);
+}
+
+.slider.one-item .nav {
+	-pie-background: linear-gradient(#0d7fa3, #10607a);
+	behavior: url(/js/ACR/PIE.htc);
+}
+
+/* Footer */
+footer {
+	-pie-background: linear-gradient(#0a4569, #05283d);
+	behavior: url(/js/ACR/PIE.htc);
+}
+
+
+
+/* 3. PAGES
+--------------------------------------------------------------------------------
+==============================================================================*/
+
+
+/* 3.1 Home
+------------------------------------------------------------------------------*/
+
+
+/* 3.2 Career Center
+------------------------------------------------------------------------------*/
+
+
+/* 3.3 Chapters
+------------------------------------------------------------------------------*/
+
+
+/* 3.4 Education
+------------------------------------------------------------------------------*/
+
+
+/* 3.5 Education catalog
+------------------------------------------------------------------------------*/
+
+
+/* 3.6 Education center
+------------------------------------------------------------------------------*/
+
+
+/* 3.7 Education search
+------------------------------------------------------------------------------*/
+
+/* Facet Control - Catalog results filter */
+  .education-search .s-catalog .fieldset ul.check-time label {
+    padding-top: 3px;
+  }
+
+/* 3.8 Federal relations
+------------------------------------------------------------------------------*/
+
+
+/* 3.9 Home error message
+------------------------------------------------------------------------------*/
+
+
+/* 3.10 Home unauthenticated
+------------------------------------------------------------------------------*/
+
+
+/* 3.11 Individual meeting
+------------------------------------------------------------------------------*/
+
+
+/* 3.12 Join become member
+------------------------------------------------------------------------------*/
+
+
+/* 3.13 Mammography
+------------------------------------------------------------------------------*/
+
+
+/* 3.14 Media center
+------------------------------------------------------------------------------*/
+
+
+/* 3.15 Meetings events
+------------------------------------------------------------------------------*/
+
+
+/* 3.16 Member login
+------------------------------------------------------------------------------*/
+.member-login .form-login .check-box {
+  margin-top: 8px;
+}
+
+
+/* 3.17 My account
+------------------------------------------------------------------------------*/
+
+
+/* 3.18 My profile edit address
+------------------------------------------------------------------------------*/
+
+
+/* 3.19 News and publications
+------------------------------------------------------------------------------*/
+
+
+/* 3.20 News article
+------------------------------------------------------------------------------*/
+
+
+/* 3.21 Press release
+------------------------------------------------------------------------------*/
+
+
+/* 3.22 Product detail
+------------------------------------------------------------------------------*/
+
+
+/* 3.23 Shopping cart
+------------------------------------------------------------------------------*/
+
+
+/* 3.24 Site search
+------------------------------------------------------------------------------*/
+
+
+/* 3.25 Site map
+------------------------------------------------------------------------------*/
+
+
+/* 4. WIDGETS
+------------------------------------------------------------------------------*/
+
+img.imgResource {
+  padding-top: 1px!important;
+}
+
+.widget.module.dropdown.FacilitySearchWidget .search-form .form-field .link-more {
+  margin: 6px 0 0 0;
+  clear: none;
+}

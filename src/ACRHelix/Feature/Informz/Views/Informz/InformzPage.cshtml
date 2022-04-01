@@ -1,0 +1,130 @@
+﻿@inherits Glass.Mapper.Sc.Web.Mvc.GlassView<ACRHelix.Feature.Informz.ViewModels.InformzViewModel>
+@using ACRHelix.Feature.Informz.ViewModels;
+@using ACR.Foundation.Personify.Helpers;
+
+<div class="content section-spacing">
+    <h1>@Editable(Model, x => x.InformzContent.Title)</h1>
+@if (!Model.Error)
+{
+    <div id="informzFormContainer">        
+        @using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
+            <div class="email-center-col label-less-space">
+                <label>Email</label>              
+                @Html.TextBoxFor(x => x.Email, new { @placeholder = "Email" })                
+                @Html.HiddenFor(x => x.HiddenCaptcha)
+                @*<input type="email" placeholder="Enter Email" value="agelston@hileman.biz">*@
+            </div>
+            if (!string.IsNullOrWhiteSpace(Model.Email))
+            {
+                if (Model.CustomerData.EmailExists)
+                {
+                    @Html.HiddenFor(x => x.FormSubmitted)
+                    <div class="clear"></div>
+                    <br>
+                    <p class="text-size-1p25">@Editable(Model, x => x.InformzContent.SubTitle)</p>
+                    int i = 0;
+                    foreach (var category in Model.InformzContent.Categories)
+                    {
+                        <h2>@category.CategoryName</h2>
+                        <div class="row indented-section bdr-top">
+                            <div class="section-spacing flex-content-left">
+                                @foreach (var newsletter in category.Newsletters)
+                                {
+                                    <div class="xl-col-4 lg-col-6">
+                                        <div class="boxed-input">
+                                            @if (!string.IsNullOrWhiteSpace(newsletter.TooltipText))
+                                            {
+                                                <a class="tool-tip tip-info" href="#" title="@newsletter.TooltipText"><span class="tip-text" ><p>@newsletter.TooltipText</p></span></a>
+                                            }
+                                            <div class="acr-checkbox">
+                                                @Html.HiddenFor(x => x.Checkboxes[i].PersonifyCode)
+                                                @Html.CheckBoxFor(x => x.Checkboxes[i].Checked)
+                                                <label>@Html.Raw(newsletter.DisplayName)</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    i++;
+                                }
+                            </div>
+                        </div>
+                    }
+                }
+                else
+                {
+                    <div class="content section-spacing">
+                        <div class="flex-container bdr-bottom">
+                            <h2 id="registerInformzTitle" class="inline-block">@Editable(Model.InformzContent, x => x.RegisterTitle)</h2>
+                            <p>@Editable(Model.InformzContent, x => x.RegisterInstructions)</p>
+                        </div>
+
+                        <div class="indented-section row">
+                            <div class="xl-col-4 lg-col-6">
+                                <label>* First Name</label>
+                                @Html.TextBoxFor(x => x.RegistrationData.FirstName, new { @placeholder = "First Name" })
+                            </div>
+
+                            <div class="xl-col-4 lg-col-6">
+                                <label>* Last Name</label>
+                                @Html.TextBoxFor(x => x.RegistrationData.LastName, new { @placeholder = "Last Name" })
+                            </div>
+                        </div>
+                        <div class="indented-section row">
+                            <div class="xl-col-4 lg-col-6">
+                                <label>* Email</label>
+                                @Html.TextBoxFor(x => x.RegistrationData.Email, new { @placeholder = "Email" })
+
+                            </div>
+                        </div>
+
+                        <div class="indented-section row">
+                            <div class="xl-col-4 lg-col-6">
+                                <label>* Address</label>
+                                @Html.TextBoxFor(x => x.RegistrationData.Address, new { @placeholder = "Address Line 1" })
+                            </div>
+
+                            <div class="xl-col-4 lg-col-6">
+                                <label>Address Line 2</label>
+                                @Html.TextBoxFor(x => x.RegistrationData.Address2, new { @placeholder = "Address Line 2" })
+                            </div>
+                        </div>
+
+                        <div class="indented-section row">
+                            <div class="xl-col-4 lg-col-6">
+                                <label>* City</label>
+                                @Html.TextBoxFor(x => x.RegistrationData.City, new { @placeholder = "City" })
+                            </div>
+
+                            <div class="xl-col-4 lg-col-6">
+                                <label>* Zip</label>
+                                @Html.TextBoxFor(x => x.RegistrationData.Zip, new { @placeholder = "Zip" })
+                            </div>
+                        </div>
+                        <div class="indented-section row">
+                            <div class="xl-col-4 lg-col-6">
+                                <label>* Country</label>
+                                @Html.DropDownListFor(x => x.RegistrationData.Country, CountryStateHelper.GetPersonifyCountries())
+                            </div>
+
+                            <div class="xl-col-4 lg-col-6">
+                                <label>* State</label>
+                                @Html.DropDownListFor(x => x.RegistrationData.State, CountryStateHelper.GetPersonifyStates(), "Select a State")
+                            </div>
+                        </div>
+                    </div>
+                }
+            }
+            <div class="indented-section">
+                <div class="section-spacing-top">
+                    <input id="informzSubmitBtn" type="submit" value="Submit">
+                </div>
+            </div>
+        }
+    </div>
+}
+else
+{
+    <p class="text-size-1p25">@Html.Raw(Model.ErrorMessage)</p>
+}
+</div>

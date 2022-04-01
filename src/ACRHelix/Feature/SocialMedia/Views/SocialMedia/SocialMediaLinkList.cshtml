@@ -1,0 +1,31 @@
+﻿@using Glass.Mapper.Sc.Web.Mvc;
+@inherits Glass.Mapper.Sc.Web.Mvc.GlassView<ACRHelix.Feature.SocialMedia.ViewModels.SocialMediaLinkListViewModel>
+@using ACRHelix.Foundation.EditFrames   
+        
+<div class="xl-col-6 lg-col-12 social-platforms-area">
+    <h3>@Editable(x => x.Title)</h3>
+    <ul class="block-li inline-ul has-dark-blue-anchor social-link-space">
+        @foreach (var link in Model.Links)
+        {
+            @*<li><a href="@(link.Link != null ? link.Link.Url: "#")"><i class="acr-icon @link.IconCSS"></i><strong>@Editable(link, x => x.Title)</strong></a></li>*@
+
+            using (BeginEditFrame(EditFrameConstants.Paths.Edit, link.Id.ToString(), "Link"))
+            {
+                    <li>
+                        @using (BeginRenderLink(link, x => x.Link, new { @Class = "overrideCSSClass" }, isEditable: true))
+                        {
+                            if (link.Link != null)
+                            {
+                                <i class="acr-icon @link.Link.Class"></i><strong>@link.Link.Text</strong>
+                            }
+                            else
+                            {
+                                <strong>[Enter Link Information]</strong>
+                            }
+                        }
+                    </li>
+            }
+
+        }
+    </ul>
+</div>

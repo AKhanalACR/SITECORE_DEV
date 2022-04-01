@@ -1,0 +1,38 @@
+﻿
+@inherits Glass.Mapper.Sc.Web.Mvc.GlassView<ACRHelix.Feature.Accordion.ViewModels.IdeasSelectedAccordionItemsViewModel>
+@using ACRHelix.Foundation.EditFrames
+
+<div class="row FAQContainer">
+    <div class="col-12">
+
+        <h2 class="purple">@Editable(x => x.Title)</h2>
+        <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+            @{
+                int iCounter = 1;
+
+                foreach (var faq in Model.AccordionItems)
+                {
+                    using (BeginEditFrame(EditFrameConstants.Paths.Edit, faq.Id.ToString(), "Accordion Item"))
+                    {
+                        <div class="panel panel-default">
+                            <div class="panel-heading" role="tab" id="heading-@iCounter">
+                                <div class="panel-title">
+                                    <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse-@iCounter" aria-expanded="false" aria-controls="collapse-@iCounter">
+                                        <h6>@Editable(faq, f => f.Title)</h6>
+                                    </a>
+                                </div>
+                            </div>
+                            <div id="collapse-@iCounter" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading-@iCounter" style="">
+                                <div class="panel-body">
+                                    @Editable(faq, f => f.Text)
+                                </div>
+                            </div>
+                        </div>
+                        iCounter++;
+                    }
+                }
+            }
+        </div>
+    </div>
+    <a href="#" class="loadMore-accordion">Load More</a>
+</div>

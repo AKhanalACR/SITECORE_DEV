@@ -1,0 +1,550 @@
+﻿@using Sitecore.Foundation.SitecoreExtensions.Extensions
+@using Coveo.UI
+@using Coveo.UI.Extensions
+@using Sitecore.Mvc
+@using ACR.Foundation.CookieBot.CookieBotModule;
+@model Coveo.UI.Mvc.Models.SearchModel
+
+@* When customizing this component, ensure to use "Coveo.$" instead of the regular jQuery "$" to
+    avoid any conflicts with Sitecore's Page Editor/Experience Editor.  *@
+
+@Html.Coveo().RenderErrorSummary(Model.ValidateModel())
+@if (Model.IsConfigured)
+{
+    <script type="text/javascript" src="/Coveo/js/cultures/@(Model.CultureName).js"></script>
+    <script type="text/javascript">
+        Coveo.$(function () {
+            //CoveoForSitecore.componentsOptions = <%= Model.GetJavaScriptInitializationOptions() %>;
+            var options = @(Html.Raw(Model.GetJavaScriptInitializationOptions()));
+
+            //todays date
+            var date = coveoDateString();
+
+            //web display is checked
+            var xDisplay = buildFilterExpression('@Model.ToCoveoFieldName("Web Display")', '1', '==');
+            //is an rli product
+            var isRLI = buildFilterExpression('@Model.ToCoveoFieldName("HasRLI")', "1", "==");
+            var xTemplate = buildFilterExpression('@Model.ToCoveoFieldName("_templatename")', 'Product Stub','==');
+            var xWebStart = buildDateFilterExpression('@Model.ToCoveoFieldName("productstubwebdisplaystartdate")', date, '<=');
+            var xWebEnd = buildDateFilterExpression('@Model.ToCoveoFieldName("productstubwebdisplayenddate")', date, '>=');
+            var xMeetingStart = buildDateFilterExpression('@Model.ToCoveoFieldName("productstubmeetingstartdate")', date, '>=');
+            var xFilter = '('  + xDisplay + isRLI + xTemplate + xWebStart + xWebEnd + xMeetingStart + ')';
+
+            options.filterExpression = xFilter;
+            CoveoForSitecore.componentsOptions = options;
+        });
+
+    </script>
+
+    @*
+        This hidden input is required to bypass a problem with the Enter key causing a form submission
+            if the form has exactly one text field, or only when there is a submit button present.
+        <input type="text" class="fix-submit" />
+    *@
+
+    <div id="@Model.Id"
+         class="CoveoSearchInterface @(Model.DisplayRecommendations ? "coveo-recommendations" : "")"
+         data-enable-history="@Model.EnableHistory"
+         data-results-per-page="@Model.ResultsPerPage"
+         data-excerpt-length="@Model.ExcerptLength"
+         data-hide-until-first-query="@Model.HideUntilFirstQuery"
+         data-auto-trigger-query="@Model.AutoTriggerQuery"
+         data-enable-automatic-responsive-mode="false"
+         data-design="new"
+         @if (Model.IsMaximumAgeSet) { @: data-maximum-age="@Model.MaximumAge"
+         }
+         @if (Model.UseCustomQueryPipeline) { @: data-pipeline="@Model.QueryPipelineName"
+         }>
+
+        @{
+
+            var cookies = CookieBotHttpModule.CookiesAllowed();
+
+            if (Model.AnalyticsEnabled && cookies.StatisticCookiesAllowed)
+            {
+                <div class="CoveoAnalytics"
+                     data-anonymous="@Model.IsUserAnonymous"
+                     data-endpoint="@Model.GetAnalyticsEndpoint()"
+                     data-search-hub="@Model.GetAnalyticsCurrentPageName()"
+                     data-send-to-cloud="@Model.CoveoAnalyticsEnabled">
+                </div> }
+        }
+
+        <div class="coveo-main-section">
+            <div class="content">
+                @*<h1>Courses &amp; Events</h1>*@
+
+                @Html.Sitecore().DynamicPlaceholder("content")
+
+                <div class="row-adjust">
+                    <div class="md-col-12 xl-col-4">
+                        <div class="resp-nav-mobile-dd">
+                            <div class="resp-nav-header">
+                                <strong class="inline-block text-size-1p125">Search Filters</strong>
+                                <i class="acr-icon toggle-down-arrow icon-sort-down"><span class="sr-only">Down Arrow</span></i>
+                            </div>
+                            <div class="resp-nav-dd-body">
+                                <div class="facetHeader"></div>
+                                @Html.Sitecore().Placeholder("coveo-facets-mvc")
+                                <div class="s-catalog" style="display:none">
+                                    <div class="fieldset cdateSelector">
+                                        <div class="coveo-facet-header-title">By Date</div>
+                                        <div class="acr-coveo-row label-less-space">
+                                            <div class="col-12">
+
+                                                <strong class="label">From</strong><br />
+                                                <input ID="txtFromDate" CssClass="s-datepicker startdate input-chars-7" Placeholder="MM/DD/YYYY">
+                                                <div class="clear"> </div>
+
+                                                <strong class="label">To</strong><br />
+                                                <input ID="txtToDate" CssClass="s-datepicker enddate input-chars-7" Placeholder="MM/DD/YYYY">
+                                            </div>
+                                        </div>
+                                        <div class="acr-coveo-row pad-top-p5em">
+                                            <div id="divFutureDates" class="check-time col-12">
+                                                <label class="label-normal">
+                                                    <input type="checkbox" days="7" class="ch-future-date-range" />
+                                                    Next 7 days
+                                                </label>
+                                                <label class="label-normal">
+                                                    <input type="checkbox" days="30" class="ch-future-date-range" />
+                                                    Next 30 days
+                                                </label>
+                                                <label class="label-normal">
+                                                    <input type="checkbox" days="365" class="ch-future-date-range" />
+                                                    Next Year
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!--<a id="customCoveoDateGoBtn" class="link-attention site-search-submit-btn">Go</a>-->
+                                </div>
+                            </div>
+                        </div>
+                    </div><!--end column-->
+
+
+                    <div class="xl-col-8 md-col-12">
+                        <div class="coveo-distance-resources-section">
+                            @Html.Sitecore().Placeholder("coveo-distance-resources-mvc")
+                        </div>
+                        @if (Model.DisplayTabs)
+                        {
+                            <div class="coveo-tab-section coveo-placeholder-fix">
+                                @Html.Sitecore().Placeholder("coveo-tabs-mvc")
+                            </div>
+                        }
+                        <div class="coveo-results-column section-spacing-bottom">
+                            <div class="section-spacing-bottom">
+                                @if (Model.DisplaySearchbox)
+                                {
+                                    <div class="CoveoSearchbox CoveoSearchPageSearchbox header_tbSearch"
+                                         data-auto-focus="@Model.AutoFocus"
+                                         data-enable-lowercase-operators="@Model.EnableLowercaseOperators"
+                                         data-enable-partial-match="@Model.EnablePartialMatch"
+                                         data-partial-match-keywords="@Model.PartialMatchKeywords"
+                                         data-partial-match-threshold="@Model.PartialMatchThreshold"
+                                         data-enable-question-marks="@Model.EnableQuestionMarks"
+                                         data-enable-wildcards="@Model.EnableWildcards"
+                                         @if (Model.EnableOmnibox) { @: data-enable-omnibox="true"
+                                          @: data-omnibox-timeout="@Model.OmniboxTimeout"
+                                          @: data-enable-field-addon="@Model.OmniboxEnableFieldAddon"
+                                          @: data-enable-simple-field-addon="@Model.OmniboxEnableSimpleFieldAddon"
+                                          @: data-enable-top-query-addon="@Model.OmniboxEnableTopQueryAddon"
+                                          @: data-enable-reveal-query-suggest-addon="@Model.OmniboxEnableMLQuerySuggestAddon"
+                                          @: data-enable-query-extension-addon="@Model.OmniboxEnableQueryExtensionAddon"
+                                         }
+                                         @if (Model.IsSearchAsYouTypeEnabled) { @: data-enable-search-as-you-type="true"
+                                          @: data-search-as-you-type-delay="@Model.SearchboxSuggestionsDelay"
+                                         }>
+                                    </div>
+                                }
+                                @if (Model.DisplayBreadcrumb)
+                                {
+                                    <div class="CoveoBreadcrumb"></div>
+                                }
+
+                                <div class="coveo-results-header">
+                                    <div class="coveo-summary-section">
+                                        @if (Model.DisplayQuerySummary)
+                                        {
+                                            <span class="CoveoQuerySummary"
+                                                  data-enable-search-tips="@Model.QuerySummaryEnableSearchTips"
+                                                  data-only-display-search-tips="@Model.QuerySummaryOnlyDisplaySearchTips"></span>
+                                        }
+                                        @if (Model.DisplayQueryDuration)
+                                        {
+                                            <span class="CoveoQueryDuration"></span>
+                                        }
+                                    </div>
+
+                                    @if (Model.DisplaySorting)
+                                    {
+                                        <div class="coveo-sort-section">
+                                            @Html.Sitecore().Placeholder("coveo-sorts-mvc")
+                                        </div>
+                                    }
+                                </div>
+
+                                <div class="CoveoHiddenQuery"></div>
+
+                                @if (Model.DisplayDidYouMean)
+                                {
+                                    <div class="CoveoDidYouMean" data-enable-auto-correction="@Model.EnableDidYouMeanAutoCorrection"></div>
+                                }
+
+                                @if (Model.DisplayErrorReport)
+                                {
+                                    <div class="CoveoErrorReport"></div>
+                                }
+
+                                @if (Model.DisplayResultList)
+                                {
+                                    if (Model.DisplayTopPager)
+                                    {
+                                        <div class="CoveoPager"
+                                             data-number-of-pages="@Model.PagerNumberOfPages"
+                                             data-max-number-of-pages="@Model.PagerMaxNumberOfPages"
+                                             data-enable-navigation-button="@Model.EnablePagerNavigationButton"></div>
+                                    }
+                                    <div id="first" class="CoveoResultList"
+                                         data-wait-animation="fade"
+                                         data-enable-infinite-scroll="@Model.EnableInfiniteScroll"
+                                         data-infinite-scroll-page-size="@Model.InfiniteScrollPageSize">
+
+                                        <script class="result-template" type="text/underscore">
+                                            <div class="row-adjust catalog-item">
+                                                <div class="xl-col-3">
+                                                    <a class="CoveoResultLink" href="{{=raw.@(Model.ToCoveoFieldName("producturl", false)) }} ">
+                                                        <img style="max-width:100px" alt="{{=raw.@(Model.ToCoveoFieldName("Long Name", false))}} image" src="{{=raw.@(Model.ToCoveoFieldName("productstublargeimageurl", false))}}">
+                                                    </a>
+                                                </div>
+                                                <div class="xl-col-9 details">
+                                                    <h3><a class="CoveoResultLink" href="{{=raw.@(Model.ToCoveoFieldName("producturl", false)) }}" style="color:#1D4F76;font-weight:600">{{=raw.@(Model.ToCoveoFieldName("Long Name", false))}}</a></h3>
+                                                    <div class="sub-tl">
+                                                        <strong><span class="meeting-st-date"> {{=raw.@(Model.ToCoveoFieldName("meetingstartdate", false))}}</span></strong>
+                                                        <strong><span> - <span class="meeting-ed-date">{{=raw.@(Model.ToCoveoFieldName("meetingenddate", false))}} </span></span></strong>
+                                                        <strong><span> | <span class="meeting-format">{{=raw.@(Model.ToCoveoFieldName("rlidelivery", false))}} </span></span></strong>
+                                                    </div>
+
+                                                    <div class="sub-tl">
+                                                        <strong>Cost: </strong>Non-member: <span>${{=raw.@(Model.ToCoveoFieldName("List Price", false))}}</span>
+                                                        <span><span> | Member: </span><span class="var-member-price">${{=raw.@(Model.ToCoveoFieldName("Member Price", false))}}</span></span>
+                                                        <span><span> | MIT: </span><span class="var-mit-price">${{=raw.@(Model.ToCoveoFieldName("MIT Price", false))}}</span></span>
+                                                    </div>
+                                                    <span>{{=raw.@(Model.ToCoveoFieldName("Short Description", false)) }} </span><br />
+                                                    <div class="btns-area"><a href="{{=raw.@(Model.ToCoveoFieldName("producturl", false)) }}" class="CoveoResultLink button">Learn more</a></div>
+                                                </div>
+                                            </div>
+                                        </script>
+                                    </div>
+
+                                    if (Model.DisplayBottomPager)
+                                    {
+                                        <div class="CoveoPager" style="display:none"
+                                             data-number-of-pages="@Model.PagerNumberOfPages"
+                                             data-max-number-of-pages="@Model.PagerMaxNumberOfPages"
+                                             data-enable-navigation-button="@Model.EnablePagerNavigationButton">
+                                        </div>
+
+                                        <div class="search-pager-nav">
+                                            <div class="slick-prev slick-arrow" aria-label="Previous" role="button"></div>
+                                            <div class="slick-custom-pager" role="toolbar"><input class="slide-num-input" data-prev-val="1" value="1" type="text"> of 3</div>
+                                            <div class="slick-next slick-arrow" aria-label="Next" role="button"></div>
+                                        </div>
+                                    }
+                                    if (Model.DisplayResultsPerPage)
+                                    {
+                                        <div class="CoveoResultsPerPage">
+
+                                        </div>
+                                    }
+                                }
+                            </div>
+                            <div id="meeting-search-results">
+
+                            </div>
+                        </div>
+
+                        @if (Model.DisplayRecommendations)
+                        {
+                            <div class="coveo-recommendation-column">
+                                @Html.Sitecore().Placeholder("coveo-recommendations-mvc")
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script type="text/javascript">
+	Coveo.$(function() {
+		Coveo.$('#@Model.Id').coveoForSitecore('init', CoveoForSitecore.componentsOptions);
+	});
+    </script>
+
+}
+@if (Model.HasErrors)
+{
+    <div class="CoveoServerError">
+        <h3>@Model.Labels[LocalizedStringKeys.FRIENDLY_SEARCH_UNAVAILABLE_TITLE]</h3>
+        <h4>@Model.Labels[LocalizedStringKeys.FRIENDLY_SEARCH_UNAVAILABLE_DETAIL]</h4>
+    </div>
+}
+@if (Html.Coveo().IsEditingInPageEditor())
+{
+    <script type="text/javascript">
+        Coveo.$(function () {
+            Coveo.PageEditorDeferRefresh.triggerUpdate();
+        });
+    </script>
+}
+
+@*customize acr coveo*@
+<script type="text/javascript">
+        var tabClicked = false;
+        Coveo.$("#rli_A3A2EA85-5E42-4D10-9E11-3CF73EE12B9D").on("afterComponentsInitialization", function() {
+            Coveo.$("#rli_A3A2EA85-5E42-4D10-9E11-3CF73EE12B9D").on('buildingQuery', function (e, data) {
+                if(data.queryBuilder.expression.parts.length > 0) {
+                    if(data.queryBuilder.expression.parts[0].indexOf(',') >= 0) {
+                        data.queryBuilder.expression.parts[0] = data.queryBuilder.expression.parts[0].replace(/,/g, '');
+                    }
+                }
+                data.queryBuilder.sortCriteria = "@Model.ToCoveoFieldName("IsMeeting") descending, @Model.ToCoveoFieldName("productstubmeetingstartdate") ascending, @Model.ToCoveoFieldName("Long Name") ascending";
+            });
+
+            Coveo.$("#rli_A3A2EA85-5E42-4D10-9E11-3CF73EE12B9D").on("doneBuildingQuery", function(e, data) {
+                //maybe add qre for product name match
+                var expression = data.queryBuilder.expression.build();
+                if(expression != null)
+                {
+                    expression = '@Model.ToCoveoFieldName("Long Name") = ' + expression;
+                    var modifier = '100';
+                    var qre = "$qre(expression:'" + expression + "', modifier:'" + modifier + "')";
+                    data.queryBuilder.advancedExpression.add(qre);
+                }
+            });
+
+            Coveo.$("#rli_A3A2EA85-5E42-4D10-9E11-3CF73EE12B9D").on('deferredQuerySuccess', function (e, data) {
+                //searched for term
+                Coveo.$("#rli_A3A2EA85-5E42-4D10-9E11-3CF73EE12B9D .searchedFor").detach();
+                var term = getSearchedTerm();
+                if (term != '') {
+                    var searchedString = '<h4 class="searchedFor">You searched for <span class="search-term">"' + decodeURIComponent(term) + '"</span></h4>';
+                    Coveo.$("#rli_A3A2EA85-5E42-4D10-9E11-3CF73EE12B9D .coveo-summary-section").prepend(searchedString);
+                }
+
+                //custom pager actions
+                var currentPage = 1;
+                var totalResult = parseInt(Coveo.$('#rli_A3A2EA85-5E42-4D10-9E11-3CF73EE12B9D .CoveoQuerySummary').find('.coveo-highlight').last().text().replace(/,/g,''));
+                var firstResult = parseInt(Coveo.$('#rli_A3A2EA85-5E42-4D10-9E11-3CF73EE12B9D .CoveoQuerySummary').find('.coveo-highlight').first().text().replace(/,/g, ''));
+                var pageSize = parseInt(Coveo.$('#rli_A3A2EA85-5E42-4D10-9E11-3CF73EE12B9D').attr('data-results-per-page'));
+                var currentPage = Math.ceil(firstResult / pageSize);
+                var lastPage = Math.ceil(totalResult / pageSize);
+                var newPager = '<input class="slide-num-input" data-prev-val="' + (currentPage - 1) + '" value="' + currentPage + '" type="text"> of ' + lastPage;
+                Coveo.$('.slick-custom-pager').html(newPager);
+
+                //scroll up during load
+                if(window.location.href.lastIndexOf('#q') != -1 || window.location.href.lastIndexOf('#f') != -1 ){
+                    Coveo.$(window).scrollTop(Coveo.$('#breadcrumbs').offset().top);
+                }else{
+                    Coveo.$(window).scrollTop(Coveo.$('#site-header-outer').offset().top);
+                }
+
+                //fix tabs for personify
+                Coveo.$(".catalog-item").each(function(){
+                    Coveo.$(this).find('a').each(function(){
+                        var href = Coveo.$(this).attr('href');
+                        //href = href.replace('TabID=55','TabID=294');
+                        href = href.replace('//preview.acr.org', '//www.acr.org');
+                        if (window.location.host == 'preprod.radiologyleaders.org') {
+                            href = href.replace('//shop.acr.org', '//shopqa.acr.org');
+                        }
+                        Coveo.$(this).attr('href',href);
+                    });
+                });
+
+                //fix tabs for personify
+                Coveo.$(".catalog-item").each(function(){
+                    Coveo.$(this).find('a').each(function(){
+                        var href = Coveo.$(this).attr('href');
+                        href = href.replace('//www.acraccreditation.org','//www.acr.org');
+                        Coveo.$(this).attr('href',href);
+                    });
+                });
+
+                //hide prices for bad records
+                Coveo.$('.details').each(function(){
+                    var memp = Coveo.$(this).find('.var-member-price');
+                    var mitp = Coveo.$(this).find('.var-mit-price');
+
+                    if(memp.text().trim().length == 1){
+                        memp.parent().hide();
+                    }
+                    if(mitp.text().trim().length == 1){
+                        mitp.parent().hide()
+                    }
+                });
+
+                //dateformat
+                Coveo.$('.details').each(function(){
+                    var sDate = Coveo.$(this).find('.meeting-st-date');
+                    var eDate = Coveo.$(this).find('.meeting-ed-date');
+                    var mtFormat = Coveo.$(this).find('.meeting-format');
+                    var options = { year: 'numeric', month: 'long', day: 'numeric' };
+                    if(sDate.text().trim().length == 0){
+                        sDate.hide();
+                        mtFormat.parent().hide();
+                    } else {
+                        var sdt = parseInt(sDate.text().trim());
+                        if(isNaN(sdt) == false){
+                            sDate.text((new Date(sdt)).toLocaleDateString('en-US', options));
+                        } else {
+                            sDate.hide();
+                            mtFormat.parent().hide();
+                        }
+                    }
+
+                    if(eDate.text().trim().length == 0){
+                        eDate.parent().hide();
+
+                    } else {
+                        var edt =  parseInt(eDate.text().trim());
+                        if(isNaN(edt) == false){
+                            //var options = { month: 'long' };
+                            eDate.text((new Date(edt)).toLocaleDateString('en-US', options));
+                        } else {
+                            sDate.hide();
+
+                        }
+                    }
+                });
+
+                //no results found
+                Coveo.$('.custom-no-results').detach();
+                var noResults = Coveo.$('.coveo-query-summary-no-results-string');
+                if (noResults.length > 0) {
+                    noResults.hide();
+                    Coveo.$('.CoveoQuerySummary').hide();
+                    Coveo.$('.coveo-summary-section').append('<p class="custom-no-results">Sorry, no results could be found for your query. Please revise your search and try again.</p>')
+                    Coveo.$('.search-pager-nav').hide();
+                } else {
+                    Coveo.$('.search-pager-nav').show();
+                    Coveo.$('.CoveoQuerySummary').show();
+                }
+
+                if(Coveo.$('.CoveoDidYouMean').is(':visible')){
+                    Coveo.$('.CoveoQuerySummary').css('margin-top','0px');
+                }else{
+                    Coveo.$('.CoveoQuerySummary').css('margin-top','20px');
+                }
+            });
+
+            //move search box and add place holder
+            Coveo.$("#rli_A3A2EA85-5E42-4D10-9E11-3CF73EE12B9D .CoveoSearchbox").appendTo(".facetHeader");
+        });
+
+        //pager previous next click
+        Coveo.$('.search-pager-nav').on('click','.slick-prev',function(){
+            Coveo.$('.coveo-pager-previous').click();
+        });
+        Coveo.$('.search-pager-nav').on('click','.slick-next',function(){
+            Coveo.$('.coveo-pager-next').click();
+        });
+
+        //Coveo Pager / scrolling
+        var pagerScroll = false;
+        Coveo.$(document).on('click', '.coveo-pager-list-item a, .coveo-pager-list-item', function() {
+            pagerScroll = true;
+        });
+
+        Coveo.$(window).on('scroll', function(e) {
+            if (pagerScroll) {
+                Coveo.$(window).scrollTop(Coveo.$('#breadcrumbs').offset().top)
+                pagerScroll = false;
+            }
+        });
+
+        Coveo.$('.search-pager-nav').on('focusout','.slide-num-input',function(){
+            setPage();
+        });
+
+        Coveo.$('.search-pager-nav').on('keypress','.slide-num-input',function(e){
+            if(e.which == 13){
+                setPage();
+            }
+        });
+
+        function setPage(){
+            var page = parseInt(Coveo.$('.slide-num-input').val());
+            if(page > 0){
+                pagerScroll = true;
+                Coveo.$('.CoveoPager').coveo('setPage',page)
+            }
+        }
+
+        function printFieldValue(fieldValue) {
+
+            if(fieldValue == null) {
+                return "";
+            }
+            return fieldValue;
+        }
+
+        function getSearchedTerm() {
+            var hash = window.location.hash;
+            var term = '';
+            if (hash.indexOf('q=') > 0) {
+                var and = hash.indexOf('&');
+
+                if (and > 0) {
+                    term = hash.substring(3, and);
+                } else {
+                    term = hash.substring(3);
+                }
+            }
+            return term;
+        }
+
+</script>
+
+
+@{
+
+
+    if (CookieBotHttpModule.CookiesAllowed().StatisticCookiesAllowed)
+    {
+        <script>
+            const cookieName = 'CoveoRLISearchTerm';
+            Coveo.$("#rli_A3A2EA85-5E42-4D10-9E11-3CF73EE12B9D").on('deferredQuerySuccess', function (e, data) {
+                var term = getSearchedTerm()
+                var cookieTerm = getCookie(cookieName);
+                if (cookieTerm != term) {
+                    setCookie(cookieName, term, 1, '/');
+                    //setGoogleAnalyticsSearch(term, 'UA-6363462-9', '/Content-Search-Results');
+                    gaSendSiteSearch('/Practice-Management-Quality-Informatics/Radiology-Leadership-Institute/RLI-Catalog', term, 'UA-6363462-9');
+                }
+            });
+
+                                var createGa = false;
+            function gaSendSiteSearch(searchUrl, query, gaid) {
+                if (!createGa) {
+
+                    (function (i, s, o, g, r, a, m) {
+                        i['GoogleAnalyticsObject'] = r; i[r] = i[r] || function () {
+                            (i[r].q = i[r].q || []).push(arguments)
+                        }, i[r].l = 1 * new Date(); a = s.createElement(o),
+                            m = s.getElementsByTagName(o)[0]; a.async = 1; a.src = g; m.parentNode.insertBefore(a, m)
+                    })(window, document, 'script', 'https://www.google-analytics.com/analytics.js', 'ga');
+
+                    ga('create', gaid, 'auto');
+                }
+                var pageUrl = searchUrl + '?q=' + query;
+                ga('set', 'page', pageUrl);
+                ga('send', 'pageview');
+                console.log('search event sent to GA: ' + searchUrl + '?q=' + query);
+            }
+        </script>
+    }
+}

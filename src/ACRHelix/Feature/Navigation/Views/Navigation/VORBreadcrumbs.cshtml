@@ -1,0 +1,99 @@
+﻿@using Glass.Mapper.Sc.Fields
+@using Sitecore.StringExtensions;
+@using System.Text.RegularExpressions;
+@inherits Glass.Mapper.Sc.Web.Mvc.GlassView<ACRHelix.Feature.Navigation.ViewModels.BreadcrumbsViewModel>
+
+@{
+    var authName = "";
+    var categoryName = "";
+    int linkCount = Model.Links.Count();
+    bool authorCategoryPage = false; 
+    if (HttpContext.Current.Request.Path.ToLower().Contains("/author/") || HttpContext.Current.Request.Path.ToLower().Contains("/category/"))
+    { authorCategoryPage = true; }
+
+}
+<!-- BEGIN NOINDEX -->
+<!--start: Module -->
+<div id="breadcrumbs">
+    <div class="content row">
+        <div class="col-12">
+            <a href="/">Home</a>
+            <span class="breadcrumb-separator">/</span>
+            @if (linkCount > 0)
+            {
+                foreach (var link in Model.Links.Select((value, index) => new { index, value }))
+                {
+                    if (link.index < linkCount - 1)
+                    {
+                        <a href="@link.value.Url">@link.value.Text</a>
+                        <span class="breadcrumb-separator">/</span>
+                    }
+                    else
+                    {
+                        if (authorCategoryPage)
+                        {
+                            <a href="@link.value.Url">@link.value.Text</a>
+                            <span class="breadcrumb-separator">/</span>
+                        }
+                        else
+                        {
+                            <span class="breadcrumb-current-page">@link.value.Text</span>
+                        }
+                        
+                    }
+                }
+            }
+
+            @if (HttpContext.Current.Request.Path.ToLower().Contains("/author/"))
+            {
+
+                var url = HttpContext.Current.Request.Url.PathAndQuery;
+                var authorPattern = Sitecore.Configuration.Settings.GetSetting("XBAuthorUrlPattern", "{0}/author/{1}");
+                authName = GetNameByUrl(url, authorPattern);
+                if (!string.IsNullOrEmpty(authName))
+                {
+                    <span class="breadcrumb-current-page">@authName</span>
+                }
+
+            }
+            @if (HttpContext.Current.Request.Path.ToLower().Contains("/category/"))
+            {
+
+                var url = HttpContext.Current.Request.Url.PathAndQuery;
+                var categoryPattern = Sitecore.Configuration.Settings.GetSetting("XBCategoryUrlPattern", "{0}/category/{1}");
+                categoryName = GetNameByUrl(url, categoryPattern);
+                if (!string.IsNullOrEmpty(categoryName))
+                {
+                    <span class="breadcrumb-current-page">@categoryName</span>
+                }
+
+            }
+
+
+        </div>
+    </div>
+</div>
+<!--end: Module -->
+<!-- END NOINDEX -->
+@functions{
+    public string GetNameByUrl(string url, string urlPattern)
+    {
+        char[] delimiterChars = { '?' };
+        string[] splitUrl = url.Split(delimiterChars);
+        string decodedItemName = Sitecore.MainUtil.DecodeName(splitUrl[0]);
+
+        try
+        {
+            string pattern = urlPattern.FormatWith(@"(^.+)", @"(.+)/$");
+            Match match = Regex.Match(Sitecore.StringUtil.EnsurePostfix('/', decodedItemName), @pattern, RegexOptions.IgnoreCase);
+            if (match.Success)
+                return WebUtility.UrlDecode(match.Groups[2].Value);
+        }
+        catch (Exception ex)
+        {
+            return string.Empty;
+        }
+
+        return string.Empty;
+    }
+}

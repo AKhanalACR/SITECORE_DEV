@@ -1,0 +1,11 @@
+﻿@inherits Glass.Mapper.Sc.Web.Mvc.GlassView<ACRHelix.Feature.Bulletin.ViewModels.TagsViewModel>
+
+<div class="bulletin-tags xl-text-left md-text-center">
+    <strong class="heading-font">Tags</strong>
+    <ul class="inline-ul has-green-link">
+        @foreach (var tag in Model.BulletinTags)
+        {
+            <li><a href="@tag.TagLink">@tag.TagDisplayName</a></li>
+        }
+    </ul>
+</div>

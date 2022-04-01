@@ -1,0 +1,44 @@
+﻿@inherits Glass.Mapper.Sc.Web.Mvc.GlassView<ACRHelix.Feature.Accordion.ViewModels.AccordionViewModel>
+@using ACRHelix.Foundation.EditFrames
+
+<div class="content section-spacing">
+    <div class="accordion dont-toggle">
+        @foreach (var faq in Model.AccordionItems)
+        {
+            using (BeginEditFrame(EditFrameConstants.Paths.Edit, faq.Id.ToString(), "Accordion Item"))
+            {
+                if (string.IsNullOrWhiteSpace(faq.TableText))
+                {
+                    <section class="accordion-item">
+                        <header class="accordion-header">
+                            <h2>@Editable(faq, f => f.Title)</h2>
+                        </header>
+                        <div class="accordion-details">
+                            @Editable(faq, f => f.Text)
+                        </div>
+                    </section>
+                }
+                else
+                {
+                    <section class="accordion-item">
+                        <header class="accordion-header">
+                            <h2>@Editable(faq, f => f.Title)</h2>
+                        </header>
+                        <div class="accordion-details">
+                            <div class="row-adjust flex-container">
+                                <div class="xl-col-8 md-col-12">
+                                    <div class="has-acr-table table-no-scroll xl-t-pad-right">
+                                        @Editable(faq, f => f.TableText)
+                                    </div>
+                                </div>
+                                <div class="xl-col-4 md-col-12 text-center xl-bdr-left lg-bdr-left md-border-none">
+                                    @Editable(faq, f => f.Text)
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                }
+            }
+        }
+    </div>
+</div>

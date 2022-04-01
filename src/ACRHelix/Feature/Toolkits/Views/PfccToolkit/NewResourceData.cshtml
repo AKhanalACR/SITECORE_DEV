@@ -1,0 +1,178 @@
+﻿@inherits Glass.Mapper.Sc.Web.Mvc.GlassView<ACRHelix.Feature.Toolkits.ViewModels.ResourceFormViewModel>
+<section class="content">
+    @if (!Sitecore.Context.PageMode.IsExperienceEditorEditing)
+    {
+        <div acr="list" style="padding-top:32px;" class="pfcc-new-form">
+            @using (Html.BeginForm("NewResourceData", "PfccToolkit", FormMethod.Post, new { enctype = "multipart/form-data" }))
+            {
+                @Html.AntiForgeryToken()
+                @Html.HiddenFor(m => m.Id)
+                <h3 acr>Background Information</h3>
+                <div acr="input-list">
+                    <div acr="list-column-alt">
+                        <div for="fn" acr="input-label">
+                            @Html.LabelFor(m => m.ResourceFormData.FirstName, new { @class = "required-label", acr = "sm-txt label" })
+                            @Html.TextBoxFor(m => m.ResourceFormData.FirstName, new { id = "fn", @class = "required", acr = "" })
+                            <span class="field-validation-valid" acr="sm-txt">Please enter your first name.</span>
+
+                        </div>
+                        <div for="ln" acr="input-label">
+                            @Html.LabelFor(m => m.ResourceFormData.LastName, new { @class = "required-label", acr = "sm-txt label" })
+                            @Html.TextBoxFor(m => m.ResourceFormData.LastName, new { id = "ln", @class = "required", acr = "" })
+                            <span class="field-validation-valid" acr="sm-txt">Please enter your last name.</span>
+
+                        </div>
+                    </div>
+                    <div acr="list-column-alt">
+                        <div for="pemail" acr="input-label">
+                            @Html.LabelFor(m => m.ResourceFormData.Email, new { @class = "required-label", acr = "sm-txt label" })
+                            @Html.TextBoxFor(m => m.ResourceFormData.Email, new { id = "pemail", @class = "required", acr = "" })
+                            <span class="field-validation-valid" acr="sm-txt">Please enter valid email address.</span>
+                        </div>
+                    </div>
+
+                    @*<div acr="list-column-alt">
+                            <div for="a1" acr="input-label">
+                                @Html.LabelFor(m => m.ResourceFormData.Address1, new { acr = "sm-txt label" })
+                                @Html.TextBoxFor(m => m.ResourceFormData.Address1, new { id = "a1", acr = "" })
+
+                            </div>
+                            <div for="a2" acr="input-label">
+                                @Html.LabelFor(m => m.ResourceFormData.Address2, new { acr = "sm-txt label" })
+                                @Html.TextBoxFor(m => m.ResourceFormData.Address2, new { id = "a2", acr = "" })
+                            </div>
+                        </div>*@
+                    @*<div acr="list-column-alt">
+                            <div for="c" acr="input-label">
+                                @Html.LabelFor(m => m.ResourceFormData.City, new { acr = "sm-txt label" })
+                                @Html.TextBoxFor(m => m.ResourceFormData.City, new { id = "a", acr = "" })
+                            </div>
+                            <div for="sp" acr="input-label">
+                                @Html.LabelFor(m => m.ResourceFormData.State, new { acr = "sm-txt label" })
+                                @Html.DropDownListFor(m => m.ResourceFormData.State, Model.ResourceFormData.StatesList, "- Select -", new { @class = "pfcc-state-ddl", id = "sp" })
+                            </div>
+                            <div for="z" acr="input-label">
+                                @Html.LabelFor(m => m.ResourceFormData.ZipCode, new { acr = "sm-txt label" })
+                                @Html.TextBoxFor(m => m.ResourceFormData.ZipCode, new { id = "z", acr = "" })
+                            </div>
+                        </div>*@
+                    @*<div acr="list-column-alt">
+                            <div for="pn" acr="input-label">
+                                @Html.LabelFor(m => m.ResourceFormData.Phone, new { acr = "sm-txt label" })
+                                @Html.TextBoxFor(m => m.ResourceFormData.Phone, new { id = "pn", acr = "" })
+                            </div>
+                        </div>*@
+                </div>
+                <h3 acr style="margin-top:40px;">Resource</h3>
+                <div acr="input-list">
+                    <div acr="list-column-alt">
+                        <div for="title" acr="input-label">
+                            @Html.LabelFor(m => m.ResourceFormData.Title, new { @class = "required-label", acr = "sm-txt label" })
+                            @Html.TextBoxFor(m => m.ResourceFormData.Title, new { @class = "required", id = "title", acr = "" })
+                            <span class="field-validation-valid" acr="sm-txt">Please enter resource title.</span>
+                        </div>
+                        <div for="url" acr="input-label">
+                            @Html.LabelFor(m => m.ResourceFormData.Url, new { acr = "sm-txt label" })
+                            @Html.TextBoxFor(m => m.ResourceFormData.Url, new { id = "url", acr = "" })
+                        </div>
+                    </div>
+                </div>
+
+                <div class="filter-menu" acr="list-column-alt" style="--gap:30px;margin-top:20px;">
+                    <div class="group" acr="list" style="--gap:20px;">
+                        <p acr="bold" class="required">
+                            Practice Setting<i style="color:#e32"> *</i>
+                            <br /><span class="field-validation-valid" acr="sm-txt">Please select practice setting.</span>
+                        </p>
+
+                        <div id="pfcc-fg-0" acr="input-list" style="--gap:16px;">
+                            @{ int i = 1;}
+                            @foreach (var s in Model.ResourceFormData.PracticeSettingsList)
+                            {
+                                var id = "option" + i;
+                                <label for="@id" style="margin-top:0; margin-bottom:0;">
+                                    <input type="checkbox" id="@id" value="@s.Code">
+                                    <div class="checkbox"></div>
+                                    <span>@s.Description</span>
+                                </label>
+                                ++i;
+                            }
+                            @Html.HiddenFor(m => m.ResourceFormData.PracticeSetting)
+                        </div>
+                    </div>
+                    <div class="group" acr="list" style="--gap:20px;">
+                        <p acr="bold" class="required">
+                            Topic<i style="color:#e32"> *</i>
+                            <br /><span class="field-validation-valid" acr="sm-txt">Please select topic.</span>
+                        </p>
+
+                        <div id="pfcc-fg-1" acr="input-list" style="--gap:16px;">
+                            @{ int j = 1;}
+                            @foreach (var c in Model.ResourceFormData.ContentTypesList)
+                            {
+                                var id = "topic" + j;
+                                <label for="@id" style="margin-top:0; margin-bottom:0;">
+                                    <input type="checkbox" id="@id" value="@c.Code">
+                                    <div class="checkbox"></div>
+                                    <span>@c.Description</span>
+                                </label>
+                                ++j;
+                            }
+                            @Html.HiddenFor(m => m.ResourceFormData.ContentType)
+                        </div>
+                    </div>
+                    <div class="group" acr="list" style="--gap:20px;">
+                        <p acr="bold" class="required">
+                            Format<i style="color:#e32"> *</i>
+                            <br /><span class="field-validation-valid" acr="sm-txt">Please select format.</span>
+                        </p>
+
+                        <div id="pfcc-fg-2" acr="input-list" style="--gap:16px;">
+                            @{ int k = 1;}
+                            @foreach (var r in Model.ResourceFormData.ResourceTypesList)
+                            {
+                                var id = "format" + k;
+                                <label for="@id" style="margin-top:0; margin-bottom:0;">
+                                    <input type="checkbox" id="@id" value="@r.Code">
+                                    <div class="checkbox"></div>
+                                    <span>@r.Description</span>
+                                </label>
+                                ++k;
+                            }
+                            @Html.HiddenFor(m => m.ResourceFormData.ResourceType)
+                        </div>
+                    </div>
+                </div>
+
+                <div acr="input-list">
+                    <div for="textarea1" acr="input-label">
+                        @Html.LabelFor(m => m.ResourceFormData.Description, new { @class = "required-label", acr = "sm-txt label", style = "margin-bottom:5px" })
+                        @Html.TextAreaFor(m => m.ResourceFormData.Description, new { id = "textarea1", rows = "10", cols = "30", @class = "required", acr = "" })
+                        <span class="field-validation-valid" acr="sm-txt">Please enter description.</span>
+                    </div>
+                </div>
+
+                <div acr="input-list">
+                    <div for="textarea2" acr="input-label">
+                        @Html.LabelFor(m => m.ResourceFormData.Keyword, new { @class = "required-label", acr = "sm-txt label", style = "margin-bottom:5px" })
+                        @Html.TextAreaFor(m => m.ResourceFormData.Keyword, new { id = "textarea2", rows = "10", cols = "30", @class = "required", acr = "" })
+                        <span class="field-validation-valid" acr="sm-txt">Please enter keyword.</span>
+                    </div>
+                </div>
+
+                <div acr="input-list">
+                    <div acr="list-column">
+                        <div for="file" acr="input-label">
+                            <div acr="sm-txt label">File Upload</div>
+                            <input name="ResourceFile" type="file" id="file" onchange="return fileValidation(this)">
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <button id="pfcc-submit-btn" type="submit" class="btn btn-primary">Submit</button>
+                </div>
+            }
+        </div>
+    }
+
+</section>

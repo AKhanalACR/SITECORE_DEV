@@ -1,0 +1,69 @@
+﻿@inherits Glass.Mapper.Sc.Web.Mvc.GlassView<ACRHelix.Feature.PageContent.ViewModels.VideoSectionViewModel>
+@using Sitecore.Mvc;
+@using ACRHelix.Foundation.EditFrames;
+@{
+    var anchorLink = "";
+    try
+    {
+        anchorLink = Server.HtmlEncode(Model.Id.ToShortID().ToString());
+    }
+    catch (Exception ex)
+    {
+        anchorLink = "";
+    }
+}
+
+<div class="videos section-spacing">
+    <section>
+        <header class="content" id="@anchorLink">
+            <h2>@Editable(x => x.Title)</h2>
+            <hr>
+        </header>
+
+        <div class="section-spacing content">
+            @if (Model.SubTitle != "" || Sitecore.Context.PageMode.IsExperienceEditorEditing)
+            {
+                <div class="indented-section row">
+                    <div class="text-size-1p25 pad-bottom-1em">@Editable(x => x.SubTitle)</div>
+                </div>
+            }
+            <div class="indented-section row">
+                <div class="col-12 video-item">
+                    <!--#dev
+                        I doubled the size of this video so it'll fill. I dont think they'll be smart enough to do that and it'll only scale to the
+                        width attribute or 100% of the outer container (the container width is 1062px). I can do some JS for this but wanted to wait. You know this will be a problem if we dont do it :-(!
+                    -->
+                    @if (Model.VideoLink != null)
+                    {
+                        <iframe width="1120" height="630" data-cookieconsent="marketing" data-src="@Model.VideoLink.Url" frameborder="0" allowfullscreen></iframe>
+                        <div class="cookieconsent-optout-marketing cookiebot-video" style="display: none;">Please <a href="javascript:Cookiebot.renew()">accept marketing cookies</a> to watch this video.</div>
+                    }
+                </div>
+            </div>
+            <div class="indented-section row">
+                <div class="flex-content-left spaced-column-area">
+                    @if (Model.Videos != null)
+                    {
+                        foreach (var video in Model.Videos)
+                        {
+                            using (BeginEditFrame(EditFrameConstants.Paths.Edit, video.Id.ToString(), "Video"))
+                            {
+                                <div class="xl-col-4 md-col-6 video-item">
+                                    <div class="video-outer">
+                                        @if (video.VideoLink != null)
+                                        {
+                                            <iframe width="560" height="315" data-cookieconsent="marketing" data-src="@video.VideoLink.Url" frameborder="0" allowfullscreen></iframe>
+                                            <div class="cookieconsent-optout-marketing cookiebot-video" style="display: none;">Please <a href="javascript:Cookiebot.renew()">accept marketing cookies</a> to watch this video.</div>
+                                        }
+                                    </div>
+                                    <h3 class="underline-orange">@Editable(video, x => x.Title)</h3>
+                                    <strong>@Editable(video, x => x.SubTitle)</strong> <br>
+                                </div>
+                            }
+                        }
+                    }
+                </div>
+            </div>
+        </div>
+    </section>
+</div>

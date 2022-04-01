@@ -1,0 +1,70 @@
+/* This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
+
+.location h3 {
+    margin-bottom: 0px;
+    color: #247f78;
+    border-bottom: 1px solid rgba(0,0,0,.1);
+}
+
+.location h4 {
+    font-size: 24px;
+    padding-top: 20px;
+    font-family: 'Open Sans', sans-serif;
+    font-weight: 600;
+}
+
+    .location h4 span {
+        font-size: 18px;
+        font-weight: normal;
+    }
+
+#map_canvas {
+    min-height: 500px;
+}
+
+.gm-style .gm-style-iw-c {
+    border-radius: 0;
+}
+
+
+.gmap-location a {
+    display: block;
+}
+
+.investigator {
+    color:
+}
+
+.decamp-location {
+    display: inline-block;
+    padding: 25px;
+}
+
+.decamp-locationList {
+    display: none;
+}
+
+.decamp-location-placeInfo {
+    display: inline-block;
+    margin: 0;
+    width: 100%;
+}
+
+    .decamp-location-placeInfo ul {
+        padding: 0px;
+        margin: 0px;
+        list-style: none;
+    }
+
+.google-map {
+    width: 100%;
+    height: 500px;
+}
+
+p.decamp-location-info-results {
+    color: #0084c7;
+    font-family: 'Open Sans', sans-serif;
+    text-align: center;
+}

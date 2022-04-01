@@ -1,0 +1,54 @@
+﻿@using Glass.Mapper.Sc.Web.Mvc;
+@using System.Collections.Specialized;
+@inherits Glass.Mapper.Sc.Web.Mvc.GlassView<ACRHelix.Feature.ToolkitContentSection.ViewModels.ToolkitContentSectionViewModel>
+
+<!--start: Module -->
+<section class="content toolkit shareid" id="@Model.Content.ShareID">
+	<header>
+		<a href="#" class="inline-block fl-right share-link" data-id="@Model.Content.ShareID">
+			Share
+			<!-- social sharing-->
+			<div class="share-drawer" style="display:none">
+				<div data-url="@Model.Content.DataUrl" class="sharethis-inline-share-buttons"></div>
+			</div>
+			<!-- end social sharing-->
+		</a>
+		<h2 class="inline-block">@Editable(Model.Content, x => x.SectionTitle)</h2>
+	</header>
+	<div class="row indented-section section-border-top bdr-grey">
+		<div class="section-spacing">
+			<figure class="xl-col-3 lg-col-4 img-max-400 text-center toolkit-hero">
+				@RenderImage(Model.Content, x => x.SectionImage, isEditable: true)
+			</figure>
+			<div class="xl-col-9 lg-col-8">
+				<div class="text-content pad-bottom-1em">
+					@Editable(Model.Content, x => x.SectionText)
+				</div>
+				<div class="toolkit-cols xl-text-center text-center lg-text-left flex-container">
+					<div class="xl-col-4 lg-col-12 col-6 toolkit-item">
+						@using (BeginRenderLink(Model.Content, x => x.Link1, new NameValueCollection { { "class", "toolkit-icon no-target-icon" } }))
+						{
+						@RenderImage(Model.Content, x => x.LinkImage1, isEditable: true)
+						}
+						@RenderLink(Model.Content, x => x.Link1, new NameValueCollection { { "class", "read-more-link" } }, isEditable: true)
+					</div>
+					<div class="xl-col-4 lg-col-12 col-6 toolkit-item">
+						@using (BeginRenderLink(Model.Content, x => x.Link2, new NameValueCollection { { "class", "toolkit-icon no-target-icon" } }))
+						{
+						@RenderImage(Model.Content, x => x.LinkImage2, isEditable: true)
+						}
+						@RenderLink(Model.Content, x => x.Link2, new NameValueCollection { { "class", "read-more-link" } }, isEditable: true)
+					</div>
+					<div class="xl-col-4 lg-col-12 col-6 toolkit-item">
+						@using (BeginRenderLink(Model.Content, x => x.Link3, new NameValueCollection { { "class", "toolkit-icon no-target-icon" } }))
+						{
+						@RenderImage(Model.Content, x => x.LinkImage3, isEditable: true)
+						}
+						@RenderLink(Model.Content, x => x.Link3, new System.Collections.Specialized.NameValueCollection { { "class", "read-more-link" } }, isEditable: true)
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+<!--end: Module -->

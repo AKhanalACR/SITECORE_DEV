@@ -1,0 +1,41 @@
+.sort-nav {
+  height: 22px;
+  color: #75cee6;
+  text-align: center;
+  width: 18px;
+  font-size: 11px;
+  margin-top: 5px;
+  position: absolute;
+}
+
+.sort-table .sort-nav {
+  position: absolute;
+  left: auto;
+  top: 0;
+  right: .4rem;
+  margin-top: .86em;
+}
+
+.sort-nav {
+  .acr-icon {
+    display: block;
+    width: 100%;
+    height: 50%;
+    line-height: .9;
+    cursor: pointer;
+  }
+  .icon-sort-up {
+    vertical-align: bottom;
+    line-height: 1;
+  }
+  .acr-icon {
+    &:hover {
+      -webkit-opacity: .8;
+      opacity: .8;
+    }
+    &:active {
+      -webkit-opacity: .65;
+      opacity: .65;
+    }
+  }
+}

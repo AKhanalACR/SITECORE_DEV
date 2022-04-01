@@ -1,0 +1,156 @@
+﻿@using Sitecore.Feature.XBlog.Areas.XBlog.Items.Blog
+@using Sitecore.Feature.XBlog.Areas.XBlog.General
+@using Sitecore.Feature.XBlog.Areas.XBlog.Search
+@using Sitecore.Links
+@using Sitecore.Resources.Media
+@model Sitecore.Feature.XBlog.Areas.XBlog.Models.Blog.BlogListingModel
+
+@{ BlogSettings settingsItem = DataManager.GetBlogSettingsItem(Model.dataSourceItem != null ? Model.dataSourceItem : Sitecore.Context.Item); }
+
+
+@{
+    string authorname = "";
+    string authorimage = "";
+    string authorId = "";
+    foreach (BlogPost blogPost in Model.BlogPosts)
+    {
+        if (blogPost.Authors != null && blogPost.Authors.Count() != 0 )
+        {
+
+            string urlAuthorName = DataManager.GetUrlValByPattern(Request.Url.PathAndQuery, XBSettings.XBAuthorUrlPattern);
+            if (!String.IsNullOrEmpty(urlAuthorName))
+            {
+                Author authorItem = AuthorManager.VORGetAuthorByName(Sitecore.Context.Item, urlAuthorName);
+                if (authorItem != null)
+                {
+                    authorId = authorItem.ItemId.ToString();
+                }
+            }
+            foreach (var author in blogPost.Authors)
+            {
+                if(author.ItemId.ToString() == authorId)
+                {
+                    if (!String.IsNullOrEmpty(author.FullName))
+                    {
+                        authorname = author.FullName;
+                    }
+                    if (author.ProfileImage.MediaItem != null)
+                    {
+                        authorimage = String.Format("<img style='width:237px; height:237px;'src=\"{0}\"/>", MediaManager.GetMediaUrl(author.ProfileImage.MediaItem));
+                    }
+                }
+            }
+        }
+        break;
+    }
+}
+<section class="author-wrap">
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <article>
+                    <div class="author-info-wrap" style="max-width:237px">
+                        @Html.Raw(authorimage)
+                    </div>
+                    <div class="author-content-sec" style="min-width:625px;">
+                        <div class="author-info">
+                            <h3>@authorname</h3>
+                            <h4>Contributions</h4>
+                        </div>
+                        <ul class="contributions">
+                            @foreach (BlogPost blogPost in Model.BlogPosts)
+                            {
+
+                                <li>
+                                    <a href="@Html.Raw(LinkManager.GetItemUrl(blogPost.InnerItem))">@Html.Raw(blogPost.Title)</a>
+
+                                    <p>
+                                        @if (!String.IsNullOrEmpty(blogPost.Summary))
+                                        {
+                                            @Html.Raw(Sitecore.Feature.XBlog.Areas.XBlog.Helpers.Helper.SubstringHtml(blogPost.Summary, settingsItem.DisplaySummaryLength, true));
+                                        }
+                                        else
+                                        {
+                                            @Html.Raw(Sitecore.Feature.XBlog.Areas.XBlog.Helpers.Helper.SubstringHtml(blogPost.Body, settingsItem.DisplaySummaryLength, true))
+                                        }                                           
+                                    </p>
+                                </li>
+                            }
+                        </ul>
+                    </div>
+                </article>
+            </div>
+        </div>
+    </div>
+    @*Pagination hidden to be shown/updated if required in future, method to fetch should also be updated*@
+    <section class="pagination" style="display:none;"><ul style="display:none;"><li class="prev" style="display: none; visibility: hidden;"><a href="?page=0">&lt;</a></li><li style="display:none"><input value="1" type="text" onclick="this.select();" id="myInput" oninput="myFunction()"></li><li style="display:none"> of <span class="total-page" style="display:none"><a href="?page=1">1</a></span></li><li class="next" style="display:none"><a href="?page=2">&gt;</a></li></ul></section>
+</section>
+<style>
+    .author-wrap article .author-info-wrap img {
+        height: 200px;
+    }
+
+    .author-wrap article .author-content-sec .author-info {
+        border-bottom: solid 1px #E5E5E5;
+    }
+
+</style>
+@*Script for Pagination icone show and hide to be used if pagination is implemented for authors*@
+<script>
+    function getParameterByName(name, url = window.location.href) {
+        name = name.replace(/[\[\]]/g, '\\$&');
+        var regex = new RegExp('[?&]' + name + '(=([^&#]*)|&|#|$)'),
+            results = regex.exec(url);
+        if (!results) return null;
+        if (!results[2]) return '';
+        return decodeURIComponent(results[2].replace(/\+/g, ' '));
+    }
+    function isPrev(str) {
+        var n = Math.floor(Number(str));
+        return n !== Infinity && String(n) === str && n > 1;
+    }
+    function isNext(str, max) {
+        var n = Math.floor(Number(str));
+        return n !== Infinity && String(n) === str && n < max;
+    }
+    function isNexts(str, max) {
+        var n = Math.floor(Number(str));
+        return n !== Infinity && String(n) === str && n <= max;
+    }
+    function showHide() {
+        var x = document.getElementById("myInput").value
+        if (x == 1 && window.location.href.includes("?page=")) {
+            var newurl = window.location.protocol + "//" + window.location.host + window.location.pathname;
+            window.location.replace(newurl);
+        }
+        var page = getParameterByName('page');
+        var prev = isPrev(page);
+         var maxPage = '@Model.TotalRows';
+        var next = isNext(page, maxPage);
+        if (prev == false) {
+            document.getElementsByClassName("prev")[0].style.visibility = 'hidden';
+            //if (window.location.href.includes("?page=")) { window.location.href = window.location.protocol + "//" + window.location.host + window.location.pathname;}
+
+        }
+        if (next == false && window.location.href.includes("?page=")) { document.getElementsByClassName("next")[0].style.visibility = 'hidden'; }
+    }
+    var delayTimer;
+    function myFunction() {
+        clearTimeout(delayTimer);
+        delayTimer = setTimeout(function () {
+            var x = document.getElementById("myInput").value
+            var prev = isPrev(x);
+            var maxPage = '@Model.TotalRows';
+            var next = isNexts(x, maxPage);
+            if (prev == false || next == false) {
+                x = 1;
+            }
+
+        var newurl = window.location.protocol + "//" + window.location.host + window.location.pathname + '?page=' + x;
+        if (x==1) {
+           newurl = window.location.protocol + "//" + window.location.host + window.location.pathname;
+        }
+        window.location.href = newurl;},1000)
+
+    }
+</script>

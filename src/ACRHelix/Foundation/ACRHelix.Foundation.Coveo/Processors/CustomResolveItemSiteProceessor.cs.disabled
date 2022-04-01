@@ -1,0 +1,19 @@
+﻿using Coveo.Framework.Items;
+using Coveo.SearchProvider.Processors;
+
+
+namespace ACRHelix.Foundation.CustomCoveo.Processors
+{
+  public class CustomResolveItemSiteProceessor : ResolveItemSiteProcessor
+  {
+    protected override string ResolveItemSite(IItem p_Item)
+    {
+      string acrHelixSite = "ACRHelix";
+      /*
+       * implement this when other sites are added
+       * for current ACRHelix this should suffice
+       */
+      return acrHelixSite;
+    }
+  }
+}

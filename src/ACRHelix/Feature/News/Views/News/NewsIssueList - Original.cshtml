@@ -1,0 +1,78 @@
+﻿@using PagedList.Mvc;
+@inherits Glass.Mapper.Sc.Web.Mvc.GlassView<ACRHelix.Feature.News.ViewModels.NewsIssueListViewModel>
+@using ACRHelix.Foundation.EditFrames;
+
+
+@if (Sitecore.Context.PageMode.IsExperienceEditor)
+{
+    <style type="text/css">
+        .tile-holder div.scLooseFrameZone {
+            width: 25%;
+        }
+
+            .tile-holder div.scLooseFrameZone .xl-col-3 {
+                width: 100%;
+            }
+    </style>
+}
+<!--start: Module -->
+<section class="content section-spacing" style="min-height:100px">
+
+    <header class="header-underrule">
+        <div class="space-between">
+            @if (Model.Title != "" || Sitecore.Context.PageMode.IsExperienceEditorEditing)
+            {
+                <h2 class="inline-block">@Editable(x => x.Title)</h2>
+
+            }
+            <div class="inline-block filter-select-holder tagFilter">
+
+                <select>
+                    <option value="All">All</option>
+                    @{ 
+                        int i = 0;
+                        foreach (var y in Model.Years)
+                        {
+                            if (i == 0)
+                            {
+                        <option selected="selected" value="@y">@y</option>
+                            }
+                            else
+                            {
+                                <option value="@y">@y</option>
+                            }
+                            i++;
+                        }
+                    }
+                </select>
+
+            </div>
+        </div>
+    </header>
+
+    <div class="indented-section">
+        @if (Model.Issues != null && Model.Issues.Count() > 0)
+        {
+            foreach (var issue in Model.Issues)
+            {
+
+                    <section class="article-item" data-year="@issue.IssueDate.Year">
+                        <h3 class="font-inherit-body"><a style="color:#0a4163" href="@issue.IssueUrl">@issue.Title</a></h3>
+                        <div class="text-content">
+                          
+                           
+                                @foreach (var a in issue.NewsArticles)
+                                {
+                                   @a.Title<br />
+                                }
+                                      <br />        
+                        </div>
+                        <a href="@issue.IssueUrl" class="read-more-link">Read More</a>
+                        <hr>
+                        <br>
+                    </section>
+                }
+            }       
+    </div>
+
+</section>

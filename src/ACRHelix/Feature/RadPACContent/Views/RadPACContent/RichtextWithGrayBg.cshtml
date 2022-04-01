@@ -1,0 +1,25 @@
+﻿@inherits Glass.Mapper.Sc.Web.Mvc.GlassView<ACRHelix.Feature.RadPACContent.ViewModels.RichtextSectionViewModel>
+@using Sitecore.Foundation.SitecoreExtensions.Extensions
+
+<section>
+    <div class="pt-20 pb-20 section-bg">
+        <div class="container">
+            <div class="row">
+                @if (!string.IsNullOrWhiteSpace(Model.Title) || Sitecore.Context.PageMode.IsExperienceEditor)
+                {
+                    <div class="col-12">
+                        <div class="section-header">
+                            <h3>@Editable(x => x.Title)</h3>
+                        </div>
+                    </div>
+                }
+                @if (!string.IsNullOrWhiteSpace(Model.RichText) || Sitecore.Context.PageMode.IsExperienceEditor)
+                {
+                    <div class="col-12">
+                        @Editable(x => x.RichText)
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</section>

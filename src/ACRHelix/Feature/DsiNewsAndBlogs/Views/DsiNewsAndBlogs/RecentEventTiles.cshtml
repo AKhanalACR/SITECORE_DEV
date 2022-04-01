@@ -1,0 +1,95 @@
+﻿@inherits Glass.Mapper.Sc.Web.Mvc.GlassView<ACRHelix.Feature.DsiNewsAndBlogs.ViewModels.RecentEventTilesViewModel>
+@using ACRHelix.Foundation.EditFrames;
+
+<style>
+   .slick-slide .scLooseFrameZone{
+       width:25%;
+   }
+</style>
+
+<div class="content section-spacing">
+    <section>
+        <header class="header-underrule">
+            <div class="space-between">
+                <h2 class="inline-block">@Editable(x => x.Title)</h2>               
+            </div>
+        </header>
+        <!--start: Module -->
+        <div class="content section-spacing">
+            
+            <div class="row indented-section">
+                
+                <section class="recent-news-slider" >
+                    @foreach (var list in Model.NewsTilePages)
+                    {
+                        <div class="slick-slide flex-content-left">
+                            @foreach (var eventTile in list)
+                            {
+                                using (BeginEditFrame(EditFrameConstants.Paths.Edit, eventTile.Id.ToString(), "News"))
+                                {
+                                    string style = "";
+                                    if (Sitecore.Context.PageMode.IsExperienceEditor)
+                                    {
+                                        style = "width:100%";
+                                    }
+                                    <div class="xl-col-3 lg-col-6" style="@style">
+                                        <div class="event-tile text-content" style="min-height: 203px">
+                                            <span class="text-size-p75 event-tile-date"> 
+                                                @eventTile.StartDate.ToString("MMMM dd, yyyy")
+                                                @if(eventTile.EndDate != null && eventTile.EndDate != DateTime.MinValue)
+                                                {
+                                                    @Html.Raw(" - " + eventTile.EndDate.ToString("MMMM dd, yyyy"))
+
+                                                }
+                                            </span>
+                                            <h3>
+                                                @if (!string.IsNullOrWhiteSpace(eventTile.LinkOverride))
+                                                {
+                                                    <a href="@eventTile.LinkOverride">@Editable(eventTile, x => x.Title)</a>
+                                                }
+                                                else
+                                                {
+                                                    <a href="@eventTile.Url">@Editable(eventTile, x => x.Title)</a>
+                                                }
+ 
+                                            </h3>
+                                            <span class="text-size-p75 event-tile-location">
+                                                @if (Sitecore.Context.PageMode.IsExperienceEditorEditing)
+                                                {
+                                                    @Editable(eventTile, x => x.TileText)
+                                                }
+                                                else
+                                                {
+                                                    if (eventTile.TileText.Length > 120)
+                                                    {
+                                                        @Html.Raw(eventTile.TileText.Substring(0, 120) + " ...")
+                                                    }
+                                                    else
+                                                    {
+                                                        @Html.Raw(eventTile.TileText)
+                                                    }
+                                                        }
+                                            </span>
+                                            @if (!string.IsNullOrWhiteSpace(eventTile.LinkOverride))
+                                            {
+                                                <a href="@eventTile.LinkOverride" class="tile-bottom-link read-more-link">Read More</a>
+                                            }
+                                            else
+                                            {
+                                                <a href="@eventTile.Url" class="tile-bottom-link read-more-link">Read More</a>
+                                            }
+                                            
+                                        </div>
+                                    </div>
+                                }
+                            }
+                        </div> 
+                    }
+                </section>
+                <div class="text-center">@RenderLink(x => x.ArchivesLink, new { @class = "read-more-link" }, isEditable: true)</div>
+            </div>
+        </div>
+        <!--end: Module -->
+    </section>
+</div>
+

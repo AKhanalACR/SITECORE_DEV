@@ -1,0 +1,101 @@
+﻿@inherits Glass.Mapper.Sc.Web.Mvc.GlassView<ACRHelix.Feature.TabbedSlider.ViewModels.TabbedSliderViewModel>
+
+
+<div data-pageId="@Model.PageID" class="@Model.TabSliderCSSClass section-spacing-bottom" style="display:none">
+    <div class="content text-center">
+        <div class="inline-ul tabs-rotating tabs tabs-evenly-spaced" role="menubar">
+            <ul>
+                @foreach (var tab in Model.Tabs)
+                {
+                    <li><a href="#@tab.Anchor"><span>@Editable(tab, x => x.Title)</span></a></li>
+                }
+            </ul>
+        </div>
+    </div>
+    @foreach (var tab in Model.Tabs)
+    {
+        <section data-tab-id="@tab.Anchor" class="section-spacing-top">
+            <div class="content row text-center">
+                <div class="news-slider">
+                    @foreach (var slide in tab.Slides)
+                    {
+                        <section class="news-slide hover-show-overlay slick-slide">
+                            <div class="news-box news-box3">
+                                <div class="news-image">
+                                    <a class="block" href="#readmore">
+                                        @using (BeginRenderLink(slide, x => x.Link, new System.Collections.Specialized.NameValueCollection() { { "class", "block no-target-icon tab-slider-link" }, { "data-tabname", tab.Title }, { "data-slide", slide.Title } }))
+                                        {
+                                            <div class="news-type-tag">@tab.Title</div>
+                                            <div class="news-content">
+                                                <div class="overlay-to-show" style="width:100%">
+                                                    <h3>
+                                                        @if (slide.PopularTab)
+                                                        {
+                                                            @slide.Title
+                                                        }
+                                                        else
+                                                        {
+                                                            @Editable(slide, x => x.Title)
+                                                        }
+                                                    </h3>
+                                                    <div class="text-content">
+                                                        @if (slide.PopularTab)
+                                                        {
+                                                            @Html.Raw(slide.Text)
+                                                        }
+                                                        else
+                                                        {
+                                                            @Editable(slide, x => x.Text)
+
+                                                        }
+
+
+                                                    </div>
+                                                </div>
+                                                <figure>
+                                                    @if (slide.PopularTab)
+                                                    {
+                                                        <img style="min-height:308px" src="@slide.ImageUrl" alt="@slide.Title" />
+                                                    }
+                                                    else
+                                                    {
+                                                        @Editable(slide, x => x.Image)
+                                                    }
+                                                </figure>
+                                            </div>
+                                            <div class="news-display-header wide-12">
+                                                <h3>
+                                                    @if (slide.PopularTab)
+                                                    {
+                                                        @slide.Title
+                                                    }
+                                                    else
+                                                    {
+                                                        @Editable(slide, x => x.Title)
+                                                    }
+                                                </h3>
+                                            </div>
+                                        }
+                                </div>
+                                <footer>
+                                    @if (slide.PopularTab)
+                                    {
+                                        <a href="@slide.LinkUrl" class="tab-slider-link" data-tabname="@tab.Title" data-slide="@slide.Title">@slide.Title</a>
+                                    }
+                                    else
+                                    {
+                                        @RenderLink(slide, x => x.Link, new System.Collections.Specialized.NameValueCollection() { { "class", "tab-slider-link" }, { "data-tabname", tab.Title }, { "data-slide", slide.Title } }, isEditable: true)
+                                    }
+
+                                </footer>
+                            </div>
+                        </section>
+                    }
+                </div>
+            </div>
+        </section>
+    }
+    <div class="col-12 text-center has-dark-blue-anchor">
+        @RenderLink(Model, x => x.NewsLink, new System.Collections.Specialized.NameValueCollection() { { "class", "read-more-link" } }, isEditable: true)
+    </div>
+</div>

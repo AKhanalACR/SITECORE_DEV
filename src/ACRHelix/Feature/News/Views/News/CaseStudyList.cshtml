@@ -1,0 +1,72 @@
+﻿@using PagedList.Mvc;
+@using ACRHelix.Foundation.EditFrames;
+@inherits Glass.Mapper.Sc.Web.Mvc.GlassView<ACRHelix.Feature.News.Models.CaseStudyList>
+
+@if (Sitecore.Context.PageMode.IsExperienceEditor)
+{
+<style type="text/css">
+    .tile-holder div.scLooseFrameZone {
+        width: 25%;
+    }
+
+    .slick-slide div.scLooseFrameZone {
+        width: 100%;
+    }
+</style>
+}
+<!--start: Module -->
+<section class="content section-spacing" style="min-height:100px">
+    @if (Model.Title != "" || Sitecore.Context.PageMode.IsExperienceEditorEditing)
+    {
+    <header class="header-underrule">
+        <div class="space-between">
+            <h2 class="inline-block">@Editable(x => x.Title)</h2>
+            @*<div class="inline-block filter-select-holder tagFilter">
+                @using (Html.BeginForm())
+                {
+                    @Html.ListBoxFor(x => x.TagFilter, Model.TagList, new { multiple = "" })
+                }
+            </div>*@
+        </div>
+    </header>
+    }
+    <div class="fluid-tiles row text-center tile-holder caseStudyList">
+        @*<a href="#" class="button" onclick="javascript:Sitecore.PageModes.PageEditor.postRequest('webedit:new(id=@(Model.Id))')">Manage Tiles</a>*@
+
+        @foreach (var page in Model.CastStudyPages)
+        {
+        <div class="slick-slide flex-content-left flex-container">
+            @foreach (var caseStudy in page)
+            {
+                var style = "";
+                if (Sitecore.Context.PageMode.IsExperienceEditor)
+                {
+                    style = "width:100%";
+                }
+                using (BeginEditFrame(EditFrameConstants.Paths.Edit, caseStudy.Id.ToString(), "Case Study"))
+                {
+                <div class="xl-col-4 lg-col-6 col-6" style="@style">
+                    <div class="fluid-tile fluid-tile-no-image">
+                        <header class="fluid-header">
+                            <h3>
+                                <a class="read-more-link" href="@caseStudy.Url">@Editable(caseStudy, x => x.Title)</a>
+                            </h3>
+                        </header>
+                        @if (!String.IsNullOrWhiteSpace(caseStudy.TileText) || Sitecore.Context.PageMode.IsExperienceEditorEditing)
+                        {
+                        <div class="text-content text-left">
+                            <a class="block" href="@caseStudy.Url">@Editable(caseStudy, x => x.TileText)</a>
+                        </div>
+                        <a href="@caseStudy.Url" class="tile-bottom-link read-more-link" tabindex="0">@Editable(caseStudy, x => x.LinkText)</a>
+                        }
+                    </div>
+                </div>
+                }
+            }
+        </div>
+        }
+    </div>
+    <div class="resources-slider-nav">
+        <div class="slick-custom-pager"></div>
+    </div>
+</section>

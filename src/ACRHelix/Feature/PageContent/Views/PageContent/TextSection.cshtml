@@ -1,0 +1,17 @@
+﻿@inherits Glass.Mapper.Sc.Web.Mvc.GlassView<ACRHelix.Feature.PageContent.Models.TextSection>
+@if (Model != null)
+{
+    <section class="content section-spacing">
+        @{ var anchorLink = Server.HtmlEncode(Model.Id.ToShortID().ToString()); }
+        <div class="indented-section text-content" id="@anchorLink">
+            @if (Sitecore.Context.PageMode.IsExperienceEditor || !string.IsNullOrWhiteSpace(Model.Title))
+            {
+                <h2>@Editable(x => x.Title)</h2>
+            }
+            @Editable(x => x.SubTitle)
+            <div class="pad-bottom-1em">
+                @Editable(x => x.Text)
+            </div>
+        </div>
+    </section>
+}

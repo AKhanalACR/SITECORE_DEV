@@ -1,0 +1,60 @@
+﻿.rotator 
+{
+	height: 142px;
+	margin-top: 10px;
+}
+.rotator-pager 
+{
+	width: 98px;
+	margin: 0 auto 10px;
+	padding: 0;
+}
+.rotator-pager a {
+    display: inline-block;
+    background: url(/images/MammographySavesLives/rotator-dots.png) no-repeat 0 0;
+    width: 9px;
+    height: 9px;
+    padding: 0;
+    margin: 2px 2px;
+	z-index: 999;
+}
+#ie6only .rotator-pager a {
+	background-image:url(/images/MammographySavesLives/rotator-dots.gif);
+}
+.rotator-pager a.active {
+    background-position: -9px 0 !important;
+}
+.rotator-pager a:hover {
+    background-position: 0 0;
+}
+.rotator-item 
+{
+	display: none;
+}
+/* the png fix was having heartache with display:none
+ * using visibility instead.
+ */
+#ie6only .rotator-item {
+	display:block;
+	visibility:hidden;
+}
+#ie6only .cycle-widget .rotator-item {
+	visibility:visible;
+}
+.rotator-item.active 
+{
+	display: block;
+}
+.rotator-image 
+{
+	float: left;
+	width: 72px;
+}
+.rotator-text
+{
+	font-size: 18px;
+	line-height: 22px;
+	float: left;
+	padding-left: 8px;
+	width: 250px;
+}

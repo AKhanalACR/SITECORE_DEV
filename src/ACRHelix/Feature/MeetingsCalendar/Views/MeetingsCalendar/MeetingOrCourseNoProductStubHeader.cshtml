@@ -1,0 +1,39 @@
+﻿@using Glass.Mapper.Sc.Web.Mvc;
+@using System.Collections.Specialized;
+@using ACRHelix.Feature.MeetingsCalendar;
+@using ACRHelix.Feature.MeetingsCalendar.Util;
+@inherits Glass.Mapper.Sc.Web.Mvc.GlassView<ACRHelix.Feature.MeetingsCalendar.Models.MeetingCourseHeaderNoProductStub>
+
+<!--start: Module -->
+
+@if (Sitecore.Context.PageMode.IsExperienceEditor)
+{
+    <style type="text/css">
+        .page-hero-image.scLooseFrameZone {
+            height: 100%
+        }
+    </style>
+}
+
+<div class="page-hero-image meeting-hero section-spacing-bottom">
+    @Editable(Model, x => x.HeaderImage)
+    @using (BeginEditFrame(Model, "Meeting or Course Header", x => x.HeaderImage, x => x.Title, x => x.SubTitle, x => x.RegisterLink, x => x.MeetingType, x => x.MeetingStartDate, x => x.MeetingEndDate))
+    {
+        <header class="content text-center">
+            <h1>@Editable(Model, x => x.Title)</h1>
+            <span class="meeting-header-location">@Editable(Model, x => x.SubTitle)</span>
+            <br>
+
+            @RenderLink(Model, x => x.RegisterLink, new NameValueCollection() { { "class", "button" } })
+
+       
+                    <div class="meeting-bottom-hero-text">
+                       
+                        @DateUtil.DisplayMeetingDateRange(Model.MeetingStartDate,Model.MeetingEndDate)
+
+                    </div>
+                    
+        </header>
+                            }
+</div>
+<!--end: Module -->

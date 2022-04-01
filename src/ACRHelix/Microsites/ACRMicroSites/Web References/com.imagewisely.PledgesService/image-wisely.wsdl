@@ -1,0 +1,203 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://www.imagewisely.org/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" targetNamespace="http://www.imagewisely.org/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://www.imagewisely.org/">
+      <s:element name="IncrementPledgeCounter">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="skey" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="IncrementPledgeCounterResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="IncrementPledgeCounterResult" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ResetPledgeCounter">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="skey" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="countFromDb" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ResetPledgeCounterResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="ResetPledgeCounterResult" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="boolean" type="s:boolean" />
+    </s:schema>
+  </wsdl:types>
+  <wsdl:message name="IncrementPledgeCounterSoapIn">
+    <wsdl:part name="parameters" element="tns:IncrementPledgeCounter" />
+  </wsdl:message>
+  <wsdl:message name="IncrementPledgeCounterSoapOut">
+    <wsdl:part name="parameters" element="tns:IncrementPledgeCounterResponse" />
+  </wsdl:message>
+  <wsdl:message name="ResetPledgeCounterSoapIn">
+    <wsdl:part name="parameters" element="tns:ResetPledgeCounter" />
+  </wsdl:message>
+  <wsdl:message name="ResetPledgeCounterSoapOut">
+    <wsdl:part name="parameters" element="tns:ResetPledgeCounterResponse" />
+  </wsdl:message>
+  <wsdl:message name="IncrementPledgeCounterHttpGetIn">
+    <wsdl:part name="skey" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="IncrementPledgeCounterHttpGetOut">
+    <wsdl:part name="Body" element="tns:boolean" />
+  </wsdl:message>
+  <wsdl:message name="ResetPledgeCounterHttpGetIn">
+    <wsdl:part name="skey" type="s:string" />
+    <wsdl:part name="countFromDb" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="ResetPledgeCounterHttpGetOut">
+    <wsdl:part name="Body" element="tns:boolean" />
+  </wsdl:message>
+  <wsdl:message name="IncrementPledgeCounterHttpPostIn">
+    <wsdl:part name="skey" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="IncrementPledgeCounterHttpPostOut">
+    <wsdl:part name="Body" element="tns:boolean" />
+  </wsdl:message>
+  <wsdl:message name="ResetPledgeCounterHttpPostIn">
+    <wsdl:part name="skey" type="s:string" />
+    <wsdl:part name="countFromDb" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="ResetPledgeCounterHttpPostOut">
+    <wsdl:part name="Body" element="tns:boolean" />
+  </wsdl:message>
+  <wsdl:portType name="PledgesServiceSoap">
+    <wsdl:operation name="IncrementPledgeCounter">
+      <wsdl:input message="tns:IncrementPledgeCounterSoapIn" />
+      <wsdl:output message="tns:IncrementPledgeCounterSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ResetPledgeCounter">
+      <wsdl:input message="tns:ResetPledgeCounterSoapIn" />
+      <wsdl:output message="tns:ResetPledgeCounterSoapOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:portType name="PledgesServiceHttpGet">
+    <wsdl:operation name="IncrementPledgeCounter">
+      <wsdl:input message="tns:IncrementPledgeCounterHttpGetIn" />
+      <wsdl:output message="tns:IncrementPledgeCounterHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ResetPledgeCounter">
+      <wsdl:input message="tns:ResetPledgeCounterHttpGetIn" />
+      <wsdl:output message="tns:ResetPledgeCounterHttpGetOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:portType name="PledgesServiceHttpPost">
+    <wsdl:operation name="IncrementPledgeCounter">
+      <wsdl:input message="tns:IncrementPledgeCounterHttpPostIn" />
+      <wsdl:output message="tns:IncrementPledgeCounterHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ResetPledgeCounter">
+      <wsdl:input message="tns:ResetPledgeCounterHttpPostIn" />
+      <wsdl:output message="tns:ResetPledgeCounterHttpPostOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="PledgesServiceSoap" type="tns:PledgesServiceSoap">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="IncrementPledgeCounter">
+      <soap:operation soapAction="http://www.imagewisely.org/IncrementPledgeCounter" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ResetPledgeCounter">
+      <soap:operation soapAction="http://www.imagewisely.org/ResetPledgeCounter" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="PledgesServiceSoap12" type="tns:PledgesServiceSoap">
+    <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="IncrementPledgeCounter">
+      <soap12:operation soapAction="http://www.imagewisely.org/IncrementPledgeCounter" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ResetPledgeCounter">
+      <soap12:operation soapAction="http://www.imagewisely.org/ResetPledgeCounter" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="PledgesServiceHttpGet" type="tns:PledgesServiceHttpGet">
+    <http:binding verb="GET" />
+    <wsdl:operation name="IncrementPledgeCounter">
+      <http:operation location="/IncrementPledgeCounter" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ResetPledgeCounter">
+      <http:operation location="/ResetPledgeCounter" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="PledgesServiceHttpPost" type="tns:PledgesServiceHttpPost">
+    <http:binding verb="POST" />
+    <wsdl:operation name="IncrementPledgeCounter">
+      <http:operation location="/IncrementPledgeCounter" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ResetPledgeCounter">
+      <http:operation location="/ResetPledgeCounter" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="PledgesService">
+    <wsdl:port name="PledgesServiceSoap" binding="tns:PledgesServiceSoap">
+      <soap:address location="https://www.acr.org/services/pledgesservice.asmx" />
+    </wsdl:port>
+    <wsdl:port name="PledgesServiceSoap12" binding="tns:PledgesServiceSoap12">
+      <soap12:address location="https://www.acr.org/services/pledgesservice.asmx" />
+    </wsdl:port>
+    <wsdl:port name="PledgesServiceHttpGet" binding="tns:PledgesServiceHttpGet">
+      <http:address location="https://www.acr.org/services/pledgesservice.asmx" />
+    </wsdl:port>
+    <wsdl:port name="PledgesServiceHttpPost" binding="tns:PledgesServiceHttpPost">
+      <http:address location="https://www.acr.org/services/pledgesservice.asmx" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

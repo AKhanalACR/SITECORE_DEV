@@ -1,0 +1,27 @@
+﻿@inherits Glass.Mapper.Sc.Web.Mvc.GlassView<ACRHelix.Feature.ImageWiselyContent.ViewModels.IWPageTitleViewModel>
+
+<section class="white-bg RSNA-block padding-0">
+    <div class="container">
+        <div class="section-inner-padding50">
+            <div class="ibox margin-b-0">
+                            
+                <div class="ibox-content padding-0 text-center-mobile">
+                                          
+                        @if (Model.Image != null || Sitecore.Context.PageMode.IsExperienceEditorEditing)
+                        {
+                            @RenderImage(x => x.Image, new { @class = "img-responsive" }, isEditable: true)    
+                        }
+                        @if (!string.IsNullOrWhiteSpace(Model.Title) || Sitecore.Context.PageMode.IsExperienceEditorEditing)
+                        {
+                            <div class="img-with-title">
+                                <h1>
+                                    @Editable(x => x.Title)
+                                </h1>
+                            </div>
+                            
+                        }                                                
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

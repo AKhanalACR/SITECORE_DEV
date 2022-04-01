@@ -1,0 +1,36 @@
+#breadcrumbs {
+  background: $color-lt-gray-2;
+  padding: .7rem 0;
+  font-size: .875em;
+  margin-bottom: 3.5625em;
+  &.margin-bottom-0 {
+    margin-bottom: 0;
+  }
+
+	ol{
+		list-style: none;
+		display: block;
+		width: 100%;
+		min-width: 100%;
+		margin:0;
+		padding:0;
+		li{
+			list-style: none;
+			display: inline-block;
+		}
+	}
+
+	.breadcrumb-current-page{
+		&,
+		&:hover{
+			color:$color-font-body;
+			text-decoration: none;
+		}
+	}
+}
+
+.breadcrumb-separator {
+  display: inline-block;
+  vertical-align: baseline;
+  margin: 0 .4em;
+}

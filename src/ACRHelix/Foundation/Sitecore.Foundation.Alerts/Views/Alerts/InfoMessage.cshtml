@@ -1,0 +1,14 @@
+﻿@using Sitecore.Foundation.Alerts.Models
+@model Sitecore.Foundation.Alerts.Models.InfoMessage
+@{
+  var alerts = new Dictionary<InfoMessage.MessageType, string>();
+  alerts.Add(InfoMessage.MessageType.Info, "alert-info");
+  alerts.Add(InfoMessage.MessageType.Success, "alert-success");
+  alerts.Add(InfoMessage.MessageType.Warning, "alert-warning");
+  alerts.Add(InfoMessage.MessageType.Error, "alert-danger");
+}
+
+@if (Model != null)
+{
+  <div class="alert @alerts[Model.Type]">@Model.Message</div>
+}

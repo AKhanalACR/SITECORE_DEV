@@ -1,0 +1,15 @@
+﻿@inherits Glass.Mapper.Sc.Web.Mvc.GlassView<ACRHelix.Feature.PageContent.ViewModels.DismissibleNotificationViewModel>
+
+@{ var anchorLink = Server.HtmlEncode(Model.Id.ToShortID().ToString()); }
+
+@if (!Model.NotificationText.Equals("") || Sitecore.Context.PageMode.IsExperienceEditorEditing)
+{
+    <div class="content section-spacing" id="dismissible-notification">
+        <div class="notification-bar">
+            <i class="acr-icon icon-notify-bell"></i>
+            <div class="notification-bar-text">@Editable(x => x.NotificationText)</div>
+            <a onclick="hideNotification();"class="button btn-notification-close">Close</a>
+        </div>
+    </div>
+}
+

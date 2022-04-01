@@ -1,0 +1,162 @@
+@include breakpoint-min(md){ //641px
+
+  .indented-section { padding-left: 46px; padding-right: 46px; }
+
+  .action-utility-nav { display: block; }
+	.mobile-nav-back.acr-icon { display: none; }
+	main[role='main']:before { content: ''; display: table; }
+	.site-header-ad-visible main[role='main'] { margin-top: 333px; }
+	#m-utility-bottom ul { width: auto; }
+	#m-utility-bottom li { width: auto; float: none; display: inline-block; }
+	.register-callout-text,  .media-contacts-area { padding-left: 1rem; padding-right: 1rem; }
+	.button-block { padding-bottom: .75rem; }
+	.media-contact-area > .xl-col-4:nth-child(n+4),
+  .person-item-area > .xl-col-4:nth-child(n+4) { margin-top: 2.5rem }
+
+  .xl-dbl-r-gutter { padding-right: 1.75em; }
+
+  @include responsive-layout('xl-');//yes use 'xl-'
+}
+
+
+@media only screen and (max-width: 960px) {
+	.has-acr-table.lg-min-width table { min-width: 768px; }
+}
+
+@include breakpoint-max(md){ //640px
+
+  .sm-form-r-pad { padding-right: 2.5rem; }
+	.sm-row-adjust { margin-left: -.875em; margin-right: -.875em; }
+	.img-rl figure img { max-width: 320px; width: 100%; }
+
+	.callout-item { max-width: 400px; margin: auto; float: none; }
+	.button-block .icon-document { display: block; margin: 0 auto .825rem; }
+	.btn-block-title-area { margin-bottom: 1em; }
+	.carousel-slider-nav { -webkit-transform: translateX(-50%); transform: translateX(-50%); }
+
+  @include responsive-layout('sm-');//yes use 'sm-'
+
+	.md-less-hide{
+		display:none !important;
+	}
+}
+
+
+@include breakpoint-min-max(xs,md){
+	.xs-only,  .md-only,  .lg-only,  .xl-only { display: none !important; }
+}
+
+@include breakpoint-max(lg){
+	#main-nav { width: 100%; }
+  .callout-item ~ .callout-item {
+    margin-top: 2em;
+    clear: both;
+    &:before {
+      content: '';
+      display: block;
+      height: 0;
+      width: 100%;
+      border-top: 1px solid $color-orange;
+      padding-bottom: 2em;
+    }
+  }
+
+  .hero-page-title {
+    left: 50%;
+    transform: translateX(-50%);
+  }
+
+	.lg-less-hide{
+		display:none !important;
+	}
+}
+
+@include breakpoint-min-max(lg,xl){
+// @media only screen and (min-width: 769px) and (max-width: 960px) {
+	.xs-only,  .sm-only,  .md-only,  .xl-only { display: none !important; }
+	.lg-hide { display: none !important; }
+	.lg-bdr-right { border-right: 1px solid; }
+	.lg-bdr-left { border-left: 1px solid; }
+	.lg-bdr-top { border-top: 1px solid; }
+	.lg-bdr-bottom { border-bottom: 1px solid; }
+
+	.lg-add-col-l-pad { padding-left: 1.875rem; }
+	.lg-add-col-r-pad { padding-right: 1.875rem; }
+}
+
+@include breakpoint-min(lg){
+  .xl-t-pad-right { padding-right: 2rem; }
+  .indented-section { padding-left: 78px; padding-right: 78px; }
+
+  .xs-only, .sm-only, .md-only, .lg-only, .xl-hide {
+    display: none !important;
+  }
+
+  .directory-area {
+    justify-content: left;
+  }
+
+  .header-with-opts-links span {
+    display: inline-block;
+  }
+
+  #to-top-btn {
+    bottom: auto;
+    top: 50%;
+    right: 3rem;
+  }
+
+  .callout-box-area figure + div {
+    padding-left: 12px;
+  }
+
+  .spaced-column-area {
+    margin-left: -24px;
+    margin-right: -24px;
+    > {
+      div, section, aside {
+        padding-left: 36px;
+        padding-right: 36px;
+      }
+    }
+  }
+
+  .xxl-col-6 {
+    width: 50%;
+  }
+}
+
+
+//@media only screen and (min-width: 641px) and (max-width: 960px)
+@include breakpoint-min-max(md,xl){
+	#m-utility-top { display: none; }
+// }
+//
+// @include breakpoint-min-max(md,lg){
+// @media only screen and (min-width: 481px) and (max-width: 768px) {
+
+  .media-contact-area > .md-col-6:nth-child(n+3),
+  .person-item-area > .md-col-6:nth-child(n+3) { margin-top: 2.5rem }
+  .md-row-adjust { margin-left: -.875em; margin-right: -.875em; }
+
+  @include responsive-layout('lg-');
+
+  .xs-only,  .sm-only,  .lg-only,  .xl-only { display: none !important; }
+	.md-hide { display: none !important; }
+
+  .text-content > img { max-width: 50% }
+
+}
+
+@include breakpoint-min-max(sm,lg){
+  @include responsive-layout('md-');
+}
+
+@include breakpoint-max(sm){
+// @media only screen and (max-width: 384px) {
+	#header-ad-write { min-height: 45px; }
+	.img-rl figure img { width: 100%; }
+	.md-only,  .lg-only,  .xl-only { display: none !important; }
+	.xs-hide { display: none !important; }
+	.mobile-nav-back.acr-icon { display: inline-block; }
+}

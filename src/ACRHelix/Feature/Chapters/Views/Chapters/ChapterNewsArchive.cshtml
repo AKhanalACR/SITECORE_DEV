@@ -1,0 +1,49 @@
+﻿@using ACRHelix.Foundation.EditFrames;
+@inherits Glass.Mapper.Sc.Web.Mvc.GlassView<ACRHelix.Feature.Chapters.ViewModels.ChapterNewsViewModel>
+
+<!--start: Module -->
+<div class="content section-spacing">
+    <header class="header-underrule">
+        <h2 class="inline-block">Archive</h2>
+        @*What should these be filtered by?
+            <div class="inline-block fl-right">
+                <div class="select-outer">
+                    <select>
+                        <option value="">Filter</option>
+                        <option value="something">Something</option>
+                    </select>
+                </div>
+            </div>*@
+    </header>
+    <div class="indented-section row">
+        <section class="event-tile-area">
+            @foreach (var list in Model.NewsPages)
+            {
+            <div class="slick-slide flex-content-left">
+                @foreach (var news in list)
+                {
+                    string style = "";
+                    if (Sitecore.Context.PageMode.IsExperienceEditor) //make sure width it right in experience editor
+                    {
+                        style = "width:100%";
+                    }
+                    using (BeginEditFrame(EditFrameConstants.Paths.Edit, news.Id.ToString(), "Chapter News"))
+                    {
+                    <div class="xl-col-3 lg-col-6" style="@style">
+                        <div class="event-tile text-content">
+                            <span class="text-size-p75 event-tile-date">@news.Date.ToString("MMMM dd, yyyy")</span>
+                            <h3><a href="@news.Url">@Editable(news, x => x.Title)</a></h3>
+                            <a href="@news.Url" class="tile-bottom-link read-more-link">Read More</a>
+                        </div>
+                    </div>
+                    }
+                }
+            </div>
+            }
+        </section>
+        <div class="resources-slider-nav">
+            <div class="slick-custom-pager"></div>
+        </div>
+    </div>
+</div>
+<!--end: Module -->

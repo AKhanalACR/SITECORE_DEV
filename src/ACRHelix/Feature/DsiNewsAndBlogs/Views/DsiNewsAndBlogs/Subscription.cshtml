@@ -1,0 +1,8 @@
+﻿@inherits Glass.Mapper.Sc.Web.Mvc.GlassView<ACRHelix.Feature.DsiNewsAndBlogs.ViewModels.SubscriptionViewModel>
+
+<div>
+    <div acr="btn" style="width:max-content;height:35px;">
+        @RenderLink(Model, x => x.SubscriptionLink, new { @style = "color:#fff;--hover-color:#e2dbdb;" }, isEditable: true)
+        <i class="material-icons new-acr-icon new-icon-arrow-right4"></i>
+    </div>
+</div>

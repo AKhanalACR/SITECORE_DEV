@@ -1,0 +1,35 @@
+﻿
+@inherits Glass.Mapper.Sc.Web.Mvc.GlassView<ACRHelix.Project.Decamp.ViewModels.DecampFooterViewModel>
+
+<div class="copyright">
+    <p class="mb-4">@Editable(x => x.Richtext)</p>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-3 col-6 text-center  mb40">
+                @using (BeginRenderLink(x => x.LeftLink, isEditable: true))
+                {
+                    @RenderImage(m => m.LeftImage, new { @class = "img-fluid" }, isEditable: true)
+                }                
+            </div>
+            <div class="col-lg-3 col-6 text-center  mb40">
+                @using (BeginRenderLink(x => x.CenterLeftLink, isEditable: true))
+                {
+                    @RenderImage(m => m.CenterLeftImage, new { @class = "img-fluid" }, isEditable: true)
+                }               
+            </div>
+            <div class="col-lg-3 col-6 text-center  mb40">
+                @using (BeginRenderLink(x => x.CenterRightLink, isEditable: true))
+                {
+                    @RenderImage(m => m.CenterRightImage, new { @class = "img-fluid" }, isEditable: true)
+                }              
+            </div>
+            <div class="col-lg-3 col-6 text-center  mb40">
+                @using (BeginRenderLink(x => x.RightLink, isEditable: true))
+                {
+                    @RenderImage(m => m.RightImage, new { @class = "img-fluid" }, isEditable: true)
+                }               
+            </div>
+        </div>
+    </div>
+    <p class="mt-4 mb-0">@Editable(x => x.Copyright)</p>
+</div>

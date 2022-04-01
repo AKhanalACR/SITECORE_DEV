@@ -1,0 +1,30 @@
+﻿@using Glass.Mapper.Sc.Fields
+@inherits Glass.Mapper.Sc.Web.Mvc.GlassView<ACRHelix.Feature.Navigation.ViewModels.RHECBreadcrumbsViewModel>
+
+@{
+    int linkCount = Model.Links.Count();
+    string symbol = " > ";
+}
+
+<!-- BEGIN NOINDEX -->
+<div class="label first-label" id="rhecBreadcrumb">
+    <a href="/">Home</a> @symbol
+    @if (linkCount > 0)
+    {
+        foreach (var link in Model.Links.Select((value, index) => new { index, value }))
+        {
+
+            if (link.index < linkCount - 1)
+            {
+                <a href="@link.value.Url">@link.value.Text</a> @symbol
+
+            }
+            else
+            {
+                <a class="current">@link.value.Text</a>
+            }
+
+        }
+    }
+</div>
+    <!-- END NOINDEX -->

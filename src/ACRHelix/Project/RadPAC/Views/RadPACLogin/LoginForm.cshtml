@@ -1,0 +1,57 @@
+﻿
+@inherits Glass.Mapper.Sc.Web.Mvc.GlassView<ACRHelix.Project.RadPAC.ViewModels.LoginViewModel>
+
+<section>
+    <div class="login pt-30">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="header-style"><span class="underline-red"><span>@Editable(x => x.Title)</span></span><hr class="hr-style-red" /></h2>
+
+            </div>
+            <div class="row">
+                <div class="col-12 col-md-12">
+                    <p>@Editable(x => x.SubTitle)</p>
+                    <hr>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12 col-xl-4 col-md-6 border-login-right">
+                    @using (Html.BeginRouteForm(Sitecore.Mvc.Configuration.MvcSettings.SitecoreRouteName, FormMethod.Post, new { @class = "form-signin", role = "form" }))
+                    {
+                        @Html.AntiForgeryToken()
+                        if (Model.LoginError)
+                        {
+                            <div class="err-msg">
+                                <p>@Editable(x => x.LoginErrorMessage) </p>
+                            </div>
+                        }
+                        @Html.HiddenFor(x => x.ReturnUrl)
+                        <label>Username<span class="err-msg">*</span></label>
+                        @Html.TextBoxFor(x => x.Username, new { id = "inputName", @class = "form-control", @placeHolder = "Enter User name", autofocus = "" })
+                        
+                        <label>Password<span class="err-msg">*</span></label>
+                        @Html.PasswordFor(x => x.Password, new { id = "inputPassword", @class = "form-control", @placeholder = "Enter Password", @autocomplete = "off" })
+                        
+                        <div class="custom-control custom-checkbox mb-3">
+                            @Html.CheckBoxFor(x => x.RememberMe, new { @class = "custom-control-input", id = "customCheck" })
+                            <label class="custom-control-label" for="customCheck">Remember Me</label>
+                            @RenderLink(x => x.ForgotPasswordLink, new { @class = "fl-right" }, isEditable: true)
+                        </div>
+                        <div class="mt-5">
+                            <button type="submit" id="loginSubmitBtn" class="btn-radpac-login justify-content-center">Login</button>
+                        </div>
+                    }
+                </div>
+                <div class="col-12 col-xl-8 col-md-6">
+                    <p>
+                        @Editable(x => x.RichText)
+                    </p>
+
+                    <div class="mt-5 mb-5">
+                        @RenderLink(x => x.CreateAccountLink, new { @class = "btn-radpac-blue justify-content-center" }, isEditable: true)
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

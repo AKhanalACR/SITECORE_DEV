@@ -1,0 +1,31 @@
+﻿@inherits Glass.Mapper.Sc.Web.Mvc.GlassView<ACRHelix.Feature.PageContent.ViewModels.ImageHolderWithLinkViewModel>
+@using System.Collections.Specialized;
+
+
+<div class="content" style="min-height:175px;">
+    <div class="indented-section">
+        <div class="row-adjust flex-container ssp-bottom-less text-center">
+            @if (Model.Images.Count() == 1)
+            {
+                foreach (var image in Model.Images)
+                {
+            <figure class="full-width-image">
+                <a href=@Model.RedirectUrl>
+                    @RenderImage(image, x => x)
+                </a>
+            </figure>
+                }
+            }
+            else
+            {
+                foreach (var image in Model.Images)
+                {
+                <figure class="overview-img-holder">
+                    @*<img src="http://placehold.it/470x372" alt="Supporting image?">*@
+                    @RenderImage(image, x => x)
+                </figure>
+                }
+            }
+        </div>
+    </div>
+</div>

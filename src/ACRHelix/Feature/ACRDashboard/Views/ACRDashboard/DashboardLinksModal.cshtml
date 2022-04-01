@@ -1,0 +1,64 @@
+﻿@inherits Glass.Mapper.Sc.Web.Mvc.GlassView<ACRHelix.Feature.ACRDashboard.ViewModels.DashboardLinksViewModel>
+@using System.Collections.Specialized;
+
+<div class="hide">
+    <div id="my-links-reports" data-updated="@Model.Updated" class="content row">
+        @using (Html.BeginForm())
+        {
+		    @*@Html.AntiForgeryToken()*@
+            <div class="col-12">
+                <h3>Add in a New Link/Report</h3>
+                <hr>
+            </div>
+
+            var mid = (Model.AllLinks.Count() + 1) / 2;
+            for (int i = 0; i < Model.AllLinks.Count; i++)
+            {
+                if (i == 0)
+                {
+                    @:<div class="xl-col-6">
+                }
+                var link = Model.AllLinks[i];
+                @Html.HiddenFor(x => x.AllLinks[i].LinkId)
+                @Html.HiddenFor(x => x.AllLinks[i].LinkName)
+                @Html.HiddenFor(x => x.AllLinks[i].LinkUrl)
+                <div class="acr-checkbox">
+                    @Html.CheckBoxFor(x => x.AllLinks[i].Checked)
+                    <label>
+                        @link.LinkName
+                        &nbsp;
+                    </label>
+                    <a target="_blank" href="@link.LinkUrl">Go</a>
+
+                </div><br>
+
+                if (i == mid)
+                {
+                    @:</div>
+                    @:<div class="xl-col-6">
+                }
+
+            }
+            @:</div>
+
+
+            <div class="clear"></div>
+            <div class="xl-col-6">
+				<br />
+                <h3>Add a Custom Link</h3>
+                @*<input type="text" name="link" placeholder="Name">*@
+                @Html.TextBoxFor(x => x.LinkText,new { @placeHolder="Name"})
+                <br />
+                @Html.TextBoxFor(x => x.LinkUrl, new { @placeHolder = "URL",@style="margin-top:10px" } )
+                @*<input type="text" style="margin-top:10px" name="linkurl" placeholder="URL">*@
+            </div>
+            <div class="col-12">
+                <div class="input-space"></div>
+                <input type="submit" name="Save" class="button" value="Save" />
+                <span class="btn-horiz-space"></span>
+                <a href="#cancel" id="cancel-add-link-modal">Cancel</a>
+            </div>
+        }
+    </div>
+
+</div>

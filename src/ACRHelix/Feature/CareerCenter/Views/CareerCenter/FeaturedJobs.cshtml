@@ -1,0 +1,25 @@
+﻿@inherits Glass.Mapper.Sc.Web.Mvc.GlassView<ACRHelix.Feature.CareerCenter.ViewModels.FeaturedJobsViewModel>
+
+<div class="content section-spacing">
+    <header>
+        <h2>@Editable(x => x.Title)</h2>
+        <hr />
+    </header>
+    <section>
+        @foreach (var job in Model.Jobs)
+        {
+            <div class="xl-col-6 lst-min-hgt">
+                <h3>
+                    <a href="@job.JobLink">@job.JobTitle</a>
+                    <br />
+                    @job.Company
+                    @foreach (var loc in job.Locations)
+                    {
+                        @Html.Raw(" | " + (string.IsNullOrWhiteSpace(loc.City) ? "" : loc.City + ", ") + loc.State)
+                    }
+
+                </h3>
+            </div>
+        }
+    </section> 
+</div>

@@ -1,0 +1,173 @@
+$(document).ready(function(){
+	initAccordion();
+	InitGallery();
+})
+// multiAccordion init
+function initAccordion() {
+	$('.accordion').Accordion({
+		activeClass:'active',
+		opener:'a.opener',
+		slider:'div.slide',
+		slideSpeed: 400,
+		closed:true
+	});
+}
+function InitGallery(){
+	$('.fade-gallery').fadeGallery({
+		duration: 700,
+		autoSlide: 7000,
+		holderClass: 'fade',
+		switcherClass: 'switcher'
+	});
+	$('.box-holder').fadeGallery({
+		duration: 700,
+		autoSlide: 2000,
+		holderClass: 'carusel'
+	});
+};
+
+jQuery.fn.fadeGallery = function(_options){
+	// defaults options
+	var _options = jQuery.extend({
+		duration: 700,
+		autoSlide: 8000,
+		holderClass: '',
+		switcherClass: 'switcher'
+	},_options);
+
+
+	return this.each(function(){
+		var _hold = $(this);
+		var _speed = _options.duration;
+		var _duration = _options.autoSlide;
+		var _holderClass = _options.holderClass;
+		var _switcherClass = _options.switcherClass;
+		var _list = _hold.find('ul.'+_holderClass+'>li');
+		var _prev = _hold.find('a.link-prev, .prev a');
+		var _next = _hold.find('a.link-next, .next a');
+		var _flag = true;
+
+		var _a = _list.index(_list.filter('.active:eq(0)'));
+		if(_a == -1) {_a = 0;_list.eq(_a).addClass('active')};
+		var _i, _old = _a, _t, _t1;
+	/*--------CREATING THUMBNAILS----------*/
+		var _num = _hold.find('.'+_switcherClass).empty();
+		_list.each(function(i){
+			$('<li><a href="#">'+(i+1)+'</a></li>').appendTo(_num);
+		});
+	/*-------------------------------------------------*/
+		var _thumb = _hold.find('.switcher li'); 
+		_thumb.eq(_a).addClass('active');
+		_list.css({opacity:0}).eq(_a).show().css({opacity:1});
+		Run(_a);
+		function Run(_a){	
+			_t = setTimeout(function(){
+				_a++; if (_a >= _list.length){_a=0}
+				ChangeFade(_a);
+			}, _duration);
+		};
+		function ChangeFade(_new){
+			_list.eq(_old).removeClass('active').animate({opacity:0}, {queue:false, duration:_speed, complete:function(){$(this).hide();}});
+			_list.eq(_new).addClass('active').show().animate({opacity:1}, {queue:false, duration:_speed});
+			_thumb.eq(_old).removeClass('active');
+			_thumb.eq(_new).addClass('active');
+			_old=_new;_a=_new;
+			if(_t) clearTimeout(_t);
+			if(_t1) clearTimeout(_t1);
+			if(_flag){Run(_new);}
+		};
+		_thumb.click(function(){
+			_i = _thumb.index($(this));
+			ChangeFade(_i);
+			_a = _i;
+			return false;
+		});
+		_next.click(function(){
+			if (_list.is(':animated')){
+				_t1 = setTimeout(function(){
+					_a++; if (_a == _list.length){_a=0}
+					ChangeFade(_a);
+				}, _speed);	
+			}else{
+				_a++; if (_a == _list.length){_a=0}
+				ChangeFade(_a);
+			};
+			_flag = false;
+			return false;
+		});
+		_prev.click(function(){
+			if (_list.is(':animated')){
+				_t1 = setTimeout(function(){
+					_a--; if (_a == -1){_a=_list.length-1}
+					ChangeFade(_a);
+				}, _speed);	
+			}else{
+				_a--; if (_a == -1){_a=_list.length-1}
+				ChangeFade(_a);	
+			};
+			_flag = false;
+			return false;
+		});
+	});
+};
+// multiAccordion plugin
+jQuery.fn.Accordion = function(_options){
+	// default options
+	var _options = jQuery.extend({
+		activeClass:'active',
+		opener:'.opener',
+		slider:'.slide',
+		slideSpeed: 400,
+		animStart:false,
+		animEnd:false,
+		event:'click',
+		closed:false
+	},_options);
+	
+	return this.each(function(){
+		// options
+		var _closed = _options.closed;
+		jQuery(this).children().each(function(){
+		
+			var _holder = jQuery(this);
+			var _slideSpeed = _options.slideSpeed;
+			var _activeClass = _options.activeClass;
+			var _opener = jQuery(_options.opener, _holder);
+			var _slider = jQuery(_options.slider, _holder);
+			var _animStart = _options.animStart;
+			var _animEnd = _options.animEnd;
+			var _event = _options.event;
+			
+			if(_slider.length) {
+				if(_holder.hasClass(_activeClass)) {_slider.show();}
+				else {_slider.hide();}
+				
+				_opener.bind(_event,function(){
+					_holder.siblings().find('li').removeClass(_activeClass);
+					if(!_slider.is(':animated')) {
+						if(typeof _animStart === 'function') _animStart();
+						if(!_holder.hasClass(_activeClass)){
+							_holder.siblings().removeClass(_activeClass).find(_options.slider).slideUp(_slideSpeed,function(){
+								if(typeof _animEnd === 'function') _animEnd();
+							});
+							_holder.addClass(_activeClass);
+							_slider.slideDown(_slideSpeed,function(){
+								if(typeof _animEnd === 'function') _animEnd();
+							});
+						}else{
+							if(_closed){
+								_holder.removeClass(_activeClass);
+								_slider.slideUp(_slideSpeed,function(){
+									if(typeof _animEnd === 'function') _animEnd();
+								});
+							}
+						}
+					}
+					return false;
+				});
+			}
+		});
+	});
+}
+
+

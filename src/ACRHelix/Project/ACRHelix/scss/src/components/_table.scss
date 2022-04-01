@@ -1,0 +1,99 @@
+table {
+	border-collapse: collapse;
+}
+
+td {
+	padding: .35rem .8rem;
+	text-align: left;
+	vertical-align: top;
+}
+
+th {
+	padding: .35rem .8rem;
+	text-align: left;
+	vertical-align: top;
+	h3, h2, > * {
+		display: inline-block;
+	}
+}
+
+
+.has-acr-table tr {
+	td ~ td, th ~ th {
+		border-left: 1px solid $color-gray;
+	}
+}
+
+table.has-acr-table {
+	width: 100%;
+}
+
+.has-acr-table {
+	position: relative;
+	padding: 1rem;
+	border: 1px solid $color-gray;
+	clear: both;
+	table {
+		width: 100%;
+		border: 0;
+		min-width: 768px;
+	}
+	&.table-no-scroll table {
+		min-width: auto;
+	}
+	table > tr:nth-child(even), tbody tr:nth-child(odd) {
+		background: $color-lt-gray;
+	}
+}
+
+.has-table-striped table tr:nth-child(even),
+.table-striped tr:nth-child(even),
+.has-table-striped-odd table tr:nth-child(odd),
+.table-striped-odd tr:nth-child(odd) {
+	background: $color-lt-gray;
+}
+
+.has-acr-table {
+	table tr:nth-child(odd) td {
+		padding-top: .8rem;
+		padding-bottom: .8rem;
+	}
+	td {
+		font-size: .875em;
+		&:not(.font-weight-normal) {
+			font-weight: 600;
+		}
+	}
+	&.lg-min-width table {
+		min-width: auto;
+	}
+}
+
+.table-striped,
+.has-table-striped table,
+.table-striped-odd,
+.has-table-striped-odd table {
+	width: 100%;
+}
+
+.accordion .has-acr-table,
+.has-acr-table.no-table-border {
+	border: none;
+}
+
+.accordion .has-acr-table {
+	table {
+		border: 0;
+		table-layout: auto;
+	}
+	td {
+		border-left: 0;
+		font-size: 1rem;
+		font-weight: inherit;
+	}
+}
+
+.has-acr-table.sort-table th {
+	padding-right: 24px;
+	position: relative;
+}

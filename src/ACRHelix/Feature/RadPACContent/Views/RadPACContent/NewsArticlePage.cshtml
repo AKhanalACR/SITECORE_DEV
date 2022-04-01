@@ -1,0 +1,32 @@
+﻿@inherits Glass.Mapper.Sc.Web.Mvc.GlassView<ACRHelix.Feature.RadPACContent.ViewModels.NewsArticlePageViewModel>
+@using Sitecore.Foundation.SitecoreExtensions.Extensions
+
+<section>
+    <div class="container">
+        <div class="row">
+            <div class="col-12 pb-40">
+                <div class="section-header">
+                    @if (Model.Date != DateTime.MinValue)
+                    {
+                        <p><span>@Model.Date.ToString("MMMM dd, yyyy")</span></p>
+                    }
+                    <h2 class="header-style"><span class="underline-red"><span>@Editable(x => x.Title)</span></span><hr class="hr-style-red"/></h2>
+                    @if (!string.IsNullOrWhiteSpace(Model.Author) || Sitecore.Context.PageMode.IsExperienceEditor)
+                    {
+                        <p class="txt-center"><span>Author: @Editable(x => x.Author) </span></p>
+                    }
+                    
+                    @if (!string.IsNullOrWhiteSpace(Model.SubTitle) || Sitecore.Context.PageMode.IsExperienceEditor)
+                    {
+                        <h3>@Editable(x => x.SubTitle)</h3>
+                    }
+                    
+                    @if (!string.IsNullOrWhiteSpace(Model.RichText) || Sitecore.Context.PageMode.IsExperienceEditor)
+                    {
+                        <p>@Editable(x => x.RichText)</p>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

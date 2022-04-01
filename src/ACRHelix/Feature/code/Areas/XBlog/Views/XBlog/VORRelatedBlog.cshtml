@@ -1,0 +1,82 @@
+﻿@using Sitecore.Feature.XBlog.Areas.XBlog.Items.Blog
+@using Sitecore.Feature.XBlog.Areas.XBlog.Search
+@using Sitecore.Feature.XBlog.Areas.XBlog.General;
+@using Sitecore.Data.Items
+@using Sitecore.Mvc
+@using Sitecore.Resources.Media
+@using Sitecore.Links
+@using Sitecore.Feature.XBlog.Areas.XBlog;
+@inherits System.Web.Mvc.WebViewPage
+@{
+    Item dataSourceItem = Sitecore.Context.Database.GetItem(Sitecore.Mvc.Presentation.RenderingContext.Current.Rendering.DataSource);
+    BlogSettings settingsItem = DataManager.GetBlogSettingsItem(dataSourceItem != null ? dataSourceItem : Sitecore.Context.Item);
+    BlogPost currentBlogPost = Sitecore.Context.Item.CreateAs<BlogPost>();
+}
+@if (currentBlogPost != null)
+{
+
+
+    <!-- you may also like -->
+    <section class="you-may-also-like">
+        <div class="container">
+            <h2 class="section-title">You may also like</h2>
+
+            @{
+                //Get search results
+                IEnumerable<BlogPost> blogs = BlogManager.GetVORBlogRelatedValues(currentBlogPost);
+                blogs = BlogManager.SetBlogDisplayLimit(settingsItem.RelatedBlogMaxPosts, blogs);
+
+                if (blogs == null || !blogs.Any())
+                {
+                    return;
+                }
+            }
+            @foreach (BlogPost blogPost in blogs)
+            {
+                string authorImage = "";
+                <article>
+                    <h2><a href="@Html.Raw(LinkManager.GetItemUrl(blogPost.InnerItem))" acr="link" class="article-title">@Html.Raw(blogPost.Title)</a></h2>
+                    <div class="article-info">
+                        @if (blogPost.Authors != null && blogPost.Authors.Count() != 0 && blogPost.Authors[0].ProfileImage.MediaItem != null)
+                        {
+                            authorImage = String.Format("<img style='height:42px;' src=\"{0}\" v-if='window.width > window.mobileWidth' />", MediaManager.GetMediaUrl(blogPost.Authors[0].ProfileImage.MediaItem));
+
+                        }
+                        @Html.Raw(authorImage)
+                        <div class="author-info">
+                            <div>
+                                <span>By </span>
+                                @if (blogPost.Authors != null && blogPost.Authors.Count() != 0)
+                                {
+                                <span class="auther-name">@Html.Raw(AuthorManager.GetAuthorLink(blogPost))</span>
+                                }
+                            </div>
+                            <div>
+                                <span>on </span>
+                                <span class="article-date">@blogPost.PublishDate.DateTime.ToString(settingsItem.BlogPostDateFormat)</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="article-content-sec">
+                        @if (!String.IsNullOrEmpty(blogPost.Summary))
+                        {
+                            @Html.Raw(Sitecore.Feature.XBlog.Areas.XBlog.Helpers.Helper.SubstringHtml(blogPost.Summary, settingsItem.DisplaySummaryLength, true));
+                        }
+                        else
+                        {
+                            @Html.Raw(Sitecore.Feature.XBlog.Areas.XBlog.Helpers.Helper.SubstringHtml(blogPost.Body, settingsItem.DisplaySummaryLength, true))
+                        }                            
+                    </div>
+                    <div class="article-tags categorylist cat-link">
+                        @Html.Raw("Categories " + CategoryManager.GetCommaSeperatedCategoryList(blogPost))
+                    </div>
+                </article>
+
+
+            }
+        </div>
+    </section>
+
+
+}
+

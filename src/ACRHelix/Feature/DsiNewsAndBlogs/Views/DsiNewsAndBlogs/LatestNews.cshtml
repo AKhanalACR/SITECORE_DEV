@@ -1,0 +1,27 @@
+﻿@inherits Glass.Mapper.Sc.Web.Mvc.GlassView<ACRHelix.Feature.DsiNewsAndBlogs.ViewModels.RecentNewsListViewModel>
+
+
+    <h3 acr>@Editable(x => x.Title)</h3>
+    <div acr="list" class="news-list" style="--gap: 15px;">
+            @foreach (var newsArticle in Model.NewsArticles)
+            {
+                using (BeginEditFrame(newsArticle, "News Article", x => x.Title, x => x.SubTitle, x => x.Type, x => x.StartDate, x => x.TileText))
+                {
+                    <div acr="list-column">
+                        @if (!string.IsNullOrWhiteSpace(newsArticle.LinkOverride))
+                        {
+                            <a href="@newsArticle.LinkOverride">@Editable(newsArticle, x => x.Title)</a>
+                        }
+                        else
+                        {
+                            <a href="@newsArticle.Url">@Editable(newsArticle, x => x.Title)</a>
+                        }
+                    </div>
+                }
+            }       
+    </div>
+
+     @RenderLink(Model, x => x.ArchivesLink, new { @acr = "btn-2ry", @class="new-home-page-btn" },  isEditable: true)
+
+
+

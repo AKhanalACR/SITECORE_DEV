@@ -1,0 +1,683 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="..\..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.8\build\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props" Condition="Exists('..\..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.8\build\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" />
+  <Import Project="..\..\packages\Microsoft.Net.Compilers.2.4.0\build\Microsoft.Net.Compilers.props" Condition="Exists('..\..\packages\Microsoft.Net.Compilers.2.4.0\build\Microsoft.Net.Compilers.props')" />
+  <Import Project="..\..\packages\MSBuild.Microsoft.VisualStudio.Web.targets.14.0.0.3\build\MSBuild.Microsoft.VisualStudio.Web.targets.props" Condition="Exists('..\..\packages\MSBuild.Microsoft.VisualStudio.Web.targets.14.0.0.3\build\MSBuild.Microsoft.VisualStudio.Web.targets.props')" />
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{1B174692-AB56-41CB-A39D-A107CB32C91F}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>ACR.Library</RootNamespace>
+    <AssemblyName>ACR.Library</AssemblyName>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'DEV-JT|AnyCPU'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\DEV-JT\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Prod-Auth|AnyCPU'">
+    <OutputPath>bin\Prod-Auth\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Prod-CD1|AnyCPU'">
+    <OutputPath>bin\Prod-CD1\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'UAT-Auth|AnyCPU'">
+    <OutputPath>bin\UAT-Auth\</OutputPath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'UAT-CD|AnyCPU'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\UAT-CD\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Prod-CD2|AnyCPU'">
+    <OutputPath>bin\Prod-CD2\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'DEV-DM|AnyCPU'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\DEV-DM\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Dev-addis|AnyCPU'">
+    <OutputPath>bin\Dev-addis\</OutputPath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Prod-Preview|AnyCPU'">
+    <OutputPath>bin\Prod-Preview\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Common.Logging">
+      <HintPath>..\..\..\lib\Common.Logging.dll</HintPath>
+    </Reference>
+    <Reference Include="CustomItemGenerator">
+      <HintPath>..\..\..\lib\CustomItemGenerator.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="HtmlAgilityPack, Version=1.4.9.5, Culture=neutral, PublicKeyToken=bd319b19eaf3b43a, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\HtmlAgilityPack.1.4.9.5\lib\Net45\HtmlAgilityPack.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform, Version=1.0.8.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.8\lib\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=11.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Newtonsoft.Json.11.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Sitecore.Kernel">
+      <HintPath>..\..\..\lib\Sitecore.Kernel.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data.Linq" />
+    <Reference Include="System.Net" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+    <Reference Include="Velir.GoogleSearch">
+      <HintPath>..\..\..\lib\Velir.GoogleSearch.dll</HintPath>
+    </Reference>
+    <Reference Include="Velir.Net">
+      <HintPath>..\..\..\lib\Velir.Net.dll</HintPath>
+    </Reference>
+    <Reference Include="Velir.SitecoreLibrary">
+      <HintPath>..\..\..\lib\Velir.SitecoreLibrary.dll</HintPath>
+    </Reference>
+    <Reference Include="Velir.Utilities">
+      <HintPath>..\..\..\lib\Velir.Utilities.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="AcrConstants.cs" />
+    <Compile Include="AcrGlobals.cs" />
+    <Compile Include="Cache\ACRCache.cs" />
+    <Compile Include="Common\CookieUtil.cs" />
+    <Compile Include="Common\CustomItemEqualityComparer.cs" />
+    <Compile Include="Common\CustomItems\AcrCommon\CustomDeviceItem.base.cs" />
+    <Compile Include="Common\CustomItems\AcrCommon\ErrorPageItem.base.cs" />
+    <Compile Include="Common\CustomItems\AcrCommon\ErrorPageItem.interface.cs" />
+    <Compile Include="Common\CustomItems\AcrCommon\RedirectPageItem.base.cs" />
+    <Compile Include="Common\CustomItems\AcrCommon\RobotsTxtItem.base.cs" />
+    <Compile Include="Common\CustomItems\GenericItem.base.cs" />
+    <Compile Include="Common\CustomItems\GenericItem.interface.cs" />
+    <Compile Include="Common\Deliminator.cs" />
+    <Compile Include="Common\GoogleSearch.cs" />
+    <Compile Include="Common\Handlers\FLVStreaming.cs" />
+    <Compile Include="Common\Interfaces\Factory\ItemInterfaceFactory.cs" />
+    <Compile Include="Common\Interfaces\IFeaturedWidgetsPage.cs" />
+    <Compile Include="Common\Interfaces\IListItem.cs" />
+    <Compile Include="Common\Interfaces\IListPage.cs" />
+    <Compile Include="Common\Interfaces\IMeta.cs" />
+    <Compile Include="Common\Interfaces\IPageItem.cs" />
+    <Compile Include="Common\Interfaces\IWidgetItem.cs" />
+    <Compile Include="Common\Interfaces\IWidgetPage.cs" />
+    <Compile Include="Common\StandardBreadcrumb.cs" />
+    <Compile Include="Common\Utils\LinkUtil.cs" />
+    <Compile Include="Common\Wrappers\ListItemWrapper.cs" />
+    <Compile Include="CustomItems\ACR\Base\WidgetPageItem.base.cs" />
+    <Compile Include="CustomItems\ACR\Base\WidgetPageItem.interface.cs" />
+    <Compile Include="CustomItems\ACR\Widgets\Global\AdSalesWidgetItem.base.cs" />
+    <Compile Include="CustomItems\ACR\Widgets\Global\AdSalesWidgetItem.instance.cs" />
+    <Compile Include="CustomItems\ACR\Widgets\Global\AdSalesWidgetItem.interface.cs" />
+    <Compile Include="CustomItems\ACR\Widgets\Global\AdSalesWidgetItem.static.cs" />
+    <Compile Include="CustomItems\ACR\Widgets\WidgetBaseItem.base.cs" />
+    <Compile Include="CustomItems\ACR\Widgets\WidgetBaseItem.interface.cs" />
+    <Compile Include="CustomItems\AIRP\AIRPSiteSettingsItem.base.cs" />
+    <Compile Include="CustomItems\AIRP\Base\NavigationItem.base.cs" />
+    <Compile Include="CustomItems\AIRP\Base\PageBaseItem.base.cs" />
+    <Compile Include="CustomItems\AIRP\Components\HomepageSliderImageItem.base.cs" />
+    <Compile Include="CustomItems\AIRP\Components\LinkItem.base.cs" />
+    <Compile Include="CustomItems\AIRP\Components\PartnerListItem.base.cs" />
+    <Compile Include="CustomItems\AIRP\Components\SidebarButtonItem.base.cs" />
+    <Compile Include="CustomItems\AIRP\Interfaces\IAIRPNav.cs" />
+    <Compile Include="CustomItems\AIRP\Pages\AIRPHomepageItem.base.cs" />
+    <Compile Include="CustomItems\AIRP\Pages\AIRPHomepageItem.interface.cs" />
+    <Compile Include="CustomItems\AIRP\Pages\CategoricalCourseListingPageItem.base.cs" />
+    <Compile Include="CustomItems\AIRP\Pages\CategoricalCourseListingPageItem.interface.cs" />
+    <Compile Include="CustomItems\AIRP\Pages\CategoricalCoursePageItem.base.cs" />
+    <Compile Include="CustomItems\AIRP\Pages\CategoricalCoursePageItem.interface.cs" />
+    <Compile Include="CustomItems\AIRP\Pages\InternalPageItem.base.cs" />
+    <Compile Include="CustomItems\AIRP\Pages\InternalPageItem.interface.cs" />
+    <Compile Include="CustomItems\AIRP\Pages\PartnerListingPageItem.base.cs" />
+    <Compile Include="CustomItems\AIRP\Pages\PartnerListingPageItem.interface.cs" />
+    <Compile Include="CustomItems\MammographySavesLives\ContentItems\AudioDownloadFileItem.base.cs" />
+    <Compile Include="CustomItems\MammographySavesLives\ContentItems\AudioDownloadItem.base.cs" />
+    <Compile Include="CustomItems\MammographySavesLives\ContentItems\LinkItem.base.cs" />
+    <Compile Include="CustomItems\MammographySavesLives\ContentItems\MarketingMaterialItem.base.cs" />
+    <Compile Include="CustomItems\MammographySavesLives\ContentItems\OnlineProviderResourceItem.base.cs" />
+    <Compile Include="CustomItems\MammographySavesLives\ContentItems\VideoItem.base.cs" />
+    <Compile Include="CustomItems\MammographySavesLives\DataTemplates\_hasAccreditedFacilitySearchModuleItem.base.cs" />
+    <Compile Include="CustomItems\MammographySavesLives\DataTemplates\_hasAudioDownloadsModuleItem.base.cs" />
+    <Compile Include="CustomItems\MammographySavesLives\DataTemplates\_hasMarketingMaterialsModuleItem.base.cs" />
+    <Compile Include="CustomItems\MammographySavesLives\DataTemplates\_hasNewsReleasesItem.base.cs" />
+    <Compile Include="CustomItems\MammographySavesLives\DataTemplates\_hasOnlineProviderResourcesModuleItem.base.cs" />
+    <Compile Include="CustomItems\MammographySavesLives\DataTemplates\_hasPhysiciansModuleItem.base.cs" />
+    <Compile Include="CustomItems\MammographySavesLives\DataTemplates\_hasPodcastVideosItem.base.cs" />
+    <Compile Include="CustomItems\MammographySavesLives\DataTemplates\_hasSmallPromoFeatureItem.base.cs" />
+    <Compile Include="CustomItems\MammographySavesLives\DataTemplates\_hasStartAt40OnTvModuleItem.base.cs" />
+    <Compile Include="CustomItems\MammographySavesLives\DataTemplates\_hasTwitterWidgetItem.base.cs" />
+    <Compile Include="CustomItems\MammographySavesLives\DataTemplates\_hasVideoDownloadsModuleItem.base.cs" />
+    <Compile Include="CustomItems\MammographySavesLives\Globals\EnumerationItem.base.cs" />
+    <Compile Include="CustomItems\MammographySavesLives\PageTemplates\AccreditedFacilitySearchPageItem.base.cs" />
+    <Compile Include="CustomItems\MammographySavesLives\PageTemplates\ToolsAndResourcesPageItem.base.cs" />
+    <Compile Include="CustomSitecore\CustomFields\CustomNameValueListField.cs" />
+    <Compile Include="CustomSitecore\CustomRssFeeds\ACRNewsRssFeedItems.cs" />
+    <Compile Include="CustomSitecore\Extensions\ItemExtensions.cs" />
+    <Compile Include="CustomSitecore\Providers\AcrLinkProvider.cs" />
+    <Compile Include="CustomSitecore\Providers\AcrMediaProvider.cs" />
+    <Compile Include="CustomSitecore\RulesEngine\HasFeaturedWidgets.cs" />
+    <Compile Include="CustomSitecore\RulesEngine\HasWidgetPageTemplate.cs" />
+    <Compile Include="CustomSitecore\RulesEngine\SetFeaturedWidgets.cs" />
+    <Compile Include="CustomSitecore\RulesEngine\SetWidgets.cs" />
+    <Compile Include="DataAccess\AcrAfwDataAccess.cs" />
+    <Compile Include="DataAccess\IdeasDataAccess.cs" />
+    <Compile Include="DataContext\AcrAfw.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>AcrAfw.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataContext\AcrAfw.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>AcrAfw.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataContext\AcrAfw.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>AcrAfw.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="DataContext\AcrAfwData.cs" />
+    <Compile Include="DataContext\Designation_Dropdown.cs">
+      <DependentUpon>AcrAfw.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataContext\Locality_Dropdown.cs">
+      <DependentUpon>AcrAfw.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataContext\Modality_Dropdown.cs">
+      <DependentUpon>AcrAfw.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Ideas\Data\FacilitiesAndPhysicianByZipCodeDB.cs">
+      <DependentUpon>IdeasDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Ideas\Data\FacilitiesAndPhysicianDB.cs">
+      <DependentUpon>IdeasDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Ideas\Data\IdeasDataModel.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>IdeasDataModel.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Ideas\Data\IdeasDataModel.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>IdeasDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Ideas\Data\IdeasDataModel.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>IdeasDataModel.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Ideas\Data\PRACTICE.cs">
+      <DependentUpon>IdeasDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ImageWisely\CustomItems\ImageWisely\Base\ContentPageItem.base.cs" />
+    <Compile Include="ImageWisely\CustomItems\ImageWisely\Base\ContentPageItem.instance.cs" />
+    <Compile Include="ImageWisely\CustomItems\ImageWisely\Base\MetadataItem.base.cs" />
+    <Compile Include="ImageWisely\CustomItems\ImageWisely\Base\MetadataItem.instance.cs" />
+    <Compile Include="ImageWisely\CustomItems\ImageWisely\Base\OrganizationItem.base.cs" />
+    <Compile Include="ImageWisely\CustomItems\ImageWisely\Base\OrganizationItem.instance.cs" />
+    <Compile Include="ImageWisely\CustomItems\ImageWisely\Base\PageSettingsItem.base.cs" />
+    <Compile Include="ImageWisely\CustomItems\ImageWisely\Base\PageSettingsItem.instance.cs" />
+    <Compile Include="ImageWisely\CustomItems\ImageWisely\Components\AdItem.base.cs" />
+    <Compile Include="ImageWisely\CustomItems\ImageWisely\Components\ContributorItem.base.cs" />
+    <Compile Include="ImageWisely\CustomItems\ImageWisely\Components\ContributorItem.instance.cs" />
+    <Compile Include="ImageWisely\CustomItems\ImageWisely\Components\FooterLogoItem.base.cs" />
+    <Compile Include="ImageWisely\CustomItems\ImageWisely\Components\ListHeaderItem.base.cs" />
+    <Compile Include="ImageWisely\CustomItems\ImageWisely\Components\ListHeaderItem.instance.cs" />
+    <Compile Include="ImageWisely\CustomItems\ImageWisely\Components\ListItem.base.cs" />
+    <Compile Include="ImageWisely\CustomItems\ImageWisely\Components\ListItem.instance.cs" />
+    <Compile Include="ImageWisely\CustomItems\ImageWisely\Components\ListItem.interface.cs" />
+    <Compile Include="ImageWisely\CustomItems\ImageWisely\Components\ParticipatingOrganizationItem.base.cs" />
+    <Compile Include="ImageWisely\CustomItems\ImageWisely\Components\ParticipatingOrganizationItem.instance.cs" />
+    <Compile Include="ImageWisely\CustomItems\ImageWisely\Components\ParticipatingOrganizationItem.interface.cs" />
+    <Compile Include="ImageWisely\CustomItems\ImageWisely\Components\PatientImagingHistoryCardItem.base.cs" />
+    <Compile Include="ImageWisely\CustomItems\ImageWisely\Components\PatientImagingHistoryCardItem.instance.cs" />
+    <Compile Include="ImageWisely\CustomItems\ImageWisely\Components\PledgeRoleItem.base.cs" />
+    <Compile Include="ImageWisely\CustomItems\ImageWisely\Components\PledgesMadeItem.base.cs" />
+    <Compile Include="ImageWisely\CustomItems\ImageWisely\Components\PledgeTypeItem.base.cs" />
+    <Compile Include="ImageWisely\CustomItems\ImageWisely\Components\PledgeTypeItem.instance.cs" />
+    <Compile Include="ImageWisely\CustomItems\ImageWisely\Components\RightColumnModuleItem.base.cs" />
+    <Compile Include="ImageWisely\CustomItems\ImageWisely\Components\RightColumnModuleItem.instance.cs" />
+    <Compile Include="ImageWisely\CustomItems\ImageWisely\Components\RotatingCarouselImageItem.base.cs" />
+    <Compile Include="ImageWisely\CustomItems\ImageWisely\Components\SiteConfigurationItem.base.cs" />
+    <Compile Include="ImageWisely\CustomItems\ImageWisely\Components\SiteConfigurationItem.instance.cs" />
+    <Compile Include="ImageWisely\CustomItems\ImageWisely\Components\SocialMediaLinkItem.base.cs" />
+    <Compile Include="ImageWisely\CustomItems\ImageWisely\Components\SocialMediaLinkItem.instance.cs" />
+    <Compile Include="ImageWisely\CustomItems\ImageWisely\Components\TaskForceMemberItem.base.cs" />
+    <Compile Include="ImageWisely\CustomItems\ImageWisely\Components\TaskForceMemberItem.instance.cs" />
+    <Compile Include="ImageWisely\CustomItems\ImageWisely\Components\VendorItem.base.cs" />
+    <Compile Include="ImageWisely\CustomItems\ImageWisely\Components\VendorItem.instance.cs" />
+    <Compile Include="ImageWisely\CustomItems\ImageWisely\Components\VendorItem.interface.cs" />
+    <Compile Include="ImageWisely\CustomItems\ImageWisely\Folders\LogoFolderItem.base.cs" />
+    <Compile Include="ImageWisely\CustomItems\ImageWisely\Folders\TaskForceFolderItem.base.cs" />
+    <Compile Include="ImageWisely\CustomItems\ImageWisely\Folders\TaskForceFolderItem.instance.cs" />
+    <Compile Include="ImageWisely\CustomItems\ImageWisely\Pages\AboutUsItem.base.cs" />
+    <Compile Include="ImageWisely\CustomItems\ImageWisely\Pages\AboutUsItem.instance.cs" />
+    <Compile Include="ImageWisely\CustomItems\ImageWisely\Pages\AboutUsItem.interface.cs" />
+    <Compile Include="ImageWisely\CustomItems\ImageWisely\Pages\EquipmentResourcesItem.base.cs" />
+    <Compile Include="ImageWisely\CustomItems\ImageWisely\Pages\EquipmentResourcesItem.instance.cs" />
+    <Compile Include="ImageWisely\CustomItems\ImageWisely\Pages\EquipmentResourcesItem.interface.cs" />
+    <Compile Include="ImageWisely\CustomItems\ImageWisely\Pages\GeneralPageItem.base.cs" />
+    <Compile Include="ImageWisely\CustomItems\ImageWisely\Pages\GeneralPageItem.instance.cs" />
+    <Compile Include="ImageWisely\CustomItems\ImageWisely\Pages\GeneralPageItem.interface.cs" />
+    <Compile Include="ImageWisely\CustomItems\ImageWisely\Pages\HomePageItem.base.cs" />
+    <Compile Include="ImageWisely\CustomItems\ImageWisely\Pages\HomePageItem.instance.cs" />
+    <Compile Include="ImageWisely\CustomItems\ImageWisely\Pages\HomePageItem.interface.cs" />
+    <Compile Include="ImageWisely\CustomItems\ImageWisely\Pages\HonorRollItem.base.cs" />
+    <Compile Include="ImageWisely\CustomItems\ImageWisely\Pages\HonorRollItem.interface.cs" />
+    <Compile Include="ImageWisely\CustomItems\ImageWisely\Pages\ImagingProfessionalsListPageItem.base.cs" />
+    <Compile Include="ImageWisely\CustomItems\ImageWisely\Pages\ImagingProfessionalsListPageItem.instance.cs" />
+    <Compile Include="ImageWisely\CustomItems\ImageWisely\Pages\ImagingProfessionalsListPageItem.interface.cs" />
+    <Compile Include="ImageWisely\CustomItems\ImageWisely\Pages\KeyContributorsItem.base.cs" />
+    <Compile Include="ImageWisely\CustomItems\ImageWisely\Pages\KeyContributorsItem.instance.cs" />
+    <Compile Include="ImageWisely\CustomItems\ImageWisely\Pages\KeyContributorsItem.interface.cs" />
+    <Compile Include="ImageWisely\CustomItems\ImageWisely\Pages\ListPageItem.base.cs" />
+    <Compile Include="ImageWisely\CustomItems\ImageWisely\Pages\ListPageItem.instance.cs" />
+    <Compile Include="ImageWisely\CustomItems\ImageWisely\Pages\ListPageItem.interface.cs" />
+    <Compile Include="ImageWisely\CustomItems\ImageWisely\Pages\PledgeFormItem.base.cs" />
+    <Compile Include="ImageWisely\CustomItems\ImageWisely\Pages\PledgeFormItem.instance.cs" />
+    <Compile Include="ImageWisely\CustomItems\ImageWisely\Pages\PledgeFormItem.interface.cs" />
+    <Compile Include="ImageWisely\CustomItems\ImageWisely\Pages\PledgeLandingItem.base.cs" />
+    <Compile Include="ImageWisely\CustomItems\ImageWisely\Pages\PledgeLandingItem.instance.cs" />
+    <Compile Include="ImageWisely\CustomItems\ImageWisely\Pages\PledgeLandingItem.interface.cs" />
+    <Compile Include="ImageWisely\CustomItems\ImageWisely\Pages\SearchResultsItem.base.cs" />
+    <Compile Include="ImageWisely\CustomItems\ImageWisely\Pages\SearchResultsItem.interface.cs" />
+    <Compile Include="ImageWisely\CustomItems\ImageWisely\Pages\TaskForcePageItem.base.cs" />
+    <Compile Include="ImageWisely\CustomItems\ImageWisely\Pages\TaskForcePageItem.instance.cs" />
+    <Compile Include="ImageWisely\CustomItems\ImageWisely\Pages\TaskForcePageItem.interface.cs" />
+    <Compile Include="ImageWisely\Data\AssociationPledgeSubmission.cs" />
+    <Compile Include="ImageWisely\Data\DataHelper.cs" />
+    <Compile Include="ImageWisely\Data\FacilityPledgeSubmission.cs" />
+    <Compile Include="ImageWisely\Data\InternationalFacility.cs" />
+    <Compile Include="ImageWisely\Data\Pledge.cs" />
+    <Compile Include="ImageWisely\Data\PledgeCount.cs" />
+    <Compile Include="ImageWisely\Data\PledgeSubmission.cs" />
+    <Compile Include="ImageWisely\Data\PledgeSubmissions.designer.cs" />
+    <Compile Include="ImageWisely\Data\ReferringPractitionerPledgeSubmission.cs" />
+    <Compile Include="ImageWisely\Handlers\ExportPledgeSubmissionsHandler.cs" />
+    <Compile Include="ImageWisely\Interfaces\IPledge.cs" />
+    <Compile Include="ImageWisely\Interfaces\IPledgeFormControl.cs" />
+    <Compile Include="ImageWisely\Utils\NavUtil.cs" />
+    <Compile Include="InsertRules\WidgetInsertRule.cs" />
+    <Compile Include="MSL\CustomItems\MammographySavesLives\ContentItems\AnnualReminderItem.base.cs" />
+    <Compile Include="MSL\CustomItems\MammographySavesLives\ContentItems\DownloadVideoItem.base.cs" />
+    <Compile Include="MSL\CustomItems\MammographySavesLives\ContentItems\FactItem.base.cs" />
+    <Compile Include="MSL\CustomItems\MammographySavesLives\ContentItems\FooterLogosItem.base.cs" />
+    <Compile Include="MSL\CustomItems\MammographySavesLives\ContentItems\IconTypeItem.base.cs" />
+    <Compile Include="MSL\CustomItems\MammographySavesLives\ContentItems\NavigationMenuItem.base.cs" />
+    <Compile Include="MSL\CustomItems\MammographySavesLives\ContentItems\NewsReleaseItem.base.cs" />
+    <Compile Include="MSL\CustomItems\MammographySavesLives\ContentItems\NewsReleasessItem.base.cs" />
+    <Compile Include="MSL\CustomItems\MammographySavesLives\ContentItems\OrganizationsItem.base.cs" />
+    <Compile Include="MSL\CustomItems\MammographySavesLives\ContentItems\PhysiciansMediaItem.base.cs" />
+    <Compile Include="MSL\CustomItems\MammographySavesLives\ContentItems\PromosItem.base.cs" />
+    <Compile Include="MSL\CustomItems\MammographySavesLives\ContentItems\ResearchItem.base.cs" />
+    <Compile Include="MSL\CustomItems\MammographySavesLives\ContentItems\SlideItem.base.cs" />
+    <Compile Include="MSL\CustomItems\MammographySavesLives\ContentItems\SocialMediaLinkItem.base.cs" />
+    <Compile Include="MSL\CustomItems\MammographySavesLives\ContentItems\StoriesItem.base.cs" />
+    <Compile Include="MSL\CustomItems\MammographySavesLives\ContentItems\VideoItem.base.cs" />
+    <Compile Include="MSL\CustomItems\MammographySavesLives\ContentItems\VideoPromoItem.base.cs" />
+    <Compile Include="MSL\CustomItems\MammographySavesLives\DataTemplates\_categorizableItem.base.cs" />
+    <Compile Include="MSL\CustomItems\MammographySavesLives\DataTemplates\_contentItem.base.cs" />
+    <Compile Include="MSL\CustomItems\MammographySavesLives\DataTemplates\_hasContentImageItem.base.cs" />
+    <Compile Include="MSL\CustomItems\MammographySavesLives\DataTemplates\_hasDateItem.base.cs" />
+    <Compile Include="MSL\CustomItems\MammographySavesLives\DataTemplates\_hasDownloadsModuleItem.base.cs" />
+    <Compile Include="MSL\CustomItems\MammographySavesLives\DataTemplates\_hasFactsItem.base.cs" />
+    <Compile Include="MSL\CustomItems\MammographySavesLives\DataTemplates\_hasFeaturedVideosItem.base.cs" />
+    <Compile Include="MSL\CustomItems\MammographySavesLives\DataTemplates\_hasMarketingMaterialsModuleItem.base.cs" />
+    <Compile Include="MSL\CustomItems\MammographySavesLives\DataTemplates\_hasNewsReleasesItem.base.cs" />
+    <Compile Include="MSL\CustomItems\MammographySavesLives\DataTemplates\_hasPhysiciansModuleItem.base.cs" />
+    <Compile Include="MSL\CustomItems\MammographySavesLives\DataTemplates\_hasPodcastsItem.base.cs" />
+    <Compile Include="MSL\CustomItems\MammographySavesLives\DataTemplates\_hasPromotionsItem.base.cs" />
+    <Compile Include="MSL\CustomItems\MammographySavesLives\DataTemplates\_hasResearchItemsItem.base.cs" />
+    <Compile Include="MSL\CustomItems\MammographySavesLives\DataTemplates\_hasSlidesItem.base.cs" />
+    <Compile Include="MSL\CustomItems\MammographySavesLives\DataTemplates\_hasTvAdsItem.base.cs" />
+    <Compile Include="MSL\CustomItems\MammographySavesLives\DataTemplates\_identityItem.base.cs" />
+    <Compile Include="MSL\CustomItems\MammographySavesLives\DataTemplates\_menuItem.base.cs" />
+    <Compile Include="MSL\CustomItems\MammographySavesLives\DataTemplates\_navigableItem.base.cs" />
+    <Compile Include="MSL\CustomItems\MammographySavesLives\DataTemplates\_promoItem.base.cs" />
+    <Compile Include="MSL\CustomItems\MammographySavesLives\DataTemplates\_thumbnailItem.base.cs" />
+    <Compile Include="MSL\CustomItems\MammographySavesLives\PageTemplates\DetailPageItem.base.cs" />
+    <Compile Include="MSL\CustomItems\MammographySavesLives\PageTemplates\DetailPagewithMiniStoriesItem.base.cs" />
+    <Compile Include="MSL\CustomItems\MammographySavesLives\PageTemplates\FactsPageItem.base.cs" />
+    <Compile Include="MSL\CustomItems\MammographySavesLives\PageTemplates\HomepageItem.base.cs" />
+    <Compile Include="MSL\CustomItems\MammographySavesLives\PageTemplates\LandingPageItem.base.cs" />
+    <Compile Include="MSL\CustomItems\MammographySavesLives\PageTemplates\MediaPageItem.base.cs" />
+    <Compile Include="MSL\CustomItems\MammographySavesLives\PageTemplates\ResearchPageItem.base.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RADPAC\CustomItems\Radpac\Base\ContentPageItem.base.cs" />
+    <Compile Include="RADPAC\CustomItems\Radpac\Base\ContentPageItem.instance.cs" />
+    <Compile Include="RADPAC\CustomItems\Radpac\Base\MetadataItem.base.cs" />
+    <Compile Include="RADPAC\CustomItems\Radpac\Base\MetadataItem.instance.cs" />
+    <Compile Include="RADPAC\CustomItems\Radpac\Base\OrganizationItem.base.cs" />
+    <Compile Include="RADPAC\CustomItems\Radpac\Base\OrganizationItem.instance.cs" />
+    <Compile Include="RADPAC\CustomItems\Radpac\Base\PageSettingsItem.base.cs" />
+    <Compile Include="RADPAC\CustomItems\Radpac\Base\PageSettingsItem.instance.cs" />
+    <Compile Include="RADPAC\CustomItems\Radpac\Components\AdItem.base.cs" />
+    <Compile Include="RADPAC\CustomItems\Radpac\Components\ContributorItem.base.cs" />
+    <Compile Include="RADPAC\CustomItems\Radpac\Components\ContributorItem.instance.cs" />
+    <Compile Include="RADPAC\CustomItems\Radpac\Components\ListHeaderItem.base.cs" />
+    <Compile Include="RADPAC\CustomItems\Radpac\Components\ListHeaderItem.instance.cs" />
+    <Compile Include="RADPAC\CustomItems\Radpac\Components\ListItem.base.cs" />
+    <Compile Include="RADPAC\CustomItems\Radpac\Components\ListItem.instance.cs" />
+    <Compile Include="RADPAC\CustomItems\Radpac\Components\ListItem.interface.cs" />
+    <Compile Include="RADPAC\CustomItems\Radpac\Components\ParticipatingOrganizationItem.base.cs" />
+    <Compile Include="RADPAC\CustomItems\Radpac\Components\ParticipatingOrganizationItem.instance.cs" />
+    <Compile Include="RADPAC\CustomItems\Radpac\Components\ParticipatingOrganizationItem.interface.cs" />
+    <Compile Include="RADPAC\CustomItems\Radpac\Components\PatientImagingHistoryCardItem.base.cs" />
+    <Compile Include="RADPAC\CustomItems\Radpac\Components\PatientImagingHistoryCardItem.instance.cs" />
+    <Compile Include="RADPAC\CustomItems\Radpac\Components\PledgesMadeItem.base.cs" />
+    <Compile Include="RADPAC\CustomItems\Radpac\Components\PledgeTypeItem.base.cs" />
+    <Compile Include="RADPAC\CustomItems\Radpac\Components\PledgeTypeItem.instance.cs" />
+    <Compile Include="RADPAC\CustomItems\Radpac\Components\RightColumnModuleItem.base.cs" />
+    <Compile Include="RADPAC\CustomItems\Radpac\Components\RightColumnModuleItem.instance.cs" />
+    <Compile Include="RADPAC\CustomItems\Radpac\Components\SiteConfigurationItem.base.cs" />
+    <Compile Include="RADPAC\CustomItems\Radpac\Components\SiteConfigurationItem.instance.cs" />
+    <Compile Include="RADPAC\CustomItems\Radpac\Components\SocialMediaLinkItem.base.cs" />
+    <Compile Include="RADPAC\CustomItems\Radpac\Components\SocialMediaLinkItem.instance.cs" />
+    <Compile Include="RADPAC\CustomItems\Radpac\Components\TaskForceMemberItem.base.cs" />
+    <Compile Include="RADPAC\CustomItems\Radpac\Components\TaskForceMemberItem.instance.cs" />
+    <Compile Include="RADPAC\CustomItems\Radpac\Components\VendorItem.base.cs" />
+    <Compile Include="RADPAC\CustomItems\Radpac\Components\VendorItem.instance.cs" />
+    <Compile Include="RADPAC\CustomItems\Radpac\Components\VendorItem.interface.cs" />
+    <Compile Include="RADPAC\CustomItems\Radpac\Folders\TaskForceFolderItem.base.cs" />
+    <Compile Include="RADPAC\CustomItems\Radpac\Folders\TaskForceFolderItem.instance.cs" />
+    <Compile Include="RADPAC\CustomItems\Radpac\Pages\AboutUsItem.base.cs" />
+    <Compile Include="RADPAC\CustomItems\Radpac\Pages\AboutUsItem.instance.cs" />
+    <Compile Include="RADPAC\CustomItems\Radpac\Pages\AboutUsItem.interface.cs" />
+    <Compile Include="RADPAC\CustomItems\Radpac\Pages\EquipmentResourcesItem.base.cs" />
+    <Compile Include="RADPAC\CustomItems\Radpac\Pages\EquipmentResourcesItem.instance.cs" />
+    <Compile Include="RADPAC\CustomItems\Radpac\Pages\EquipmentResourcesItem.interface.cs" />
+    <Compile Include="RADPAC\CustomItems\Radpac\Pages\GeneralPageItem.base.cs" />
+    <Compile Include="RADPAC\CustomItems\Radpac\Pages\GeneralPageItem.instance.cs" />
+    <Compile Include="RADPAC\CustomItems\Radpac\Pages\GeneralPageItem.interface.cs" />
+    <Compile Include="RADPAC\CustomItems\Radpac\Pages\HomePageItem.base.cs" />
+    <Compile Include="RADPAC\CustomItems\Radpac\Pages\HomePageItem.instance.cs" />
+    <Compile Include="RADPAC\CustomItems\Radpac\Pages\HomePageItem.interface.cs" />
+    <Compile Include="RADPAC\CustomItems\Radpac\Pages\ImagingProfessionalsListPageItem.base.cs" />
+    <Compile Include="RADPAC\CustomItems\Radpac\Pages\ImagingProfessionalsListPageItem.instance.cs" />
+    <Compile Include="RADPAC\CustomItems\Radpac\Pages\ImagingProfessionalsListPageItem.interface.cs" />
+    <Compile Include="RADPAC\CustomItems\Radpac\Pages\KeyContributorsItem.base.cs" />
+    <Compile Include="RADPAC\CustomItems\Radpac\Pages\KeyContributorsItem.instance.cs" />
+    <Compile Include="RADPAC\CustomItems\Radpac\Pages\KeyContributorsItem.interface.cs" />
+    <Compile Include="RADPAC\CustomItems\Radpac\Pages\ListPageItem.base.cs" />
+    <Compile Include="RADPAC\CustomItems\Radpac\Pages\ListPageItem.instance.cs" />
+    <Compile Include="RADPAC\CustomItems\Radpac\Pages\ListPageItem.interface.cs" />
+    <Compile Include="RADPAC\CustomItems\Radpac\Pages\PledgeFormItem.base.cs" />
+    <Compile Include="RADPAC\CustomItems\Radpac\Pages\PledgeFormItem.instance.cs" />
+    <Compile Include="RADPAC\CustomItems\Radpac\Pages\PledgeFormItem.interface.cs" />
+    <Compile Include="RADPAC\CustomItems\Radpac\Pages\PledgeLandingItem.base.cs" />
+    <Compile Include="RADPAC\CustomItems\Radpac\Pages\PledgeLandingItem.instance.cs" />
+    <Compile Include="RADPAC\CustomItems\Radpac\Pages\PledgeLandingItem.interface.cs" />
+    <Compile Include="RADPAC\CustomItems\Radpac\Pages\SearchResultsItem.base.cs" />
+    <Compile Include="RADPAC\CustomItems\Radpac\Pages\SearchResultsItem.interface.cs" />
+    <Compile Include="RADPAC\CustomItems\Radpac\Pages\TaskForcePageItem.base.cs" />
+    <Compile Include="RADPAC\CustomItems\Radpac\Pages\TaskForcePageItem.instance.cs" />
+    <Compile Include="RADPAC\CustomItems\Radpac\Pages\TaskForcePageItem.interface.cs" />
+    <Compile Include="RADPAC\Data\AssociationPledgeSubmission.cs" />
+    <Compile Include="RADPAC\Data\DataHelper.cs" />
+    <Compile Include="RADPAC\Data\FacilityPledgeSubmission.cs" />
+    <Compile Include="RADPAC\Data\Pledge.cs" />
+    <Compile Include="RADPAC\Data\PledgeSubmission.cs" />
+    <Compile Include="RADPAC\Data\PledgeSubmissions.designer.cs" />
+    <Compile Include="RADPAC\Data\PledgeSubmissions1.designer.cs" />
+    <Compile Include="RADPAC\Data\ReferringPractitionerPledgeSubmission.cs" />
+    <Compile Include="RADPAC\Handlers\ExportPledgeSubmissionsHandler.cs" />
+    <Compile Include="RADPAC\Interfaces\IPledge.cs" />
+    <Compile Include="RADPAC\Interfaces\IPledgeFormControl.cs" />
+    <Compile Include="RADPAC\Utils\NavUtil.cs" />
+    <Compile Include="Reference\BaseTemplateReference.cs" />
+    <Compile Include="Reference\DatabaseReference.cs" />
+    <Compile Include="Reference\ItemReference.cs" />
+    <Compile Include="Reference\Wrappers\ItemReferenceObject.cs" />
+    <Compile Include="RLI\CustomItems\RLI\Base\BackgroundBaseItem.base.cs" />
+    <Compile Include="RLI\CustomItems\RLI\Base\EventBaseItem.base.cs" />
+    <Compile Include="RLI\CustomItems\RLI\Base\EventBaseItem.interface.cs" />
+    <Compile Include="RLI\CustomItems\RLI\Base\InternalPageBaseItem.base.cs" />
+    <Compile Include="RLI\CustomItems\RLI\Base\NavigationBaseItem.base.cs" />
+    <Compile Include="RLI\CustomItems\RLI\Base\NavigationBaseItem.interface.cs" />
+    <Compile Include="RLI\CustomItems\RLI\Base\PageBaseItem.base.cs" />
+    <Compile Include="RLI\CustomItems\RLI\Base\PageBaseItem.interface.cs" />
+    <Compile Include="RLI\CustomItems\RLI\Base\WidgetBaseItem.base.cs" />
+    <Compile Include="RLI\CustomItems\RLI\Base\WidgetBaseItem.interface.cs" />
+    <Compile Include="RLI\CustomItems\RLI\Base\WidgetPageBaseItem.base.cs" />
+    <Compile Include="RLI\CustomItems\RLI\Base\WidgetPageBaseItem.interface.cs" />
+    <Compile Include="RLI\CustomItems\RLI\Components\ButtonItem.base.cs" />
+    <Compile Include="RLI\CustomItems\RLI\Components\HomeFeaturedItem.base.cs" />
+    <Compile Include="RLI\CustomItems\RLI\Components\HomepageSliderImageItem.base.cs" />
+    <Compile Include="RLI\CustomItems\RLI\Components\LinkItem.base.cs" />
+    <Compile Include="RLI\CustomItems\RLI\Folders\EventTagFolderItem.base.cs" />
+    <Compile Include="RLI\CustomItems\RLI\Folders\EventTagFolderItem.static.cs" />
+    <Compile Include="RLI\CustomItems\RLI\Pages\CalendarItem.base.cs" />
+    <Compile Include="RLI\CustomItems\RLI\Pages\CalendarItem.interface.cs" />
+    <Compile Include="RLI\CustomItems\RLI\Pages\ErrorPageItem.base.cs" />
+    <Compile Include="RLI\CustomItems\RLI\Pages\ErrorPageItem.interface.cs" />
+    <Compile Include="RLI\CustomItems\RLI\Pages\EventListPageItem.base.cs" />
+    <Compile Include="RLI\CustomItems\RLI\Pages\EventListPageItem.instance.cs" />
+    <Compile Include="RLI\CustomItems\RLI\Pages\EventListPageItem.interface.cs" />
+    <Compile Include="RLI\CustomItems\RLI\Pages\ExternalMeetingItem.base.cs" />
+    <Compile Include="RLI\CustomItems\RLI\Pages\ExternalMeetingItem.interface.cs" />
+    <Compile Include="RLI\CustomItems\RLI\Pages\InternalPageItem.base.cs" />
+    <Compile Include="RLI\CustomItems\RLI\Pages\InternalPageItem.interface.cs" />
+    <Compile Include="RLI\CustomItems\RLI\Pages\LiveMeetingItem.base.cs" />
+    <Compile Include="RLI\CustomItems\RLI\Pages\LiveMeetingItem.interface.cs" />
+    <Compile Include="RLI\CustomItems\RLI\Pages\OnlineCourseItem.base.cs" />
+    <Compile Include="RLI\CustomItems\RLI\Pages\OnlineCourseItem.interface.cs" />
+    <Compile Include="RLI\CustomItems\RLI\Pages\PressReleaseItem.base.cs" />
+    <Compile Include="RLI\CustomItems\RLI\Pages\PressReleaseItem.interface.cs" />
+    <Compile Include="RLI\CustomItems\RLI\Pages\PressReleaseListingItem.base.cs" />
+    <Compile Include="RLI\CustomItems\RLI\Pages\PressReleaseListingItem.interface.cs" />
+    <Compile Include="RLI\CustomItems\RLI\Pages\RLIHomepageItem.base.cs" />
+    <Compile Include="RLI\CustomItems\RLI\Pages\RLIHomepageItem.instance.cs" />
+    <Compile Include="RLI\CustomItems\RLI\Pages\RLIHomepageItem.interface.cs" />
+    <Compile Include="RLI\CustomItems\RLI\Pages\RLIWFMFormPageItem.base.cs" />
+    <Compile Include="RLI\CustomItems\RLI\Pages\SearchResultsPageItem.base.cs" />
+    <Compile Include="RLI\CustomItems\RLI\Pages\SearchResultsPageItem.interface.cs" />
+    <Compile Include="RLI\CustomItems\RLI\Pages\WebinarItem.base.cs" />
+    <Compile Include="RLI\CustomItems\RLI\Pages\WebinarItem.interface.cs" />
+    <Compile Include="RLI\CustomItems\RLI\RLISiteSettingsItem.base.cs" />
+    <Compile Include="RLI\CustomItems\RLI\Taxonomy\DayOfWeekItem.base.cs" />
+    <Compile Include="RLI\CustomItems\RLI\Taxonomy\EventLevelItem.base.cs" />
+    <Compile Include="RLI\CustomItems\RLI\Taxonomy\EventTagItem.base.cs" />
+    <Compile Include="RLI\CustomItems\RLI\Taxonomy\EventTypeItem.base.cs" />
+    <Compile Include="RLI\CustomItems\RLI\Taxonomy\TimezoneItem.base.cs" />
+    <Compile Include="RLI\CustomItems\RLI\Widgets\CallToActionItem.base.cs" />
+    <Compile Include="RLI\CustomItems\RLI\Widgets\CallToActionItem.instance.cs" />
+    <Compile Include="RLI\CustomItems\RLI\Widgets\CallToActionItem.interface.cs" />
+    <Compile Include="RLI\CustomItems\RLI\Widgets\FeaturedItem.base.cs" />
+    <Compile Include="RLI\CustomItems\RLI\Widgets\FeaturedItem.instance.cs" />
+    <Compile Include="RLI\CustomItems\RLI\Widgets\LatestNewsItem.base.cs" />
+    <Compile Include="RLI\CustomItems\RLI\Widgets\UpcomingEventsItem.base.cs" />
+    <Compile Include="RLI\Events\RLICalendarDay.cs" />
+    <Compile Include="RLI\Events\RLIEvent.cs" />
+    <Compile Include="RLI\Events\RLIEventArgs.cs" />
+    <Compile Include="RLI\Interfaces\IFeatured.cs" />
+    <Compile Include="RLI\Interfaces\IRLIEvent.cs" />
+    <Compile Include="RLI\Interfaces\IRLINav.cs" />
+    <Compile Include="RLI\RLILucene\Indices\Events\RLIEventsIndex.cs" />
+    <Compile Include="RLI\RLILucene\Indices\PressReleases\RLIPressReleasesIndex.cs" />
+    <Compile Include="RLI\RLILucene\RLISiteIndexes.cs" />
+    <Compile Include="RLI\Search\ResultItem.cs" />
+    <Compile Include="RLI\Search\SearchArgs.cs" />
+    <Compile Include="Utils\ACRSettings.cs" />
+    <Compile Include="Utils\BasePagination.cs" />
+    <Compile Include="Utils\CustomItemUtils.cs" />
+    <Compile Include="Utils\DateTimeUtils.cs" />
+    <Compile Include="Utils\HtmlAgilityExtender.cs" />
+    <Compile Include="Utils\HttpUtils.cs" />
+    <Compile Include="Utils\ImageUtil.cs" />
+    <Compile Include="Utils\LinkUtils.cs" />
+    <Compile Include="Utils\ListUtil.cs" />
+    <Compile Include="Utils\MetaUtils.cs" />
+    <Compile Include="Utils\PaginationNumber.cs" />
+    <Compile Include="Utils\PublishUtil.cs" />
+    <Compile Include="Utils\SearchUtil.cs" />
+    <Compile Include="Utils\SitecoreUtils.cs" />
+    <Compile Include="Utils\SiteUtils.cs" />
+    <Compile Include="Utils\StringUtil.cs" />
+    <Compile Include="Utils\TitleFactory.cs" />
+    <Compile Include="Utils\UtilStripHtml.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="CustomSitecore\Handlers\Saving\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config">
+      <SubType>Designer</SubType>
+    </None>
+    <EntityDeploy Include="DataContext\AcrAfw.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>AcrAfw.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <None Include="DataContext\AcrAfw.edmx.diagram">
+      <DependentUpon>AcrAfw.edmx</DependentUpon>
+    </None>
+    <EntityDeploy Include="Ideas\Data\IdeasDataModel.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>IdeasDataModel.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <None Include="Ideas\Data\IdeasDataModel.edmx.diagram">
+      <DependentUpon>IdeasDataModel.edmx</DependentUpon>
+    </None>
+    <None Include="ImageWisely\Data\PledgeSubmissions.dbml" />
+    <None Include="packages.config">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <None Include="RADPAC\Data\PledgeSubmissions.dbml" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="ImageWisely\Data\PledgeSubmissions.dbml.layout" />
+    <EmbeddedResource Include="RADPAC\Data\PledgeSubmissions.dbml.layout" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\Foundation\Sitecore.Foundation.SitecoreExtensions\Sitecore.Foundation.SitecoreExtensions.csproj">
+      <Project>{cced6439-69d1-4a89-a2ea-95012b1351e9}</Project>
+      <Name>Sitecore.Foundation.SitecoreExtensions</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ACR.Lucene\ACR.Lucene.csproj">
+      <Project>{6531f918-6979-458f-a09c-e1c5e2edd484}</Project>
+      <Name>ACR.Lucene</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Connected Services\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="DataContext\AcrAfw.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>AcrAfw.Context.cs</LastGenOutput>
+      <DependentUpon>AcrAfw.edmx</DependentUpon>
+    </Content>
+    <Content Include="DataContext\AcrAfw.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>AcrAfw.edmx</DependentUpon>
+      <LastGenOutput>AcrAfw.cs</LastGenOutput>
+    </Content>
+    <Content Include="Ideas\Data\IdeasDataModel.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>IdeasDataModel.edmx</DependentUpon>
+      <LastGenOutput>IdeasDataModel.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="Ideas\Data\IdeasDataModel.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>IdeasDataModel.edmx</DependentUpon>
+      <LastGenOutput>IdeasDataModel.cs</LastGenOutput>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\..\packages\MSBuild.Microsoft.VisualStudio.Web.targets.14.0.0.3\build\MSBuild.Microsoft.VisualStudio.Web.targets.props')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\MSBuild.Microsoft.VisualStudio.Web.targets.14.0.0.3\build\MSBuild.Microsoft.VisualStudio.Web.targets.props'))" />
+    <Error Condition="!Exists('..\..\packages\Microsoft.Net.Compilers.2.4.0\build\Microsoft.Net.Compilers.props')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\Microsoft.Net.Compilers.2.4.0\build\Microsoft.Net.Compilers.props'))" />
+    <Error Condition="!Exists('..\..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.8\build\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.8\build\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props'))" />
+  </Target>
+</Project>

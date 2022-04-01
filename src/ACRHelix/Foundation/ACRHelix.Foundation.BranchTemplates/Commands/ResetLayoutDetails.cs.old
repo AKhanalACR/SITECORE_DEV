@@ -1,0 +1,62 @@
+﻿using System.Collections.Specialized;
+using Sitecore;
+using Sitecore.Data.Items;
+using Sitecore.Diagnostics;
+using Sitecore.Shell.Applications.Dialogs.ResetLayout;
+using Sitecore.Shell.Framework.Commands;
+using Sitecore.Text;
+using Sitecore.Web;
+using Sitecore.Web.UI.Sheer;
+
+namespace ACRHelix.Foundation.BranchTemplates.Commands
+{
+  public class ResetLayoutDetails : Command
+  {
+    // Methods
+    public override void Execute(CommandContext context)
+    {
+      Assert.ArgumentNotNull(context, "context");
+      if (context.Items.Length == 1)
+      {
+        NameValueCollection parameters = new NameValueCollection();
+        parameters["items"] = base.SerializeItems(context.Items);
+        Context.ClientPage.Start(this, "Run", parameters);
+      }
+    }
+
+    public override CommandState QueryState(CommandContext context)
+    {
+      Assert.ArgumentNotNull(context, "context");
+      if ((WebUtil.GetQueryString("mode") != "preview") && ((context.Items.Length <= 0) || ((context.Items[0].Access.CanWrite() && context.Items[0].Access.CanWriteLanguage()) && !context.Items[0].Appearance.ReadOnly)))
+      {
+        return base.QueryState(context);
+      }
+      return CommandState.Disabled;
+    }
+
+    protected virtual void Run(ClientPipelineArgs args)
+    {
+      Assert.ArgumentNotNull(args, "args");
+      Item item = base.DeserializeItems(args.Parameters["items"])[0];
+      if (SheerResponse.CheckModified())
+      {
+        if (args.IsPostBack)
+        {
+          if (!string.IsNullOrEmpty(args.Result) && (args.Result != "undefined"))
+          {
+            ResetLayoutDialogResult result = ResetLayoutDialogResult.Parse(args.Result);
+            ItemUtil.ResetLayoutDetails(item, result.ResetShared, result.ResetFinal);
+
+
+          }
+        }
+        else
+        {
+          SheerResponse.ShowModalDialog(new UrlString(UIUtil.GetUri("control:ResetLayout")).ToString(), "370px", "220px", string.Empty, true);
+          args.WaitForPostBack();
+        }
+      }
+    }
+  }
+}
+}

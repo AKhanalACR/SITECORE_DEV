@@ -1,0 +1,27 @@
+﻿@inherits Glass.Mapper.Sc.Web.Mvc.GlassView<ACRHelix.Feature.ImageWiselyContent.ViewModels.BlockWithTextCalloutViewModel>
+
+<section class="white-bg btmBlock padding-0">
+    <div class="container">
+        <div class="section-inner-padding30">
+            <div class="ibox margin-t-20 margin-b-0 padding-b-20">
+                <div class="ibox-content darkblue-bg">
+                    <h2 class="margin-0 pull-left f-sbold">@Editable(Model, x => x.RichText)</h2>
+                    <div class="text-center-mobile">
+                        @if (Model.Link != null)
+                        {
+                            using (BeginRenderLink(Model, x => x.Link, new { @class = "btn btn-primary pull-right slick-arrow" }, isEditable: true))
+                            {
+                                @Model.Link.Text @*<i class="fa fa-angle-double-right"></i>*@
+                            }
+                        }
+                        
+                    </div>
+                    <div class="clearfix"></div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+

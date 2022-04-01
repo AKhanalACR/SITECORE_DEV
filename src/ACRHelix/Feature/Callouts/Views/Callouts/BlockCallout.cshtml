@@ -1,0 +1,33 @@
+﻿@using Glass.Mapper.Sc.Web.Mvc;
+@using System.Collections.Specialized;
+@inherits Glass.Mapper.Sc.Web.Mvc.GlassView<ACRHelix.Feature.Callouts.ViewModels.CalloutsItemViewModel>
+
+
+<div class="content section-spacing">
+    <div class="row indented-section">
+
+        <!--start: Module -->
+        <div class="register-callout text-center xl-text-left">
+            <div class="register-callout-header">
+                <h3>
+                    @using (BeginRenderLink(x => x.Link, new NameValueCollection() { { "class", "inline-block no-target-icon" } }, isEditable: false))
+                    {
+                    @Editable(x => x.Title)
+                    <span class="acr-icon icon-db-chevron2-right text-acr-light-blue"></span>
+                    }
+                </h3>
+            </div>
+            <div class="register-callout-text">
+                <div class="xl-col-7">
+                    <div class="text-content sm-pad-bottom-1em">
+                        @Editable(x => x.Teaser)
+                    </div>
+                </div>
+                <div class="xl-col-5 xl-text-right">
+                    @RenderLink(x => x.Link, new NameValueCollection() { { "class", "button" } }, isEditable: true)
+                </div>
+            </div>
+        </div>
+        <!--end: Module -->
+        </div>
+    </div>

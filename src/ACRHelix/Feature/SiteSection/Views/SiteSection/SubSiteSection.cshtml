@@ -1,0 +1,7 @@
+﻿@using Glass.Mapper.Sc.Web.Mvc;
+@inherits Glass.Mapper.Sc.Web.Mvc.GlassView<ACRHelix.Feature.SiteSection.ViewModels.SubSiteSectionViewModel>
+
+<div class="content section-spacing">
+    <h1>@Html.Glass().Editable(x => x.Heading)</h1>
+    <p>@Html.Glass().Editable(x => x.Description)</p>
+</div>

@@ -1,0 +1,15 @@
+﻿@inherits Glass.Mapper.Sc.Web.Mvc.GlassView<ACRHelix.Feature.Bulletin.Models.Infographic>
+
+@if (Model != null)
+{
+    <figure class="bulletin-article-callout">
+        <div class="bulletin-article-callout-inner">
+            <a href="@Model.InfographicUrl" class="block figure-lightbox-btn wide-6 md-wide-6 xl-wide-12">
+                @RenderImage(x => x.Thumbnail, isEditable: true)
+            </a>
+            <figcaption class="col-6 md-col-6 xl-col-12">
+                @Editable(x => x.Text)
+            </figcaption>
+        </div>
+    </figure>
+}

@@ -1,0 +1,109 @@
+﻿@inherits Glass.Mapper.Sc.Web.Mvc.GlassView<ACRHelix.Feature.ImageWiselyContent.ViewModels.NewsTilesViewModel>
+
+<section class="padding-0 white-bg">
+    <div class="container">
+        <nav class="navbar navbar-default navbar-list-filter white-bg">
+            <div class="menu style-2">
+                <ul class="menu right">
+                    <li class="dis-hidden right-arrow"><a href="#" class="grid-view" onclick="changeView(this)">List view</a></li>
+                    <li>
+                        <a class="arrow" onclick="ShowhideMegamenu(this,event)"><span>Filter by</span> Topic</a>
+
+                        <!-- Mega Menu / Start -->
+                        <div id="lnkTopic" class="mega-menu">
+                            <div class="up-arrow"></div>
+                            <div class="col-sm-6">                              
+                                <ol>
+                                    <li><a href="#" class="active">All News</a></li>
+                                    @{ 
+                                        int count = Model.NewsTopicList != null ? Model.NewsTopicList.Count() : 0; 
+                                    }
+
+                                    @foreach (var topic in Model.NewsTopicList.Take(count/2))
+                                    {
+                                        <li><a href="#">@topic.Name</a></li>
+                                    }
+                                </ol>
+                            </div>
+                            <div class="col-sm-6">
+                                <ol>
+                                    @foreach (var topic in Model.NewsTopicList.Skip(count / 2))
+                                    {
+                                        <li><a href="#">@topic.Name</a></li>
+                                    }
+                                </ol>
+                            </div>
+                        </div>
+                        <!-- Mega Menu / End -->
+                    </li>
+                    <li>
+                        <a class="arrow" onclick="ShowhideMegamenu(this,event)"><span>Filter by</span> Year</a>
+
+                        <!-- Mega Menu / Start -->
+                        <div id="lnkYear" class="mega-menu">
+                            <div class="up-arrow"></div>
+                            <div class="col-sm-12">
+                                <ol>
+                                    <li><a href="#" class="active">All Years</a></li>
+                                    @foreach (var year in Model.NewsYearList)
+                                    {
+                                        <li><a href="#">@year</a></li>
+                                    }
+                                </ol>
+                            </div>
+
+                        </div>
+                        <!-- Mega Menu / End -->
+                    </li>
+                </ul>
+                <div class="clearfix"></div>
+            </div>
+        </nav>
+    </div>
+</section>
+<section class="padding-b-0">
+    <div class="container">
+        <div class="section-inner-padding30">
+            <div class="row news-section">
+                <h1 id="fltTitle" class="margin-t-0 text-brown">All News</h1>
+                @Html.Hidden("PgSize", Model.ItemsToDisplay)
+                <div class="news-section-list"> 
+                    @*@{ var pageIndex = 0;}*@
+                    @foreach (var itemList in Model.NewsArticlePages)
+                    {
+                        foreach (var item in itemList)
+                        {
+                            <div class="col-xs-12 col-sm-6 col-md-4 col-lg-4" data-news-type="@item.Topic" data-news-year="@item.Date.Year">  @*page-index="@pageIndex"*@
+                                <div class="ibox">
+                                    <div class="ibox-title">
+                                        <h5>@item.Topic</h5>
+                                    </div>
+                                    <div class="ibox-content">
+                                        <div class="small m-b-xs">
+                                            <span class="text-muted">@item.Date.ToString("MMMM dd, yyyy")</span>
+                                        </div>
+                                        <a href="@item.Url" class="btn-link">
+                                            <h2 class="slick-arrow">
+                                                @item.Title @*<i class="fa fa-angle-double-right"></i>*@
+                                            </h2>
+                                        </a>
+                                        <p class="news-p"><a class="text-info slick-arrow" href="@item.Url">Continue reading @*<i class="fa fa-angle-double-right"></i>*@</a></p>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                        //++pageIndex;
+                    }
+                    <div class="clearfix"></div>
+                </div>
+                    
+                <div class="no-item-found" hidden="hidden">
+                    <p>No Item Found.</p>
+                </div>
+                <div class="text-center float-e-margins">
+                    <a class="btn btn-primary btn-sm" role="button" id="loadMore">Load more</a>
+                </div>
+                </div>
+        </div>
+    </div>
+</section>

@@ -1,0 +1,65 @@
+﻿@using PagedList.Mvc;
+@inherits Glass.Mapper.Sc.Web.Mvc.GlassView<ACRHelix.Feature.News.ViewModels.NewsArchiveViewModel>
+
+<div class="content section-spacing">
+    <header class="header-underrule">
+        <div class="space-between">
+            <h2 class="inline-block">@Editable(x => x.Title)</h2>
+            @*<div class="inline-block filter-select-holder tagFilter">
+                @using (Html.BeginForm())
+                {
+                    @Html.ListBoxFor(x => x.TagFilter, Model.TagList, new { multiple = "" })
+                }
+            </div>*@
+        </div>
+    </header>
+    <div class="indented-section section-spacing">
+        @foreach (var newsArticle in Model.NewsArticles)
+        {
+            using (BeginEditFrame(newsArticle, "News Article", x => x.Title, x => x.SubTitle, x => x.Type, x => x.Date))
+            {
+                <div class="article-item">
+                    <h3 class="font-inherit-body"><a href="@newsArticle.Url">@Editable(newsArticle, x => x.Title)</a></h3>
+                    <div class="text-content pad-bottom-1em">
+                        @Editable(newsArticle, x => x.SubTitle)
+                    </div>
+                    <a href="@newsArticle.Url" class="read-more-link">Read More </a>
+                    <br>
+                    <br>
+                </div>
+            }
+        }
+        @if (Model.PageCount > 1)
+        {
+            <div class="search-pager-nav">
+                @{ 
+                    var nameValues = HttpUtility.ParseQueryString(Request.QueryString.ToString());
+                    string url = Request.Url.AbsolutePath;
+                }
+            
+                @if (Model.PageNumber > 1)
+                {
+                    nameValues.Set("page", (Model.PageNumber - 1).ToString());
+                    <a href="@(url + "?" + nameValues)"><div class="slick-prev slick-arrow" aria-label="Previous" role="button"></div></a>
+                }
+                <form action="@(url)" method="get">
+                    <div class="slick-custom-pager" role="toolbar">
+                        @foreach (var value in nameValues)
+                        {
+                            if (value as string != "page")
+                            {
+                                <input type="hidden" name="@value" class="slide-num-input" data-prev-val="1" value="@nameValues[value as string]">
+                            }
+                        }
+                        <input name="page" class="slide-num-input" data-prev-val="1" value="@Model.PageNumber" type="text">of @Model.PageCount
+                    </div>
+                </form>
+                @if (Model.PageNumber < Model.PageCount)
+                {
+                    nameValues.Set("page", (Model.PageNumber + 1).ToString());
+                    <a href="@(url + "?" + nameValues)"><div class="slick-next slick-arrow" aria-label="Next" role="button"></div></a>
+                }            
+            </div>
+        }
+    </div>
+</div>

@@ -1,0 +1,13 @@
+﻿@inherits Glass.Mapper.Sc.Web.Mvc.GlassView<ACRHelix.Feature.Identity.ViewModels.IWCopyrightViewModel>
+
+@*<p>
+    <strong>@Editable(x => x.CopyrightItem.Copyright) @RenderLink(x => x.CopyrightItem.Link, isEditable: true)</strong><br>
+    @Editable(x => x.CopyrightItem.AdditionalText)    
+</p>*@
+
+<p>
+    <strong>
+        @Editable(x => x.CopyrightItem.Copyright)<br>
+        @Editable(x => x.CopyrightItem.AdditionalText)
+    </strong>
+</p>

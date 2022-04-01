@@ -1,0 +1,69 @@
+﻿@using Sitecore.Foundation.Assets.Services
+@using Sitecore.Foundation.Assets.Models
+@using System.Web.Mvc
+@using Sitecore.Mvc.Analytics.Extensions
+@using Sitecore.Mvc
+
+@inherits WebViewPage
+@{Layout = null;}
+<!DOCTYPE html>
+<html class="no-js">
+<head>
+    @{
+        var currentItem = Sitecore.Context.Item;
+        var title = currentItem != null ? currentItem["PageTitle"]!="$name"? currentItem["PageTitle"]:"Ideas" : "Ideas";
+    }
+    <title>@title</title>
+    <!-- Default Meta Tags -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    @Html.Sitecore().VisitorIdentification()
+    @if (!Sitecore.Context.PageMode.IsExperienceEditor)
+    {
+    @Html.Sitecore().Placeholder("html-head")
+    }
+
+    @RenderAssetsService.Current.RenderVersionedCSS(ScriptLocation.Head)
+    @RenderAssetsService.Current.RenderRawAssetsHead(ScriptLocation.Head)
+    @RenderAssetsService.Current.RenderStyles(ScriptLocation.Head)
+
+    @if (Sitecore.Context.PageMode.IsExperienceEditor)
+    {
+        <!-- Fix Header only in Experience Editor Mode -->
+    <style type="text/css">
+        .navbar-wrapper {
+            top: 0px;
+            margin-top: 140px;
+            position: relative;
+        }
+    </style>
+    
+        <!-- End Fix Header -->
+    }
+    <!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-TX3T6GS');</script>
+<!-- End Google Tag Manager -->
+</head>
+<body id="main-body" class="@(Sitecore.Context.PageMode.IsNormal ? "" : (Sitecore.Context.PageMode.IsExperienceEditor ? "pagemode-edit" : "pagemode-preview"))">
+<!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-TX3T6GS"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->
+    @Html.Sitecore().Placeholder("header")
+    <div class="page-wrapper">
+        @Html.Sitecore().Placeholder("ideas-content")
+    </div>
+    @Html.Sitecore().Placeholder("footer")
+
+    <a class="bt-top btn btn-circle btn-md btn-inverse" href="#top"><i class="fa fa-angle-up" aria-hidden="true"></i></a>
+
+    @RenderAssetsService.Current.RenderVersionedJs(ScriptLocation.Body)
+    @RenderAssetsService.Current.RenderScript(ScriptLocation.Body)
+</body>
+</html>

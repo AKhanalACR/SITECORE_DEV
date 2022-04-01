@@ -1,0 +1,47 @@
+﻿@inherits Glass.Mapper.Sc.Web.Mvc.GlassView<ACRHelix.Feature.Chapters.ViewModels.CommitteeMemberList>
+
+
+<div class="content section-spacing">
+    <h2>Roster</h2>
+    <hr />
+    @if (Model.Members != null)
+    {
+        int i = 0;
+        <div class="has-acr-table hide-left-btn">
+            <div class="in-view-wrapper">
+
+                <table>
+                    <thead>
+                    </thead>
+                    <tbody>
+
+                        @foreach (var member in Model.Members)
+                        {
+                            if (i == 0 || i % 3 == 0)
+                            {
+                                @:<tr>
+                                    }
+                            <td>@member.Name</td>
+
+                            if ((i % 3 == 2 && i > 0) || i == Model.Members.Count - 1)
+                            {
+                                if (i == Model.Members.Count - 1)
+                                {
+                                    int mod = 3 - (Model.Members.Count % 3);
+                                    for (int j = 0; j < mod; j++)
+                                    {
+                                        @*<td></td>*@
+                                    }
+                                }
+                                @:</tr>
+                                    }
+                            i++;
+                        }
+                    </tbody>
+                </table>
+
+            </div>
+
+        </div>
+    }
+</div>

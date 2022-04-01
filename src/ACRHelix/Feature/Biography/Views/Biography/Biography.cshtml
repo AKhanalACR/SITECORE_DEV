@@ -1,0 +1,51 @@
+﻿@inherits Glass.Mapper.Sc.Web.Mvc.GlassView<ACRHelix.Feature.Biography.ViewModels.BiographyViewModel>
+
+<div class="content section-spacing">
+    <h1>@Editable(x => x.Title)</h1>
+    <!--start: Module -->
+    <div class="content section-spacing">
+        <div class="row">
+            <figure class="xl-col-5th md-col-3 bio-portrait sm-pad-bottom-1em">
+                @*<img src="http://placehold.it/360x360" alt="Image Size: 360 x 360px">*@
+                @Editable(x => x.BioImage)
+            </figure>
+            <div class="xl-col-4-5ths md-col-9">
+                <h2 class="inline-block underline-orange">@Editable(x => x.SubTitle)</h2>
+                <div class="text-size-1p125 pad-bottom-1em">
+                    @Editable(x => x.OtherPositions)
+                </div>
+            </div>
+        </div>
+
+        <div class="text-content">
+            <ul class="block-li directory-contact">
+                @if (Model.Phone != "" || Sitecore.Context.PageMode.IsExperienceEditorEditing)
+                {
+                    <li>
+                        <a href="tel:@Model.Phone">
+                            <span class="acr-icon icon-phone text-orange"></span> @Editable(Model, x => x.Phone)
+                        </a>
+                    </li>
+                }
+                @if (Model.Email != "" || Sitecore.Context.PageMode.IsExperienceEditorEditing)
+                {
+                    <li>
+                        <a href="mailto: @Model.Email">
+                            <span class="acr-icon icon-email text-orange"></span> @Editable(Model, x => x.Email)
+                        </a>
+                    </li>
+                }
+            </ul>
+        </div>
+        </div>
+
+	<section class="content section-spacing">
+		<header class="header-underrule">
+			<h2>Overview</h2>
+		</header>
+		<div class="indented-section">
+			@Editable(x => x.RichText)
+		</div>
+	</section>
+	<!--end: Module -->
+</div>

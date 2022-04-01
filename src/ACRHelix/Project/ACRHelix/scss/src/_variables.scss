@@ -1,0 +1,160 @@
+//
+// Variables
+// -----------
+@import "functions/class-list";
+
+
+//
+// Environment
+//
+$PRODUCTION: true;
+
+//need to make things relative for staging
+$font-path: "..";
+
+@if $PRODUCTION{
+	$font-path: "";
+}
+
+//$img-path: '/images/';
+//$font-path: '/fonts/';
+
+// @if $env == 'production' {
+// 	$img-path: $cssUpFolder+'images/';
+// 	$font-path: $cssUpFolder+'fonts/';
+// }
+
+
+//FONTS USED
+//<link href="https://fonts.googleapis.com/css?family=Raleway:300|Roboto:400,400i,700,700i" rel="stylesheet">
+$font-freight-sans: "freight-sans-pro", "Source Sans Pro", Arial, Helvetica, sans-serif;
+$font-source-sans:  "Source Sans Pro", Arial, Helvetica, sans-serif;
+
+$font-body: $font-source-sans;
+$font-headings: $font-freight-sans;
+//
+// colors
+//
+$white:             #fff;
+$black:             #000;
+$color-graphite:    #333;
+$color-orange:      #fbaf3f;
+$color-dk-orange:   #fc8e00;
+$color-lt-green:    #6baa5c;
+$color-green:       #4b9839;
+$color-dark-green:  #368124;
+
+$color-sky:         #2bb3d9;
+$color-royal:       #0c5286;
+$color-navy:        #0A4163;//#173d55;
+$color-navy-2:      #062d4a;
+
+$color-gray:        #ccc;
+$color-lt-gray:     #f7f7f7;
+$color-lt-gray-2:   #e5e5e5;
+
+$color-font-body: $color-graphite;
+$color-headings:  $color-navy-2;
+
+
+
+//
+// Typography
+//
+// $font-sizes: (.625, .75, .875, 1, 1.125, 1.25, 1.375, 1.5, 1.625, 1.75, 1.875,2);
+
+
+
+//
+// Buttons
+//
+// $btns-collection: (
+// 	'.button',
+// 	'a.button',
+// 	'.has-button a',
+// 	'input[type=submit]',
+// 	'button',
+// 	'.mktoForm button'
+// );
+//
+// $site-btns: #{class-list($btns-collection)};
+// // button fontface
+// $btn-font: 'brandon-regular-wf',Helvetica ,Arial , sans-serif;
+// $btn-font-size: 14px;
+// $btn-font-weight: 'normal';
+// // button color
+// $btn-color: $white;
+// $btn-hover-color: $white;
+// $btn-focus-color: $white;
+// // button background
+// $btn-bg-color: $color-light-green;
+// $btn-bg-hover-color: $color-lime-green;
+// // button etc
+// $btn-text-decoration: none;
+// $btn-text-hover-decoration: none;
+// $btn-border-radius: .3rem;
+// $btn-padding: .65rem 1.95rem;
+// $btn-border: 1.5px solid $color-light-green;
+//--------------*
+
+//
+// Form Inputs
+//
+// $input-border: 1px solid $color-reg-gray;
+// $input-border-focus: 1px solid mix($black,$color-reg-gray,20);
+// $input-min-height: 40px;
+// $input-bdr-radius: 4px;
+// $input-placeholder-color: tint($color-gray,75);
+//--------------*
+
+//
+// Navigation
+//
+$desktop-width: 1025px;
+$mobile-width: ($desktop-width - 1);
+$min-device-width: 768px;
+$max-device-width: ($desktop-width - 1);
+//--------------*
+
+//
+// Grid system
+//
+$content-width: 1280px;
+$col-gutter: 12px;
+// $spacings: (0,4,8,12,16,20,24,28,32);
+$breakpoints: (xs,sm, md, lg, xl);
+$additional-col-pad: 1.875rem;
+//
+// Media queries breakpoints
+//
+$screen-xs: 385px;
+$screen-sm: 481px;
+$screen-md: 641px;
+$screen-lg: 769px;
+$screen-xl: 961px;
+
+$screen-xs-max: ($screen-xs - 1);
+$screen-sm-max: ($screen-sm - 1);
+$screen-md-max: ($screen-md - 1);
+$screen-lg-max: ($screen-lg - 1);
+$screen-xl-max: ($screen-xl - 1);
+//--------------*
+
+
+
+//
+//layout spacings
+//
+$v-space-m: 1.2rem;
+$v-space-d: $v-space-m;
+$v-space-half-m: ($v-space-m / 2);
+$v-space-half-d: $v-space-half-m;
+
+$horiz-col-space: 2.5rem;
+$horiz-col-space-half: $col-gutter;
+$v-space-top-line-height-adjust: 0;
+
+$v-space-margin-s0: ($col-gutter / 2);
+$v-space-margin-s1: $col-gutter;
+$v-space-margin-s2: ($col-gutter * 1.5);
+$v-space-margin-s3: #{$col-gutter * 2};

@@ -1,0 +1,15 @@
+﻿
+@inherits Glass.Mapper.Sc.Web.Mvc.GlassView<ACRHelix.Project.Decamp.ViewModels.LinkMenuViewModel>
+
+@{
+    int itemCount = Model.MenuItems.Count();
+}
+
+@if (itemCount > 0)
+{
+    foreach (var item in Model.MenuItems)
+    {
+        <li class="nav-item"><a class="nav-link" href="@item.Link.Url">@item.Title </a></li>
+        <span class="d-flex align-items-center">|</span>
+    }  
+}

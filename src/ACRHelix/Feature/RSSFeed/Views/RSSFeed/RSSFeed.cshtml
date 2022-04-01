@@ -1,0 +1,17 @@
+﻿@inherits Glass.Mapper.Sc.Web.Mvc.GlassView<ACRHelix.Feature.RSSFeed.ViewModels.RSSFeedViewModel>
+@using Sitecore.Foundation.SitecoreExtensions.Extensions
+
+<div class="social-feed">
+	<header class="rss-feed-title">
+    	<h2>Voice of Radiology Blog</h2>
+	</header>
+	<div class="social-feed-inner">
+    @foreach (var item in Model.feedItems)
+    {
+		<div class="rss-feed-item">
+			<h3><a target="_blank" href="@item.link">@item.title</a></h3>
+			<p>@Html.Raw(item.content)</p>
+		</div>
+    }
+	</div>
+</div>

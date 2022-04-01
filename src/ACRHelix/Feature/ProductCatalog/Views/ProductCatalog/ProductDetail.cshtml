@@ -1,0 +1,114 @@
+﻿@inherits Glass.Mapper.Sc.Web.Mvc.GlassView<ACR.Foundation.Personify.Models.Products.ProductStubItem>
+@using ACR.Foundation.Personify.Helpers;
+
+<div class="content section-spacing">
+    <h1>@Model.LongName</h1>
+    <h2>@Model.Name</h2>
+
+    <p>@Html.Raw(Model.ShortDescription_Raw)</p>
+    <p>@Html.Raw(Model.LongDescription_Raw)</p>
+
+    <p>@Model.ProductArea.GetDisplayName()</p>
+    <p>@Model.ProductClass.GetDisplayName()</p>
+
+    <p>@Model.ProductType.GetDisplayName()</p>
+    <p>@Model.Keywords</p>
+
+    <ul>
+        @foreach (var topic in Model.RelatedTopics)
+        {
+            <li>@topic.GetDisplayName()</li>
+        }
+    </ul>
+
+
+    <ul>
+        @foreach (var topic in Model.DeliveryMethods)
+        {
+            <li>@topic.GetDisplayName()</li>
+        }
+    </ul>
+
+    <ul>
+        @foreach (var topic in Model.ABRCodes)
+        {
+            <li>@topic.GetDisplayName()</li>
+        }
+    </ul>
+
+
+    <ul>
+        @foreach (var topic in Model.RelatedInterests)
+        {
+            <li>@topic.GetDisplayName()</li>
+        }
+    </ul>
+
+    <ul>
+        @foreach (var topic in Model.RelatedModalities)
+        {
+            <li>@topic.GetDisplayName()</li>
+        }
+    </ul>
+
+    <ul>
+        @foreach (var topic in Model.RelatedSubspecialites)
+        {
+            <li>@topic.GetDisplayName()</li>
+        }
+    </ul>
+
+
+    <ul>
+        @foreach (var topic in Model.CreditTypes)
+        {
+            <li>@topic.GetDisplayName()</li>
+        }
+    </ul>
+
+    <ul>
+        <li>@Model.MeetingFacilityName</li>
+        <li>@Model.MeetingLabelName</li>
+        <li>@Model.MeetingCity</li>
+        <li>@Model.MeetingState</li>
+        <li>@Model.CMECredit</li>
+        <li>@Model.MeetingRegistrationFormUrl</li>
+    </ul>
+
+    <ul>
+        @foreach (var topic in Model.Credit)
+        {
+            <li>@topic.GetRLISubCode()</li>
+        }
+    </ul>
+    <ul>
+        @foreach (var topic in Model.Domain)
+        {
+            <li>@topic.GetRLISubCode()</li>
+        }
+    </ul>
+    <ul>
+        @foreach (var topic in Model.Delivery)
+        {
+            <li>@topic.GetRLISubCode()</li>
+        }
+    </ul>
+    <ul>
+        @foreach (var topic in Model.Interests)
+        {
+            <li>@topic.GetRLISubCode()</li>
+        }
+    </ul>
+    <ul>
+        @foreach (var topic in Model.Level)
+        {
+            <li>@topic.GetRLISubCode()</li>
+        }
+    </ul>
+    <ul>
+        @foreach (var topic in Model.Topic)
+        {
+            <li>@topic.GetRLISubCode()</li>
+        }
+    </ul>
+</div>

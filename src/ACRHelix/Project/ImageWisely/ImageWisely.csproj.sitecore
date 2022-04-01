@@ -1,0 +1,11 @@
+﻿<Project>
+  <PropertyGroup>
+    <Site Server="helix.acr.org" UserName="sitecore\ageteneh" IsRemoteSitecore="True" />
+  </PropertyGroup>
+  <File Include="Views\ImageWisely\Sublayouts\Header.cshtml" FileTimestamp="0" FileSize="0" ServerTimestamp="0" ServerFileSize="0">
+    <Item DatabaseName="master">{7A561774-36A0-40C5-A93A-709EA9D0F417}</Item>
+  </File>
+  <File Include="Views\ImageWisely\Sublayouts\Footer.cshtml" FileTimestamp="0" FileSize="0" ServerTimestamp="0" ServerFileSize="0">
+    <Item DatabaseName="master">{B0031851-FD3F-4793-BE11-2AAA328A73F2}</Item>
+  </File>
+</Project>

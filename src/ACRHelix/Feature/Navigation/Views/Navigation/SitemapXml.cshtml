@@ -1,0 +1,12 @@
+﻿@inherits Glass.Mapper.Sc.Web.Mvc.GlassView<ACRHelix.Feature.Navigation.ViewModels.SitemapList>
+
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+    @foreach (var url in Model.SiteMapItems)
+    {
+    <url>
+        <loc>@url.Url</loc>
+        <lastmod>@url.Updated.ToString("yyyy-MM-dd")</lastmod>
+    </url>
+    }
+</urlset> 

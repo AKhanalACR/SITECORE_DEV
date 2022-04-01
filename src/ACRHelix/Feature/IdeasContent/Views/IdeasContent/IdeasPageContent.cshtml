@@ -1,0 +1,54 @@
+﻿@inherits Glass.Mapper.Sc.Web.Mvc.GlassView<ACRHelix.Feature.IdeasContent.ViewModels.IdeasPageContentViewModel>
+@using Sitecore.Foundation.SitecoreExtensions.Extensions
+@{
+    var rowClass = string.Empty;
+    if (!IsInEditingMode)
+    {
+        rowClass = "row";
+    }
+}
+
+<div class="@rowClass">
+    <div class="col-12 T3 subheader-purple">
+        @*ideas-study T3*@
+        @if (Model.Title != "" || Sitecore.Context.PageMode.IsExperienceEditorEditing)
+        {
+            <h1 class="blue mt-5">@Editable(x => x.Title)</h1>
+        }
+
+        @if (Model.SubTitle != "" || Sitecore.Context.PageMode.IsExperienceEditorEditing || (Model.Tags.Count() > 0 && Model.Tags.FirstOrDefault().Phrase == "News"))
+        {
+            <dl class="mb-0">
+                @if (Model.SubTitle != "" || Sitecore.Context.PageMode.IsExperienceEditorEditing)
+                {
+                    <h4>@Editable(x => x.SubTitle)</h4>
+                }
+
+                @if (Model.Tags.Count() > 0 && Model.Tags.FirstOrDefault().Phrase == "News")
+                {
+                    <dt class="date">
+                        @Model.Tags.FirstOrDefault().Phrase
+                        @if (Model.Date != DateTime.MinValue)
+                        {
+                            @(" | ");
+                            @Model.Date.ToString("MMMM dd, yyyy")
+                        }
+
+                        @if (Model.EnableShareLink)
+                        {
+                            @(" | ");
+                            @Html.Sitecore().Placeholder("IdeasShareLinks")
+                        }
+                    </dt>
+                }
+            </dl>
+        }
+        @if (Model.RichText != "" || Sitecore.Context.PageMode.IsExperienceEditorEditing)
+        {
+
+            @Editable(x => x.RichText)
+
+        }
+    </div>
+    @Html.Sitecore().Placeholder("news-contact")
+</div>

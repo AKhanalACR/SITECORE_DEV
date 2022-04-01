@@ -1,0 +1,11 @@
+﻿
+@inherits Glass.Mapper.Sc.Web.Mvc.GlassView<ACRHelix.Project.RadPAC.ViewModels.LogoViewModel>
+
+<h1 class="logo col-md-4 col-4">
+    @*<a href="index.html"><img id="logo" src="~/images/radpac/RADPAC_Logo.png" alt="Logo"></a>*@
+    @using (BeginRenderLink(x => x.Link, isEditable: true))
+    {
+        @RenderImage(m => m.Image, new { @id = "logo" }, isEditable: true)
+    }
+    
+</h1>

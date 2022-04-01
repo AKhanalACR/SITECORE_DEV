@@ -1,0 +1,119 @@
+﻿@using Sitecore.Data.Items
+@using Sitecore.Mvc
+@using Sitecore.Links
+@using System.Web
+@using Sitecore.Feature.XBlog.Areas.XBlog.Items.Blog
+@using Sitecore.Feature.XBlog.Areas.XBlog.General
+@using Sitecore.Feature.XBlog.Areas.XBlog.Search
+@using Sitecore.Resources.Media
+@model Sitecore.Feature.XBlog.Areas.XBlog.Models.Blog.BlogPostModel
+@{
+    if (Model == null)
+    {
+        return;
+    }
+    Item dataSourceItem = Sitecore.Context.Database.GetItem(Sitecore.Mvc.Presentation.RenderingContext.Current.Rendering.DataSource);
+    BlogSettings settingsItem = DataManager.GetBlogSettingsItem(dataSourceItem != null ? dataSourceItem : Sitecore.Context.Item);
+    UrlOptions option = new UrlOptions();
+    option.AlwaysIncludeServerUrl = true;
+    string currentUrl = HttpUtility.UrlEncode(LinkManager.GetItemUrl(Model.BlogPost.InnerItem, option));
+    string title = HttpUtility.UrlEncode(Model.BlogPost.Title);
+}
+<section class="article-wrap">
+    <div class="container">
+        <!-- hero -->
+        <div class="hero">
+            <div class="row banner">
+                <div class="col-md-10 offset-md-1 text-center">
+                    <h1>
+                        @Html.Sitecore().Field(BlogPost.BlogPostTitleFieldId, Model.BlogPost.InnerItem)
+                    </h1>
+                    <div class="article-media-wrap">
+					
+                        @if (Model.BlogPost.VideoLink != null && !String.IsNullOrEmpty(Model.BlogPost.VideoLink.Url))
+                        {
+							
+                            <div>
+                                <iframe width="1120" height="630" data-cookieconsent="marketing" data-src="@Model.BlogPost.VideoLink.Url" frameborder="0" allowfullscreen></iframe>
+                                <div class="cookieconsent-optout-marketing cookiebot-video" style="display: none;">Please <a href="javascript:Cookiebot.renew()">accept marketing cookies</a> to watch this video.</div>
+                            </div>
+                        }
+                        else
+                        {
+                            string blogFeaturedImage = "";
+                            if (Model.BlogPost.FeaturedImage != null && Model.BlogPost.FeaturedImage.MediaItem != null)
+                            {
+                                blogFeaturedImage = String.Format("<img  src=\"{0}\"/>", MediaManager.GetMediaUrl(Model.BlogPost.FeaturedImage.MediaItem));
+                            }
+                            @Html.Raw(blogFeaturedImage)
+                        }
+                        <a class="bulletin-hero-jump-button green-link" href="#BlogContentSection" style="bottom:-1rem;"><div class="acr-icon icon-arrow-skinny-right"></div></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="social-action-wrap">
+            @Html.Sitecore().Placeholder("plogpostsubscribe")
+            @Html.Sitecore().Placeholder("sharelink")
+        </div>
+        <div class="row">
+            <div class="col">
+                <article>
+                    <div class="article-info" style="max-width:150px;">
+                        @{
+                            string authorImage = "";
+                            if (Model.BlogPost.Authors != null && Model.BlogPost.Authors.Count() != 0)
+                            {
+                                foreach (var author in Model.BlogPost.Authors)
+                                {
+                                    if (author.ProfileImage.MediaItem != null)
+                                    {
+                                        authorImage = String.Format("<img src=\"{0}\" style='height:150px;' v-if='window.width > window.mobileWidth' />", MediaManager.GetMediaUrl(author.ProfileImage.MediaItem));
+                                        @Html.Raw(authorImage)
+                                    }
+                                }
+                          }
+                        }
+                        <div class="author-info">
+                            <div>
+                                <span>By </span>
+                                <span>@Html.Raw(AuthorManager.GetAuthorLink(Model.BlogPost))</span>
+                            </div>
+                            <div>
+                                <span>on </span>
+                                <span class="article-date">@Model.BlogPost.PublishDate.DateTime.ToString(settingsItem.BlogPostDateFormat)</span>
+                            </div>
+                        </div>
+                        <div class="categories">
+                            <div>
+                                <h2>categories</h2>
+                            </div>
+                            <div>
+                                <ul>
+                                    @Html.Raw(CategoryManager.GetCategoryListFormat(Model.BlogPost))
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="article-content-sec" id="BlogContentSection" style="max-width:800px;">
+                        <p>
+                            @Html.Sitecore().Field(BlogPost.BlogPostBodyFieldId, Model.BlogPost.InnerItem)
+                        </p>
+                        @*Comment Section Starts*@
+                        <div class="commentParentId" id="@Sitecore.Context.Item.ID"></div>
+                        <div id="CommentAlert" class="alert" style=" display: none;">
+                            <span id="commentclosebtn" class="closebtn" onclick="this.parentElement.style.display='none';">×</span>Your comment has been successfully submitted for approval and will be published after approval.
+                        </div>
+                        <div class="comments-wrap">
+                            @Html.Sitecore().Placeholder("VORCommentsForm")
+                            @Html.Sitecore().Placeholder("VORComments")
+                        </div>
+                        @*Comment Section Ends*@
+                    </div>
+                </article>
+            </div>
+        </div>
+    </div>
+</section>
+<script type="text/javascript" src="/js/jquery-2.2.0.min.js"></script>
+<script type="text/javascript" src="/js/VOR/Comment.js"></script>

@@ -1,0 +1,287 @@
+@using Coveo.UI
+@using Coveo.UI.Extensions
+@using Sitecore.Mvc
+@model Coveo.UI.Mvc.Models.SearchModel
+
+@* When customizing this component, ensure to use "Coveo.$" instead of the regular jQuery "$" to
+avoid any conflicts with Sitecore's Page Editor/Experience Editor.  *@
+
+@Html.Coveo().RenderErrorSummary(Model.ValidateModel())
+@if (Model.IsConfigured)
+{
+	<script type="text/javascript" src="/Coveo/js/cultures/@(Model.CultureName).js"></script>
+	<script type="text/javascript">
+	Coveo.$(function () {
+		var coveoOptions = @(Html.Raw(Model.GetJavaScriptInitializationOptions()));
+
+		var date = coveoDateString();
+		
+		var xTemplate = buildFilterExpression('@Model.ToCoveoFieldName("templatename")', 'Product Stub','==');
+		var xDisplay = buildFilterExpression('@Model.ToCoveoFieldName("Web Display")', '1', '==');
+		var xWebStart = buildDateFilterExpression('@Model.ToCoveoFieldName("productstubwebdisplaystartdate")', date, '<=');
+		var xWebEnd = buildDateFilterExpression('@Model.ToCoveoFieldName("productstubwebdisplayenddate")', date, '>=');
+		var xMeetingStart = buildDateFilterExpression('@Model.ToCoveoFieldName("productstubmeetingstartdate")', date, '>=');
+		var xClass = '(NOT (@Model.ToCoveoFieldName("productstubproductclass")=="Do not Display"))'; //product class =do not display
+		var xListPrice = '(NOT (@Model.ToCoveoFieldName("List Price")==""""))';
+		var xDeliveryMethod = '(NOT (@Model.ToCoveoFieldName("productstubdeliverymethod")==""""))';
+		var xType = '(@Model.ToCoveoFieldName("productstubproducttype")=="Meeting")'
+		var filterExpression = '(' + xTemplate + xDisplay + xWebStart + xListPrice + xWebEnd + xMeetingStart + xClass + '(' + xDeliveryMethod + ' OR ' + xType + '))';
+		coveoOptions.filterExpression = filterExpression;
+		CoveoForSitecore.componentsOptions = coveoOptions;
+	});
+	</script>
+
+	@*
+	<!-- This hidden input is required to bypass a problem with the Enter key causing a form submission
+	if the form has exactly one text field, or only when there is a submit button present. -->
+	<input type="text" class="fix-submit" />
+	*@
+
+	<div id="@Model.Id"
+	class="CoveoSearchInterface @(Model.DisplayRecommendations ? "coveo-recommendations" : "")"
+	data-enable-history="@Model.EnableHistory"
+	data-results-per-page="@Model.ResultsPerPage"
+	data-excerpt-length="@Model.ExcerptLength"
+	data-hide-until-first-query="@Model.HideUntilFirstQuery"
+	data-auto-trigger-query="@Model.AutoTriggerQuery"
+	data-enable-automatic-responsive-mode="false"
+	data-design="new"
+	@if (Model.IsMaximumAgeSet)
+	{
+		@:data-maximum-age="@Model.MaximumAge"
+	}
+	@if (Model.UseCustomQueryPipeline)
+	{
+		@:data-pipeline="@Model.QueryPipelineName"
+		}>
+
+		@if (Model.AnalyticsEnabled)
+		{
+			<div class="CoveoAnalytics"
+			data-anonymous="@Model.IsUserAnonymous"
+			data-endpoint="@Model.GetAnalyticsEndpoint()"
+			data-search-hub="@Model.GetAnalyticsCurrentPageName()"
+			data-send-to-cloud="@Model.CoveoAnalyticsEnabled">
+			</div>
+		}
+
+		<div class="coveo-main-section">
+
+
+
+		<div id="filter-dropdown-area">
+		<div id="filter-dropdown">
+		<div class="content row flex-container">
+		@if (Model.DisplayFacets)
+		{
+
+			if (Model.DisplayLogo)
+			{
+				<div class="coveo-logo"></div>
+			}
+			@Html.Sitecore().Placeholder("coveo-facets-mvc")
+
+		}
+		</div>
+		<div class="content text-center pad-top-1em">
+		<input type="submit" value="Filter">
+		</div>
+		</div>
+		</div>
+
+		<div class="content section-spacing" style="display:none">
+
+
+		<div class="coveo-distance-resources-section">
+		@Html.Sitecore().Placeholder("coveo-distance-resources-mvc")
+		</div>
+		@if (Model.DisplayTabs)
+		{
+			<div class="coveo-tab-section coveo-placeholder-fix">
+			@Html.Sitecore().Placeholder("coveo-tabs-mvc")
+			</div>
+		}
+
+		<div class="coveo-results-column">
+		@if (Model.DisplaySearchbox)
+		{
+			<div class="CoveoSearchbox CoveoSearchPageSearchbox"
+			data-auto-focus="@Model.AutoFocus"
+			data-enable-lowercase-operators="@Model.EnableLowercaseOperators"
+			data-enable-partial-match="@Model.EnablePartialMatch"
+			data-partial-match-keywords="@Model.PartialMatchKeywords"
+			data-partial-match-threshold="@Model.PartialMatchThreshold"
+			data-enable-question-marks="@Model.EnableQuestionMarks"
+			data-enable-wildcards="@Model.EnableWildcards"
+			@if (Model.EnableOmnibox)
+			{
+				@:data-enable-omnibox="true"
+				@:data-omnibox-timeout="@Model.OmniboxTimeout"
+				@:data-enable-field-addon="@Model.OmniboxEnableFieldAddon"
+				@:data-enable-simple-field-addon="@Model.OmniboxEnableSimpleFieldAddon"
+				@:data-enable-top-query-addon="@Model.OmniboxEnableTopQueryAddon"
+				@:data-enable-reveal-query-suggest-addon="@Model.OmniboxEnableMLQuerySuggestAddon"
+				@:data-enable-query-extension-addon="@Model.OmniboxEnableQueryExtensionAddon"
+			}
+			@if (Model.IsSearchAsYouTypeEnabled)
+			{
+				@:data-enable-search-as-you-type="true"
+				@:data-search-as-you-type-delay="@Model.SearchboxSuggestionsDelay"
+				}>
+				</div>
+			}
+			@if (Model.DisplayBreadcrumb)
+			{
+				<div class="CoveoBreadcrumb"></div>
+			}
+
+			<div class="coveo-results-header">
+			<div class="coveo-summary-section">
+			@if (Model.DisplayQuerySummary)
+			{
+				<span class="CoveoQuerySummary"
+				data-enable-search-tips="@Model.QuerySummaryEnableSearchTips"
+				data-only-display-search-tips="@Model.QuerySummaryOnlyDisplaySearchTips"></span>
+			}
+			@if (Model.DisplayQueryDuration)
+			{
+				<span class="CoveoQueryDuration"></span>
+			}
+			</div>
+
+			@if (Model.DisplaySorting)
+			{
+				<div class="coveo-sort-section">
+				@Html.Sitecore().Placeholder("coveo-sorts-mvc")
+				</div>
+			}
+			</div>
+
+			<div class="CoveoHiddenQuery"></div>
+
+			@if (Model.DisplayDidYouMean)
+			{
+				<div class="CoveoDidYouMean"
+				data-enable-auto-correction="@Model.EnableDidYouMeanAutoCorrection"></div>
+			}
+
+			@if (Model.DisplayErrorReport)
+			{
+				<div class="CoveoErrorReport"></div>
+			}
+
+			@if (Model.DisplayResultList)
+			{
+				if (Model.DisplayTopPager)
+				{
+					<div class="CoveoPager"
+					data-number-of-pages="@Model.PagerNumberOfPages"
+					data-max-number-of-pages="@Model.PagerMaxNumberOfPages"
+					data-enable-navigation-button="@Model.EnablePagerNavigationButton"></div>
+				}
+				<div id="first" class="CoveoResultList"
+				data-wait-animation="fade"
+				data-enable-infinite-scroll="@Model.EnableInfiniteScroll"
+				data-infinite-scroll-page-size="@Model.InfiniteScrollPageSize">
+
+
+
+				</div>
+
+				if (Model.DisplayBottomPager)
+				{
+					<div class="CoveoPager" style="display:none"
+					data-number-of-pages="@Model.PagerNumberOfPages"
+					data-max-number-of-pages="@Model.PagerMaxNumberOfPages"
+					data-enable-navigation-button="@Model.EnablePagerNavigationButton"></div>
+
+					<div class="search-pager-nav">
+					<div class="slick-prev slick-arrow" aria-label="Previous" role="button"></div>
+					<div class="slick-custom-pager" role="toolbar"><input class="slide-num-input" data-prev-val="1" value="1" type="text"> of 3</div>
+					<div class="slick-next slick-arrow" aria-label="Next" role="button"></div>
+					</div>
+
+				}
+				if (Model.DisplayResultsPerPage)
+				{
+					<div class="CoveoResultsPerPage"></div>
+				}
+			}
+			</div>
+
+			@if (Model.DisplayRecommendations)
+			{
+				<div class="coveo-recommendation-column">
+				@Html.Sitecore().Placeholder("coveo-recommendations-mvc")
+				</div>
+			}
+			</div>
+			</div>
+
+			</div>
+
+
+			<script type="text/javascript">
+			Coveo.$(function() {
+				Coveo.$('#@Model.Id').coveoForSitecore('init', CoveoForSitecore.componentsOptions);
+
+			});
+			</script>
+
+
+		}
+		@if (Model.HasErrors)
+		{
+			<div class="CoveoServerError">
+			<h3>@Model.Labels[LocalizedStringKeys.FRIENDLY_SEARCH_UNAVAILABLE_TITLE]</h3>
+			<h4>@Model.Labels[LocalizedStringKeys.FRIENDLY_SEARCH_UNAVAILABLE_DETAIL]</h4>
+			</div>
+		}
+		@if (Html.Coveo().IsEditingInPageEditor())
+		{
+			<script type="text/javascript">
+			Coveo.$(function () {
+				Coveo.PageEditorDeferRefresh.triggerUpdate();
+				});
+				</script>
+			}
+
+			@*customize acr coveo*@
+			<script type="text/javascript">
+
+			Coveo.$(function() {
+				Coveo.$('#filter-dropdown-area').find('input').on('click', function() {
+					Coveo.$('#filter-tab-outer').click()
+				})
+			});
+
+			var facetsSetup = false;
+
+			Coveo.$(".CoveoSearchInterface").on('deferredQuerySuccess', function(e, data) {
+				console.log('defer query success');
+
+
+
+				//fix facet html
+				Coveo.$('.CoveoFacet').addClass('filter-category lg-col-6');
+				Coveo.$('.coveo-facet-header-title-section').addClass('filter-cat-header');
+				Coveo.$('.coveo-icon-custom').hide();
+				Coveo.$('.coveo-facet-header-settings-section').hide();
+				var headerTitles = Coveo.$('.coveo-facet-header-title');
+				headerTitles.each(function(){
+
+					this.outerHTML = this.outerHTML.replace('<div','<h3').replace('/div>','/h3>');
+
+				});
+				//Coveo.$('.filter-cat-header').unwrap();
+				Coveo.$('.coveo-bottomSpace').hide();
+				Coveo.$('.coveo-facet-footer').hide();
+				if(!facetsSetup){
+					Coveo.$('.coveo-facet-values').wrap('<div class="filter-cat-body" ></div>');
+					Coveo.$('.filter-category').append('<div class="filter-cat-bdr-bot"></div>')
+				}
+
+				facetsSetup = true;
+			});
+
+			</script>

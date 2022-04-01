@@ -1,0 +1,46 @@
+﻿@inherits Glass.Mapper.Sc.Web.Mvc.GlassView<ACRHelix.Feature.MembershipTestimonials.ViewModels.CarouselViewModel>
+<div class="content section-spacing">
+    <div id="home-slider-outer">
+        <div class="relative">
+            <div id="slider-content-area">
+                <div class="home-slide-content">
+                    <div class="content row">
+                        <div class="xl-wide-5 lg-wide-6 wide-12 home-slide-content-inner">
+                            <div class="slide-transition-content"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div role="slider" id="home-slider">
+            @if (Model.CarouselItems != null && Model.CarouselItems.Count() > 0)
+            {
+                foreach (var item in Model.CarouselItems)
+                {
+                    <section class="slick-slide home-slide">
+                        <div class="home-slide-img-holder">
+                            @Html.Raw(GlassHtml.RenderImage(item, x => x.FeatureImage))                           
+                        </div>
+
+                        <div class="home-slide-text-area">
+                            <h1>@item.Title</h1>
+                            <div class="home-slide-text">
+                                @item.Description
+                                <a href='@item.FeatureLink.Url'>Read More</a>
+                            </div>
+                        </div>
+                    </section>
+                }
+            }              
+        </div>
+        <div class="content row">
+            <div class="xl-wide-5 lg-wide-6">
+                <div class="relative">
+                    <div id="home-slider-nav">
+                        <div id="home-slider-dots"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

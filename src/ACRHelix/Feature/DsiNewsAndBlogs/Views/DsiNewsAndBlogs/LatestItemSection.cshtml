@@ -1,0 +1,19 @@
+﻿@inherits Glass.Mapper.Sc.Web.Mvc.GlassView<ACRHelix.Feature.DsiNewsAndBlogs.ViewModels.LatestItemSectionViewModel>
+
+<div acr="main">
+<div acr="list">
+    <h2 acr class="heading" style="padding: 0 30px;">@Editable(x => x.Title)</h2>
+    @if(!String.IsNullOrWhiteSpace(Model.SubTitle)) 
+    {
+        <h3>@Editable(x => x.SubTitle)</h3>
+    }
+    <div acr="card">
+        <div acr="list" style="padding:30px;--gap:15px;">
+            @Html.Sitecore().Placeholder("blog-section")
+        </div>
+        <div acr="list" style="padding:30px;--gap:15px;">
+            @Html.Sitecore().Placeholder("news-section")
+        </div>
+    </div>
+</div>
+</div>

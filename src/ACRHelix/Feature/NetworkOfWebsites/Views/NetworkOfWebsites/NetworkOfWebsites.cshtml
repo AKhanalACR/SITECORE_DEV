@@ -1,0 +1,84 @@
+﻿@inherits Glass.Mapper.Sc.Web.Mvc.GlassView<ACRHelix.Feature.NetworkOfWebsites.Models.NetworkOfWebsites>
+@using ACRHelix.Foundation.EditFrames;
+
+
+<style type="text/css">
+    @@media only screen and (min-width:40.0625em){
+    .network-of-sites {background: url('@Model.GetImageUrl()') left top no-repeat;}
+    }
+</style>
+
+<div class="section-border-top">
+    <section class="section-spacing">
+        <div class="content row">
+            <header class="col-12 text-center">
+                <h1>@Editable(Model, m => m.Title)</h1>
+            </header>
+        </div>
+        <div class="content row network-of-sites">
+            <div class="xl-col-4 lg-col-5"></div>
+            <div class="xl-col-8 lg-col-7">
+
+                <div class="row-adjust has-dark-blue-anchor has-no-bullet-ul">
+
+                    <div class="xl-col-4 lg-col-6 col-6 xl-text-left text-center">
+                        @foreach (var category in Model.Children.Where(x => x.Column == "Left" || x.Column == ""))
+                        {
+                            using (BeginEditFrame(EditFrameConstants.Paths.Edit_Insert, category.Id.ToString(), "Network Category"))
+                            {
+                            <h3>@Editable(category, c => c.Title)</h3>
+                            }
+                        <ul>
+                            @foreach (var link in category.Children)
+                            {
+                                using (BeginEditFrame(EditFrameConstants.Paths.Edit, link.Id.ToString(), "Network Link"))
+                                {
+                                <li>@RenderLink(link, l => l.Link, isEditable: true)</li>
+                                }
+                            }
+                        </ul>
+                        }
+                    </div>
+                    <div class="xl-col-4 lg-col-6 col-6 xl-text-left text-center">
+                        @foreach (var category in Model.Children.Where(x => x.Column == "Middle"))
+                        {
+                            using (BeginEditFrame(EditFrameConstants.Paths.Edit_Insert, category.Id.ToString(), "Network Category"))
+                            {
+                            <h3>@Editable(category, c => c.Title)</h3>
+                            }
+                        <ul>
+                            @foreach (var link in category.Children)
+                            {
+                                using (BeginEditFrame(EditFrameConstants.Paths.Edit, link.Id.ToString(), "Network Link"))
+                                {
+                                <li>@RenderLink(link, l => l.Link, isEditable: true)</li>
+                                }
+                            }
+                        </ul>
+                        }
+                    </div>
+
+                    <div class="xl-col-4 lg-hide md-hide sm-hide">
+                        @foreach (var category in Model.Children.Where(x => x.Column == "Right"))
+                        {
+                            using (BeginEditFrame(EditFrameConstants.Paths.Edit_Insert, category.Id.ToString(), "Network Category"))
+                            {
+                            <h3>@Editable(category, c => c.Title)</h3>
+                            }
+                        <ul>
+                            @foreach (var link in category.Children)
+                            {
+                                using (BeginEditFrame(EditFrameConstants.Paths.Edit, link.Id.ToString(), "Network Link"))
+                                {
+                                <li>@RenderLink(link, l => l.Link, isEditable: true)</li>
+                                }
+                            }
+                        </ul>
+                        }
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>

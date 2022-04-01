@@ -1,0 +1,146 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="ACR_APP_DATA_Model.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Designation_Dropdown">
+          <Key>
+            <PropertyRef Name="DesignationList_value" />
+          </Key>
+          <Property Name="DesignationList_value" Type="nvarchar" MaxLength="12" Nullable="false" />
+          <Property Name="DesignationList_text" Type="nvarchar" MaxLength="80" Nullable="false" />
+          <Property Name="DesignationList_ListOrder" Type="int" Nullable="false" />
+          <Property Name="DesignationList_bitvalue" Type="int" Nullable="false" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'ACR_APP_DATA.dbo.Locality_Dropdown' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="Locality_Dropdown">
+          <Key>
+            <PropertyRef Name="LocalityList_value" />
+            <PropertyRef Name="LocalityList_text" />
+          </Key>
+          <Property Name="LocalityList_value" Type="nvarchar" MaxLength="16" Nullable="false" />
+          <Property Name="LocalityList_text" Type="nvarchar" MaxLength="29" Nullable="false" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'ACR_APP_DATA.dbo.Modality_Dropdown' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="Modality_Dropdown">
+          <Key>
+            <PropertyRef Name="ModalityList_value" />
+            <PropertyRef Name="ModalityList_text" />
+          </Key>
+          <Property Name="ModalityList_value" Type="nvarchar" MaxLength="5" Nullable="false" />
+          <Property Name="ModalityList_text" Type="nvarchar" MaxLength="23" Nullable="false" />
+          <Property Name="Short_description" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityContainer Name="ACR_APP_DATA_ModelStoreContainer">
+          <EntitySet Name="Designation_Dropdown" EntityType="Self.Designation_Dropdown" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Locality_Dropdown" EntityType="Self.Locality_Dropdown" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [Locality_Dropdown].[LocalityList_value] AS [LocalityList_value], 
+    [Locality_Dropdown].[LocalityList_text] AS [LocalityList_text]
+    FROM [dbo].[Locality_Dropdown] AS [Locality_Dropdown]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="Modality_Dropdown" EntityType="Self.Modality_Dropdown" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [Modality_Dropdown].[ModalityList_value] AS [ModalityList_value], 
+    [Modality_Dropdown].[ModalityList_text] AS [ModalityList_text], 
+    [Modality_Dropdown].[Short_description] AS [Short_description]
+    FROM [dbo].[Modality_Dropdown] AS [Modality_Dropdown]</DefiningQuery>
+          </EntitySet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="ACR_APP_DATA_Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Designation_Dropdown">
+          <Key>
+            <PropertyRef Name="DesignationList_value" />
+          </Key>
+          <Property Name="DesignationList_value" Type="String" MaxLength="12" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="DesignationList_text" Type="String" MaxLength="80" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="DesignationList_ListOrder" Type="Int32" Nullable="false" />
+          <Property Name="DesignationList_bitvalue" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Locality_Dropdown">
+          <Key>
+            <PropertyRef Name="LocalityList_value" />
+            <PropertyRef Name="LocalityList_text" />
+          </Key>
+          <Property Name="LocalityList_value" Type="String" MaxLength="16" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="LocalityList_text" Type="String" MaxLength="29" FixedLength="false" Unicode="true" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Modality_Dropdown">
+          <Key>
+            <PropertyRef Name="ModalityList_value" />
+            <PropertyRef Name="ModalityList_text" />
+          </Key>
+          <Property Name="ModalityList_value" Type="String" MaxLength="5" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ModalityList_text" Type="String" MaxLength="23" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Short_description" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityContainer Name="ACR_APP_DATA_Entities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Designation_Dropdown" EntityType="Self.Designation_Dropdown" />
+          <EntitySet Name="Locality_Dropdown" EntityType="Self.Locality_Dropdown" />
+          <EntitySet Name="Modality_Dropdown" EntityType="Self.Modality_Dropdown" />
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="ACR_APP_DATA_ModelStoreContainer" CdmEntityContainer="ACR_APP_DATA_Entities">
+          <EntitySetMapping Name="Designation_Dropdown">
+            <EntityTypeMapping TypeName="ACR_APP_DATA_Model.Designation_Dropdown">
+              <MappingFragment StoreEntitySet="Designation_Dropdown">
+                <ScalarProperty Name="DesignationList_value" ColumnName="DesignationList_value" />
+                <ScalarProperty Name="DesignationList_text" ColumnName="DesignationList_text" />
+                <ScalarProperty Name="DesignationList_ListOrder" ColumnName="DesignationList_ListOrder" />
+                <ScalarProperty Name="DesignationList_bitvalue" ColumnName="DesignationList_bitvalue" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Locality_Dropdown">
+            <EntityTypeMapping TypeName="ACR_APP_DATA_Model.Locality_Dropdown">
+              <MappingFragment StoreEntitySet="Locality_Dropdown">
+                <ScalarProperty Name="LocalityList_value" ColumnName="LocalityList_value" />
+                <ScalarProperty Name="LocalityList_text" ColumnName="LocalityList_text" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Modality_Dropdown">
+            <EntityTypeMapping TypeName="ACR_APP_DATA_Model.Modality_Dropdown">
+              <MappingFragment StoreEntitySet="Modality_Dropdown">
+                <ScalarProperty Name="ModalityList_value" ColumnName="ModalityList_value" />
+                <ScalarProperty Name="ModalityList_text" ColumnName="ModalityList_text" />
+                <ScalarProperty Name="Short_description" ColumnName="Short_description" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

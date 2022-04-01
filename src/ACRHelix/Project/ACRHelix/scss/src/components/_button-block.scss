@@ -1,0 +1,128 @@
+.button-block {
+  padding-top: .75rem;
+  padding-bottom: 1.35rem;
+  width: 100%;
+  background: #225472;
+  &:after, &:before {
+    content: '';
+    display: block;
+    clear: both;
+  }
+}
+
+.btn-block-title-area {
+  margin-top: .6em;
+  margin-bottom: .6em;
+  padding-left: 28px !important;
+  padding-right: 28px !important;
+}
+
+.button-block {
+  a {
+    color: $white;
+    &:hover {
+      color: $white;
+    }
+  }
+  .icon-db-chevron2-right {
+    font-size: .5rem;
+  }
+  .icon-document {
+    margin-right: .6ex;
+    &:before {
+      font-size: 1.4em;
+    }
+  }
+}
+
+.additional-resource-item {
+  margin: .875em 0;
+  position: relative;
+  padding-left: 3em !important;
+  .acr-icon {
+    font-size: 1.4em;
+    position: absolute;
+    left: .7em;
+    top: 0;
+  }
+  a {
+    font-size: .9275em;
+  }
+}
+
+.exhibitor-dl {
+  &.additional-resource-item {
+    padding-left: 2.25rem !important;
+  }
+  .acr-icon {
+    left: 0;
+  }
+}
+
+main[role='main'] {
+  margin-top: 158px;
+}
+
+.callout-item:after {
+  content: '';
+  display: block;
+  clear: both;
+}
+
+.footer-ads-area {
+  border: 1px solid #e5e5e6;
+  padding-top: .875em;
+  padding-bottom: .875em;
+  text-align: center;
+  &:after {
+    content: '';
+    display: block;
+    clear: both;
+  }
+  a {
+    margin-top: 1em;
+    margin-bottom: 1em;
+    display: inline-block;
+    &:hover {
+      box-shadow: 0 0.125em 0.6em rgba(60, 60, 60, 0.3);
+    }
+  }
+  img {
+    width: 180px;
+    display: inline-block;
+  }
+}
+
+#footer-newsletter {
+  padding: 1.125em 0;
+  h2 {
+    font-size: 1.25em;
+    font-weight: 300;
+  }
+}
+
+.news-letter-form {
+  position: relative;
+  max-width: 442px;
+  width: 100%;
+  border: 1px solid $white;
+  display: inline-block;
+  input {
+    height: 2.5rem;
+    max-width: 100%;
+    &[type=text], &[type=email] {
+      border: 0;
+      padding-right: 6.5em;
+      color: $color-green;
+      border-radius: 0;
+    }
+    &[type=submit] {
+      position: absolute;
+      right: 0;
+      top: 0;
+      padding: 0 1.2rem 0;
+      font-size: 1.125rem;
+      margin: 0;
+    }
+  }
+}

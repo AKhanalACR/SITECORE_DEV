@@ -1,0 +1,32 @@
+﻿@using System.Collections.Specialized
+@inherits Glass.Mapper.Sc.Web.Mvc.GlassView<ACRHelix.Feature.Identity.ViewModels.LocationsFooterViewModel>
+
+<div class="xl-col-10 col-12 footer-offices-area">
+    <div class="inline-block-cols row-adjust">
+        
+        @foreach (var location in Model.Locations)
+        {
+            <div class="footer-office-item xl-col-4 md-col-6">
+                <h3>@Editable(location, x => x.Title)</h3>
+                <p>
+                    @Editable(location, x => x.Address1)<br>
+                    @Editable(location, x => x.City), @Editable(location, x => x.State) @Editable(location, x => x.Zip)<br>
+                    @Editable(location, x => x.Phone)
+                </p>
+            </div>
+        }       
+
+        <div class="footer-office-item office-specific-dept xl-col-4 md-col-6">
+            <p class="text-size-1p125 text-orange">
+                <strong>
+                    @Editable( x => x.Text)<br>
+                    <br>
+                    @Editable(x => x.LinkText) 
+                             
+                @RenderLink(x => x.Link,new NameValueCollection { {"class","underline-contact-us nowrap" } },true) &nbsp;
+                </strong><i class="acr-icon chevron-sm-right"></i>
+            </p>
+        </div>
+    </div>
+    <div class="clear footer-border-bottom sm-hide"></div>
+</div>

@@ -1,0 +1,64 @@
+﻿@using ACRHelix.Feature.Callouts.Services;
+@using ACRHelix.Foundation.EditFrames;
+@using ACRHelix.Feature.Callouts.Models;
+@inherits Glass.Mapper.Sc.Web.Mvc.GlassView<ACRHelix.Feature.Callouts.ViewModels.CalloutsViewModel>
+
+<section class="section-spacing content row text-center callout-section">
+	<header class="col-12">
+		<h1>
+			@Editable(x => x.Title)
+		</h1>
+	</header>
+	@if (Sitecore.Context.PageMode.IsExperienceEditor)
+	{
+	<div class="clear"></div>
+	}
+	@if (Model.CalloutItems.Count() > 0)
+	{
+		foreach (var item in Model.CalloutItems)
+		{
+			using (BeginEditFrame(EditFrameConstants.Paths.Edit, item.Id.ToString(), "Callout Item"))
+			{
+				if (item.ChapterLocator == false)
+				{
+			<div class="xl-col-30pct lg-col-4">
+				<div class="box bg-acr-blue" style="min-height: 105px;">
+					<h3>@Editable(item, x => x.Title)</h3>
+					<div class="text-content text-orange">
+						@RenderLink(item, x => x.Link, isEditable: true)
+					</div>
+				</div>
+			</div>
+				}
+				else
+				{
+			<div class="xl-col-2-5ths lg-col-4 locate-a-chapter">
+				<div class="box bg-acr-blue has-button">
+					<h3>@Editable(item, x => x.Title)</h3>
+
+					<div class="xl-col-7 lg-col-12">
+						<select class="chapterFinder">
+							<option value="">Select a Chapter</option>
+							@{
+							  var data = SitecoreContentService.GetContentItemDataByTemplateID(ChapterLocatorCallout.ChapterTemplateID);
+							  if (data != null)
+							  {
+								  foreach (var chapterItem in data.OrderBy(x => x.NameTitle))
+								  {
+								<option value="@chapterItem.Url">@chapterItem.NameTitle</option>
+								  }
+							  }
+							}
+						</select>
+					</div>
+					<div class="xl-col-5 lg-col-12">
+						<div class="lg-pad-top-1em sm-pad-top-1em"></div>
+						<input type="submit" class="chapterFinderSubmitButton" value="@Editable(item, x => x.SubTitle)">
+					</div>
+				</div>
+			</div>
+										  }
+									  }
+								  }
+							  }
+</section>

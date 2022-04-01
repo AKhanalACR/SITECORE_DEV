@@ -1,0 +1,15 @@
+﻿@using Glass.Mapper.Sc.Web.Mvc
+@inherits Glass.Mapper.Sc.Web.Mvc.GlassView<ACRHelix.Feature.Navigation.ViewModels.LinkMenuViewModel>
+
+<div class="topbar">
+    <div class="navbar topbar-style d-block">
+        @foreach (var item in Model.MenuItems.Select((value, index) => new { index, value }))
+        {
+            if (item.index < 5)
+            {
+                <a class="hidden-lg-up" href="@item.value.Link.Url">@item.value.Title</a>
+            }
+        }
+        <a class="hidden-lg-up search">Search</a>
+    </div>
+</div>

@@ -1,0 +1,50 @@
+﻿@using Sitecore.Mvc
+@using System.Web.Mvc.Html
+@inherits System.Web.Mvc.WebViewPage
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head runat="server">
+    @Html.Sitecore().Placeholder("xbloghead")
+    <title></title>
+    <script src="/Components/XBlog Assets/JS/RRSSB/vendor/modernizr-2.6.2-respond-1.1.0.min.js"></script>
+    <link href="/Components/Assets/CSS/standard.min.css" rel="stylesheet">
+    <link href="/Components/Assets/CSS/standard.config.css" rel="stylesheet">
+    <script src="/sitecore modules/Web/ExperienceForms/scripts/jquery-2.1.3.min.js"></script>
+    
+
+</head>
+<body>
+
+    <div id="app">
+        <main acr="main">
+            <div acr="list" style="--gap:15px;padding: 0 30px;padding-top: 30px;">
+
+                <div class="XBlogRight">
+                    @Html.Sitecore().Placeholder("xblogright")
+                </div>
+                <div class="XBlogFeatured">
+                    @Html.Sitecore().Placeholder("xblogFeatured")
+                </div>
+                <div class="XBlogMain">
+                    @Html.Sitecore().Placeholder("xblogmain")
+                </div>
+
+
+            </div>
+        </main>
+    </div>
+
+    <!-- RRSSB -->
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+    <script>window.jQuery || document.write('<script src="/Components/XBlog Assets/JS/RRSSB/vendor/jquery.1.10.2.min.js"><\/script>')</script>
+    <script src="/Components/XBlog Assets/JS/RRSSB/rrssb.min.js"></script>
+    <script>
+        $(document).ready(function () {            
+            $("#CategorySelector").change(function () {
+                window.location = $select.val();
+            });
+        });
+    </script>
+</body>
+</html>

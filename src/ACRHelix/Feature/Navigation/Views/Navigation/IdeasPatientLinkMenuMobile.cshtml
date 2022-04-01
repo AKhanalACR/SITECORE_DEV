@@ -1,0 +1,94 @@
+﻿@using Glass.Mapper.Sc.Web.Mvc
+@inherits Glass.Mapper.Sc.Web.Mvc.GlassView<ACRHelix.Feature.Navigation.ViewModels.LinkMenuViewModel>
+
+<div class="topbar" id="TopNavigationMobile">
+    <div class="navbar topbar-style d-block">
+        @foreach (var item in Model.MenuItems.Select((value, index) => new { index, value }))
+        {
+            if (item.index < 5)
+            {
+                if (item.index != 0)
+                {
+                    if (item.value.Link != null)
+                    {
+                        <a class="hidden-lg-up" href="@item.value.Link.Url"> | @item.value.Title</a>
+                    }
+                    else
+                    {
+                        <a class="hidden-lg-up"> | @item.value.Title</a>
+                    }
+                }
+                else
+                {
+                    if (item.value.Link != null)
+                    {
+                        <a class="hidden-lg-up" href="@item.value.Link.Url">@item.value.Title</a>
+                    }
+                    else
+                    {
+                        <a class="hidden-lg-up">@item.value.Title</a>
+                    }
+                }
+            }
+        }
+        @{ string hidebutton = RenderingContext.Current.Rendering.Parameters["HideButton"];
+            if (string.IsNullOrEmpty(hidebutton) || hidebutton != "True")
+            {
+                string displayText = "Español";
+                string funcionName = "spanishmSetcookie";
+                //string redirectUrl = "/spanish" + HttpContext.Current.Request.Path;
+                if (HttpContext.Current.Request.Cookies["PatientSiteLang"] != null && HttpContext.Current.Request.Cookies["PatientSiteLang"].Value.ToString() == "Spanish")
+                {
+                    displayText = "English";
+                    funcionName = "englishmDeletecookie";
+                    //redirectUrl = HttpContext.Current.Request.Path;
+                    //if (redirectUrl.Length > 8)
+                    //{
+                    //    redirectUrl = redirectUrl.Substring(8);
+                    //}
+                }
+                string function = "onclick=" + funcionName + "()";
+                if (Model.MenuItems != null)
+                {
+                    if (Model.MenuItems.Any())
+                    {
+                        <a class="hidden-lg-up" href="#" @function> | @displayText</a>
+                    }
+                    else
+                    {
+                        <a class="hidden-lg-up" href="#" @function>@displayText</a>
+                    }
+
+                }
+            }
+        }
+    </div>
+</div>
+
+<script>
+
+    function spanishmSetcookie() {
+        event.preventDefault();
+        setmCookieValue("PatientSiteLang", "Spanish");
+        window.location.reload(true);
+
+    }
+    function englishmDeletecookie() {
+        event.preventDefault();
+        deletemCookieValue("PatientSiteLang");
+        window.location.reload(true);
+
+    }
+    function setmCookieValue(cookieName, cookieValue) {
+        var d = new Date();
+        var hour = 24;
+        d.setTime(d.getTime() + (hour * 60 * 60 * 1000));
+        var cookieExpireDate = "expires=" + d.toString();
+        document.cookie = cookieName + "=" + cookieValue + "; " + cookieExpireDate + ";path=/";
+    }
+    function deletemCookieValue(cookieName) {
+        var d = new Date();
+        d.setTime(d.getTime());
+        document.cookie = cookieName + "=;" + "expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+    }
+</script>

@@ -1,0 +1,12 @@
+﻿<?xml version='1.0' encoding='utf-8'?>
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="ACRMicroSites.Properties" GeneratedClassName="Settings">
+  <Profiles />
+  <Settings>
+    <Setting Name="ACRMicroSites_com_imagewisely_PledgesService_PledgesService" Type="(Web Service URL)" Scope="Application">
+      <Value Profile="(Default)">https://www.acr.org/services/pledgesservice.asmx</Value>
+    </Setting>
+    <Setting Name="ACRMicroSites_AnnualReminder_AnnualReminderService" Type="(Web Service URL)" Scope="Application">
+      <Value Profile="(Default)">https://www.acr.org/services/annualreminderservice.asmx</Value>
+    </Setting>
+  </Settings>
+</SettingsFile>

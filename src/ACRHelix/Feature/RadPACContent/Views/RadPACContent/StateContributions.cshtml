@@ -1,0 +1,49 @@
+﻿@inherits Glass.Mapper.Sc.Web.Mvc.GlassView<ACRHelix.Feature.RadPACContent.ViewModels.StateContributionsViewModel>
+@using Sitecore.Foundation.SitecoreExtensions.Extensions
+
+<section>
+    <div class="statebystate pb-20">
+        <div class="container">
+            <div class="row">
+                <div class="col-12 col-md-12">
+                    <div class="selectdiv">
+                        <label>
+                            @Html.DropDownListFor(m => m.State, Model.States, "", new { @id = "ddl-state-selector-2", @class = "normal_select", data_parent_item = Model.ParentPage.Url })
+                        </label>
+                    </div>
+                </div>
+                <div class="col-12 order-1 order-md-0 col-md-4">
+                    <div class="state-description">
+                        @if (!string.IsNullOrWhiteSpace(Model.MarchMadness) || Sitecore.Context.PageMode.IsExperienceEditor)
+                        {
+                            <p>@Editable(x => x.MarchMadness)</p>
+                            <h3>@Editable(x => x.ContributionAmount)</h3>
+                        }
+                        @if (!string.IsNullOrWhiteSpace(Model.Rank) || Sitecore.Context.PageMode.IsExperienceEditor)
+                        {
+                            <p>@Editable(x => x.Rank)</p>
+                            <h3>@Model.Ranked</h3>
+                        }
+                        @if (!string.IsNullOrWhiteSpace(Model.FundraisingForTheMonth) || Sitecore.Context.PageMode.IsExperienceEditor)
+                        {
+                            <p>@Editable(x => x.FundraisingForTheMonth)</p>
+                            <h3>$@Model.TheMonthsAmount</h3>
+                        }
+
+                        @if (!string.IsNullOrWhiteSpace(Model.HardMoneyTotal) || Sitecore.Context.PageMode.IsExperienceEditor)
+                        {
+                            <p>@Editable(x => x.HardMoneyTotal)</p>
+                            <h3>$@Model.MoneyTotal</h3>
+                        }
+                    </div>
+                </div>
+                <div class="col-12 order-0 order-md-1 col-md-8">
+                    <div class="mapcontainer">
+                        <div class="map">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

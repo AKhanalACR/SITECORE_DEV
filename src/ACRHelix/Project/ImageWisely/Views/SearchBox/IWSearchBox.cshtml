@@ -1,0 +1,11 @@
+﻿@inherits System.Web.Mvc.WebViewPage<ACRHelix.Project.ImageWisely.ViewModels.IWSearchBoxViewModel>
+@if (!string.IsNullOrWhiteSpace(Model.SearchPageUrl))
+{
+    <div class="navbar-form-iw form-group has-feedback has-feedback-left">
+        <input id="iw_SearchBox" type="text" class="form-control" placeholder="Search">
+        <div class="form-control-feedback">
+            <i class="fa fa-search"></i>
+        </div>
+        <a id="iw_SearchLink" data-url="@Model.SearchPageUrl" role="button" style="position: absolute; bottom: 0; height: 34px; width: 30px; left: 0; z-index: 9999;"></a>
+    </div>
+}

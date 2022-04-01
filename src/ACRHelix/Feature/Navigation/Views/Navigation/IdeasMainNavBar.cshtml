@@ -1,0 +1,69 @@
+﻿@using ACRHelix.Feature.Navigation.Constants;
+@inherits Glass.Mapper.Sc.Web.Mvc.GlassView<ACRHelix.Feature.Navigation.ViewModels.IdeasMainNavbarViewModel>
+
+@{
+    //ACRHelix.Feature.Navigation.ViewModels.LinkMenuViewModel lobjLinkMenuViewModel = new ACRHelix.Feature.Navigation.ViewModels.LinkMenuViewModel();
+    //lobjLinkMenuViewModel = ViewBag.IdeasBottomLinkviewModel;
+    int iCounter = 0;
+}
+<button id="MenuToggleButton" class="animated-collapse-button navbar-toggler collapsed" type="button" data-toggle="collapse" data-target="#main-nav" aria-controls="main-nav" aria-expanded="false" aria-label="Toggle navigation">
+    <div id="MenuToggleButtonIcon" class="animated-collapse">
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+    </div>
+</button>
+
+<div class="collapse navbar-collapse" id="main-nav">
+    <ul class="navbar-nav ml-auto">
+        @foreach (var menu in Model.NavigationItems)
+        {
+            if (iCounter < 4)
+            {
+                if (menu.Children.Count() > 0)
+                {
+                    int jCounter = 0;
+                    <li class="nav-item mega-dropdown" onclick="javascript:window.location='@(menu.URL != null ? menu.URL : "#")'"> <span class="arw"> <i class="fa fa-angle-double-down fa-angle-double-down1 "></i></span>
+                        <a href="#" class="nav-link" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <h5>@menu.Title <i class="fa fa-angle-double-down" aria-hidden="true"></i></h5>
+                        </a>
+                        <div class="dropdown-menu b-none bg-lightgray" aria-labelledby="mega-dropdown">
+                            <div class="container">
+                                <div class="row">
+                                    @foreach (var secondMenu in menu.Children)
+                                    {
+                                        if (jCounter < 4)
+                                        {
+                                        <div class="col-lg-3">
+                                            <ul>
+                                                <li><a href="@secondMenu.URL" target="@secondMenu.Target">@secondMenu.Title</a></li>
+                                            </ul>
+                                        </div>
+                                        }
+                                        jCounter++;
+                                    }
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                }
+                else
+                {
+                    <li class="nav-item">
+                        <a class="nav-link" href="@menu.URL">
+                            <h5>@menu.Title</h5>
+                        </a>
+                    </li>
+ 
+                }
+                iCounter++;
+            }
+        }
+    </ul>    
+
+
+   
+    </div>
+
+

@@ -1,0 +1,40 @@
+//
+// Typography
+//
+$font-size-root: 16px !default;
+$px-to-pt: 3 / 4;
+@function pass($n) { @return $n; }
+@function number-to-em($n) { @return $n * 1em; }
+@function em-to-number($n) { @return $n / 1em; }
+@function number-to-rem($n) { @return $n * 1rem; }
+@function rem-to-number($n) { @return $n / 1rem; }
+@function number-to-px($n, $fs: $font-size-root) { @return $n * $fs; }
+@function px-to-number($n, $fs: $font-size-root) { @return $n / $fs; }
+@function em-to-px($n, $fs: $font-size-root) {
+	@return number-to-px(em-to-number($n), $fs);
+}
+@function px-to-em($n, $fs: $font-size-root) {
+	@return number-to-em(px-to-number($n, $fs));
+}
+@function rem-to-px($n, $fs: $font-size-root) {
+	@return number-to-px(rem-to-number($n), $fs);
+}
+@function px-to-rem($n, $fs: $font-size-root) {
+	@return number-to-rem(px-to-number($n, $fs));
+}
+@function pt-to-px($n) { @return $n / $px-to-pt; }
+@function px-to-pt($n) { @return $n * $px-to-pt; }
+@function to-em($n) {
+	$unit: unit($n);
+	@if $unit {
+		// 'em' 'ex' 'ch' 'rem' 'vw' 'vh' 'vmin' 'vmax'
+		@if $unit == 'px' { @return px-to-em($n); }
+		@else if $unit == 'em' { @return number-to-em($n); }
+		@return pass($n);
+	} @else {
+		@return number-to-em($n);
+	}
+}
+@function line-height-offset($line-height, $base: 1) {
+	@return ($line-height - $base) / 2;
+}

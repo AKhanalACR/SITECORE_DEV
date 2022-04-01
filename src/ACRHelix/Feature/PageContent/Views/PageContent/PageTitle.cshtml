@@ -1,0 +1,33 @@
+﻿@inherits Glass.Mapper.Sc.Web.Mvc.GlassView<ACRHelix.Feature.PageContent.ViewModels.PageTitleViewModel>
+@using Sitecore.Foundation.SitecoreExtensions.Extensions
+
+<section class="content">
+    @if (Model.Date == DateTime.MinValue)
+    {
+        //hide date if not set
+        <h1>@Editable(x => x.Title)</h1>
+    }
+    else
+    {
+        //show date and add margin
+        <span class="text-size-p875">@Model.Date.ToString("MMMM dd, yyyy")</span>
+        <h1 class="margin-top-0">@Editable(x => x.Title)</h1>
+    }
+
+    @Html.Sitecore().DynamicPlaceholder("TitleShareLinks",true)
+
+    @if (Model.SubTitle != "" || Sitecore.Context.PageMode.IsExperienceEditorEditing)
+	{
+	    <div class="text-content text-size-1p25">
+	        @Editable(x => x.SubTitle)
+	    </div>
+	}
+
+    @if (Model.RichText != "" || Sitecore.Context.PageMode.IsExperienceEditorEditing)
+    {
+    <div class="text-content">
+        @Editable(x => x.RichText)
+    </div>
+    }
+
+</section>

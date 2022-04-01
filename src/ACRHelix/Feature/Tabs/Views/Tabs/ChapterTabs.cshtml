@@ -1,0 +1,34 @@
+﻿@inherits Glass.Mapper.Sc.Web.Mvc.GlassView<ACRHelix.Feature.Tabs.ViewModels.TabsViewModel>
+@using Sitecore.Foundation.SitecoreExtensions.Extensions
+<div class="content section-spacing">
+    <div class="chapter-area section-spacing-bottom">
+        <div class="content text-center">
+            <div class="inline-ul tabs-rotating tabs" role="menubar">
+                <ul>
+                    @foreach (var tab in Model.TabNames)
+                    {
+                    <li class="">
+                        <a href="#@tab.TabNameID">
+                            <span>@tab.TabName</span>
+                        </a>
+                    </li>
+                    }
+                </ul>
+            </div>
+        </div>
+        @foreach (var tab in Model.TabNames)
+        {
+        <div data-tab-id="@tab.TabNameID" class="section-spacing-top content">
+            @if (Sitecore.Context.PageMode.IsExperienceEditor)
+        {
+            <p>Start Tab(@tab.TabName) Content</p>
+            }
+            @Html.Sitecore().DynamicPlaceholder("tabs", false)
+            @if (Sitecore.Context.PageMode.IsExperienceEditor)
+        {
+            <p>End Tab(@tab.TabName) Content</p>
+            }
+        </div>
+        }
+    </div>
+</div>

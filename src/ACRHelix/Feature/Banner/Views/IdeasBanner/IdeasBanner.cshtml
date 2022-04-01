@@ -1,0 +1,59 @@
+﻿@inherits Glass.Mapper.Sc.Web.Mvc.GlassView<ACRHelix.Feature.IdeasBanner.Models.IdeasBanner>
+    
+
+<div id="banner" class="clearfix">
+
+    <div class="banner-wrapper">
+        @RenderImage(x => x.BackgroundImage, new { @id = "banner-backgroundImage" }, isEditable: true)
+    </div>
+
+    <div class="banner-slides">
+        <div class="container">
+
+            <div class="row">
+                <div id="banner-flexslider" class="banner-flexslider">
+                    <div class="item">
+                        <div class="flexslider-image">
+                            @RenderImage(x => x.OverlayImage1, new { @class = "img-responsive" }, isEditable: true)
+                        </div>
+                    </div>
+
+                    <div class="item">
+                        <div class="flexslider-image">
+                            @RenderImage(x => x.OverlayImage2, new { @class = "img-responsive" }, isEditable: true)
+                        </div>
+                    </div>
+
+                    <div class="item">
+                        <div class="flexslider-image">
+                            @RenderImage(x => x.OverlayImage3, new { @class = "img-responsive" }, isEditable: true)
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            @if (Model.DropdownLinks.Count() > 0)
+            {
+                <div class="banner-select text-center">
+                    <div class="select-option">
+                        <section>
+                            <select class="cs-select cs-skin-elastic">
+                                <option value="" disabled="" selected="">@Editable(model => model.DropdownTitle)</option>
+                                @foreach (var item in Model.DropdownLinks.Select((value, index) => new { index, value }))
+                                {
+                                    if (item.value.Link != null && !string.IsNullOrEmpty(item.value.Title))
+                                    {
+                                    <option data-link="@item.value.Link.Url" value="">@item.value.Title</option>
+                                    }
+                                }
+                            </select>
+                        </section>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+    <!--section dishes-->
+
+</div>

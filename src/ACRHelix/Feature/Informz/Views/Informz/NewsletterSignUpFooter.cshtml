@@ -1,0 +1,27 @@
+﻿@inherits Glass.Mapper.Sc.Web.Mvc.GlassView<ACRHelix.Feature.Informz.ViewModels.NewsletterSignUp>
+
+@if (!string.IsNullOrWhiteSpace(Model.Title) && Model.Link != null)
+{
+    <aside class="bg-acr-blue" id="footer-newsletter">
+        <div class="content row">
+            <div class="xl-col-12 text-center sec-signup">
+                <h2>@Editable(x => x.Title)</h2>
+                @RenderLink(x => x.Link, new { @class = "button" }, isEditable: true)
+            </div>
+            @*<div class="xl-col-7 xl-text-left text-center">
+
+                    @using (Html.BeginRouteForm(Sitecore.Mvc.Configuration.MvcSettings.SitecoreRouteName, FormMethod.Post))
+                    {
+                        @Html.Sitecore().FormHandler("Informz", "NewsLetterSignUpFooter")
+                        @Html.AntiForgeryToken()
+                        <div class="news-letter-form">
+                            @Html.TextBoxFor(x => x.Email, new { placeholder = "Enter Your Email Address", @required = "required" })
+
+
+                            <input id="newsletter-submit-btn" type="submit" value="Submit">
+                        </div>
+                    }
+                </div>*@
+        </div>
+    </aside>
+}

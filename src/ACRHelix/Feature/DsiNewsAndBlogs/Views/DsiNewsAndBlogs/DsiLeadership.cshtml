@@ -1,0 +1,80 @@
+﻿@inherits Glass.Mapper.Sc.Web.Mvc.GlassView<ACRHelix.Feature.DsiNewsAndBlogs.ViewModels.DsiLeadershipViewModel>
+@using Sitecore.Mvc;
+@using ACRHelix.Foundation.EditFrames;
+
+@if (Sitecore.Context.PageMode.IsExperienceEditor)
+{
+    <style>
+        .staff-directory .scLooseFrameZone {
+            width: 33%;
+        }
+
+        .staff-directory div.scLooseFrameZone .xl-col-4 {
+            width: 100%;
+        }
+    </style>
+}
+
+<section class="staff-directory content">
+    <header class="header-underrule">
+        <h2>@Editable(x => x.Title)</h2>
+    </header>
+
+    <!--start: Module -->
+    <section class="content indented-section">
+        <div class="flex-content-left spaced-column-area">
+            @foreach (var item in Model.Biographies)
+            {
+                using (BeginEditFrame(item, "Biography", x => x.Title, x => x.SubTitle, x => x.BioImage, x => x.OtherPositions, x => x.RichText, x => x.Phone, x => x.Email))
+                {
+                    <div class="xl-col-3 md-col-6 directory-item">
+                        @if (item.BioImage != null || Sitecore.Context.PageMode.IsExperienceEditorEditing)
+                        {
+                            if (item.DisplayDetailLink)
+                            {
+                                <a href="@item.URL">
+                                    <figure class="text-center directory-img">
+                                        @*<img src="http://placehold.it/360x360" alt="Image Size: 360 x 360px">*@
+                                        @RenderImage(item, x => x.BioImage, isEditable: true)
+                                        <br>
+                                    </figure>
+                                </a>
+                            }
+                            else
+                            {
+                                <figure class="text-center directory-img">
+                                    @*<img src="http://placehold.it/360x360" alt="Image Size: 360 x 360px">*@
+                                    @RenderImage(item, x => x.BioImage, isEditable: true)
+                                    <br>
+                                </figure>
+                            }
+
+                        }
+                        @if (item.Title != "" || Sitecore.Context.PageMode.IsExperienceEditorEditing)
+                        {
+                            <h3 class="underline-orange">
+                                @if (item.DisplayDetailLink)
+                                {
+                                    <a href="@item.URL">
+                                        @Editable(item, x => x.Title)
+                                    </a>
+                                }
+                                else
+                                {
+                                    @Editable(item, x => x.Title)
+                                }
+                            </h3>
+                        }
+                        <div class="text-content">
+                            @if (item.SubTitle != "" || Sitecore.Context.PageMode.IsExperienceEditorEditing)
+                            {
+                                <strong>@Editable(item, x => x.SubTitle)</strong>
+                            }
+                            
+                        </div>
+                    </div>
+                }
+            }
+        </div>
+    </section>
+</section>

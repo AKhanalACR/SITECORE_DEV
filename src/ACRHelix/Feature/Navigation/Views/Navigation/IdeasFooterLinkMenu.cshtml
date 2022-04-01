@@ -1,0 +1,11 @@
+﻿@using Glass.Mapper.Sc.Web.Mvc
+@inherits Glass.Mapper.Sc.Web.Mvc.GlassView<ACRHelix.Feature.Navigation.ViewModels.LinkMenuViewModel>
+@{
+    int iCounter = 1;
+}
+@foreach (var item in Model.MenuItems.Select((value, index) => new { index, value }))
+{
+    <a href="@item.value.Link.Url">@item.value.Title</a>
+    @(Model.MenuItems.Count() > iCounter ? "|" : "");
+    iCounter++;
+}

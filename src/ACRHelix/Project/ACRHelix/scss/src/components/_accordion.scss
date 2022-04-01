@@ -1,0 +1,60 @@
+/*#accordion#*/
+
+.accordion {
+	margin-bottom: 1.75em;
+	.accordion-details {
+		display: none;
+	}
+}
+
+.accordion-enabled .accrodion-details {
+	display: block;
+}
+
+.accordion-item {
+	clear: both;
+	border: 1px solid $color-gray;
+	padding: 1.2em 1.0625em 1.3em;
+	position: relative;
+	+ .accordion-item {
+		margin-top: 1.875em;
+	}
+}
+
+.accordion-header {
+	padding: 0;
+	cursor: pointer;
+	padding-right: 3rem;
+	* {
+		display: inline-block;
+		padding: 0;
+		margin: 0;
+	}
+	h2 {
+		color: $color-navy-2;
+	}
+	&:after {
+		display: inline-block;
+		position: absolute;
+		right: 1.1em;
+		top: 1.2em;
+		vertical-align: middle;
+		font-size: 1.3em;
+		color: $color-green;
+		//for some reason this tile is off like 3 degrees	
+		transform: rotate(93deg);
+		transition: 180ms all ease-out;
+	}
+	&.open:after {
+		transform: rotate(-87deg);
+	}
+}
+
+.accordion-details {
+	padding: 1em 0;
+	&:after {
+		content: '';
+		display: block;
+		clear: both;
+	}
+}

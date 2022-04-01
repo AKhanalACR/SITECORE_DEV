@@ -1,0 +1,215 @@
+a.button, .has-button a {
+  border: 1px solid $color-green;
+  border-radius: 0;
+  cursor: pointer;
+  text-decoration: none;
+  font-family: inherit;
+  text-align: center;
+  margin-top: .3rem;
+  margin-bottom: .3rem;
+  vertical-align: middle;
+  color: $white;
+  background: $color-green;
+  display: inline-block;
+  padding: .75rem 1.5rem;
+  line-height: 1;
+  white-space: nowrap;
+  font-size: 1rem;
+}
+
+input {
+  &[type=submit], &[type=button] {
+    border: 1px solid $color-green;
+    border-radius: 0;
+    cursor: pointer;
+    text-decoration: none;
+    font-family: inherit;
+    text-align: center;
+    margin-top: .3rem;
+    margin-bottom: .3rem;
+    vertical-align: middle;
+    color: $white;
+    background: $color-green;
+    display: inline-block;
+    padding: .75rem 1.5rem;
+    line-height: 1;
+    white-space: nowrap;
+    font-size: 1rem;
+  }
+}
+
+button, .has-button a {
+  border: 1px solid $color-green;
+  border-radius: 0;
+  cursor: pointer;
+  text-decoration: none;
+  font-family: inherit;
+  text-align: center;
+  margin-top: .3rem;
+  margin-bottom: .3rem;
+  vertical-align: middle;
+  color: $white;
+  background: $color-green;
+  display: inline-block;
+  padding: .75rem 1.5rem;
+  line-height: 1;
+  white-space: nowrap;
+  font-size: 1rem;
+}
+
+a.button:hover, .has-button a:hover {
+  color: $color-green;
+  background: $white;
+}
+
+input {
+  &[type=submit]:hover, &[type=button]:hover {
+    color: $color-green;
+    background: $white;
+  }
+}
+
+button:hover {
+  color: $color-green;
+  background: $white;
+}
+
+a.button.btn-white {
+  border-color: $white;
+  color: $white;
+  background: none;
+}
+
+.has-btn-white {
+  a, input[type=submit], button {
+    border-color: $white;
+    color: $white;
+    background: none;
+  }
+}
+
+a.button.btn-white:hover {
+  border-color: #E2DBDB;
+  background: none;
+  color: #E2DBDB;
+}
+
+.has-btn-white {
+  a:hover, input[type=submit]:hover, button:hover {
+    border-color: #E2DBDB;
+    background: none;
+    color: #E2DBDB;
+  }
+}
+
+a.button.btn-ghost-blue {
+  border-color: #425563;
+  color: #425563;
+  background: none;
+}
+
+.has-btn-ghost-blue {
+  a, input[type=submit], button {
+    border-color: #425563;
+    color: #425563;
+    background: none;
+  }
+}
+
+a.button.btn-ghost-blue:hover {
+  border-color: #617C90;
+  background: none;
+  color: #617C90;
+}
+
+.has-btn-ghost-blue {
+  a:hover, input[type=submit]:hover, button:hover {
+    border-color: #617C90;
+    background: none;
+    color: #617C90;
+  }
+}
+
+a.button.btn-notification-close {
+  color: inherit;
+  border: 1px solid;
+  background: none;
+  &:hover {
+    color: inherit;
+    border-color: #444;
+  }
+}
+
+#to-top-btn {
+  position: fixed;
+  display: inline-block;
+  bottom: 2rem;
+  opacity: 0;
+  z-index: 999;
+  right: 14px;
+  font-size: .875rem;
+  text-align: center;
+  padding: .2rem .4rem;
+  background: rgba($white, 0.9);
+  border: 1px solid $white;
+  &:before {
+    display: block;
+    width: 100%;
+    transform: rotate(-90deg);
+  }
+  &.top-btn-show {
+    opacity: 1;
+  }
+}
+
+.bg-acr-blue {
+  &.has-button {
+    a:hover, input[type=submit]:hover {
+      background: none;
+      border-color: inherit;
+      color: $white;
+    }
+  }
+  .button:hover {
+    background: none;
+    border-color: inherit;
+    color: $white;
+  }
+}
+
+a.button[target="_blank"]:after, .has-button a[target="_blank"]:after {
+  margin-left: .7em;
+  vertical-align: baseline;
+  text-decoration: none;
+  display: inline-block;
+  padding-bottom: .175em;
+}
+
+main {
+  a {
+    &[target="_blank"]:after {
+      margin-left: .7em;
+      vertical-align: baseline;
+      text-decoration: none;
+      display: inline-block;
+      padding-bottom: .175em;
+    }
+    &.no-target-icon:after {
+      content: none;
+    }
+  }
+  .no-target-icon a:after {
+    content: none;
+  }
+}
+
+h1 a[target="_blank"]:after,
+h2 a[target="_blank"]:after,
+h3 a[target="_blank"]:after,
+figure > a[target="_blank"]:after {
+  content: none;
+}
+
+a.no-target-icon-button:after {
+  content: none !important;
+}

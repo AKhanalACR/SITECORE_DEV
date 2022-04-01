@@ -1,0 +1,40 @@
+﻿@inherits Glass.Mapper.Sc.Web.Mvc.GlassView<ACRHelix.Feature.ImageWiselyContent.ViewModels.WeAreReadingViewModel>
+
+<section class="padding-b-0 new-article">
+    <div class="container">
+        <div class="row">
+            <h1 class="text-center">
+                <a style="text-decoration:none" href="@Model.Url">
+                    @Editable(x => x.Title)
+                </a>
+            </h1>
+            @foreach (var item in Model.ArticlesList)
+            {
+                <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
+                    <div class="ibox">
+                        <div class="ibox-title text-center">
+                            @if (item.Image != null)
+                            {
+                                <img src="@item.Image.Src" alt="@item.Image.Alt">
+                            }
+                        </div>
+                        <div class="ibox-content">
+                            <div class="small m-b-xs">
+                                <span class="text-muted">@item.Date.ToString("MMMM dd, yyyy")</span>
+                            </div>
+                            <a href="@item.Url" class="btn-link">
+                                <h2 class="slick-arrow">
+                                    @item.Title @*<i class="fa fa-angle-double-right"></i>*@
+                                </h2>
+                            </a>
+                            <p class="news-p"><a class="text-info slick-arrow" href="@item.Url">Continue reading @*<i class="fa fa-angle-double-right"></i>*@</a></p>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+        <div class="float-e-margins text-center">
+            <a class="btn btn-primary slick-arrow" href="@Model.Url">See more @*<i class="fa fa-angle-double-right">*@</i></a>
+        </div>
+    </div>    
+</section>

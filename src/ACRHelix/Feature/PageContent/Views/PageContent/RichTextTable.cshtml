@@ -1,0 +1,14 @@
+﻿@inherits Glass.Mapper.Sc.Web.Mvc.GlassView<ACRHelix.Feature.PageContent.ViewModels.RichTextSectionViewModel>
+
+<div class="content section-spacing">
+    @if (!string.IsNullOrWhiteSpace(Model.Title) || Sitecore.Context.PageMode.IsExperienceEditorEditing)
+    {
+    <h2>@Editable(x => x.Title)</h2>
+    <hr>
+    }
+    <div class="has-acr-table hide-left-btn">
+        <div class="in-view-wrapper">
+            @Editable(x => x.RichText)
+        </div>
+        </div>
+    </div>

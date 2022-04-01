@@ -1,0 +1,153 @@
+﻿@inherits Glass.Mapper.Sc.Web.Mvc.GlassView<ACRHelix.Feature.ACRDashboard.ViewModels.ACRDashboardViewModel>
+@using Sitecore.Foundation.SitecoreExtensions.Extensions
+
+@if (!Sitecore.Context.PageMode.IsExperienceEditor && !Sitecore.Context.PageMode.IsPreview)
+{
+    Html.RenderAction("DashboardLinksModal");
+}
+<div class="content row section-spacing">
+    @Html.Partial("_DashboardSideNavigation")
+    <div class="xl-wide-70pct lg-wide-12 account-main flex-container">
+        <section class="col-12">
+            <div class="box-account">
+                <h1>Welcome @Model.FullName</h1>
+                <hr>
+                <div class="row-adjust flex-content-left">
+                    @Html.Partial("_MemberInformation")
+                    @Html.Sitecore().DynamicPlaceholder("CaseInPoint", true)
+
+                </div>
+            </div>
+        </section>
+
+        <section class="xl-col-7 md-col-12">
+            <div class="box-account">
+                <div class="space-between">
+                    <h2 class="margin-bottom-0">My Latest news</h2>
+                    @*<a href="@Model.SideNavigationItems.FirstOrDefault(x => x.Id.ToString() == "").Link.Url " class="read-more-link"><strong>Select My News</strong></a>*@
+                    @using (BeginRenderLink(Model.DashboardModel, x => x.SelectMyNewsLink, new System.Collections.Specialized.NameValueCollection() { { "class", "reead-more-link no-target-icon" } }))
+                    {
+                        <strong>
+                            @Model.DashboardModel.SelectMyNewsLink.Text
+                        </strong>
+                    }
+                </div>
+                <hr>
+                @Html.Sitecore().DynamicPlaceholder("dashboard-latest-news", true)
+            </div>
+        </section>
+        @if (!Sitecore.Context.PageMode.IsExperienceEditor && !Sitecore.Context.PageMode.IsPreview)
+        {
+            Html.RenderAction("DashboardLinks");
+        }
+        @if (Model.DisplayCME)
+        {
+            using (BeginEditFrame(Model.DashboardModel, "CME Content", x => x.CMETitle, x => x.CMEText, x => x.GatewayLink))
+            {
+            <section class="col-12">
+                <div class="box-account">
+                    <div class="space-between">
+                        <h2 class="margin-bottom-0 space-for-tooltip">@Editable(Model.DashboardModel,x => x.CMETitle)</h2>
+
+
+                        @*<a class="tool-tip tip-info text-size-1p25 fl-right" href="#"><span class="tip-text text-size-1"><p><strong>some note:</strong>Quisque placerat facilisis egestas cillum dolore. Gallia est omnis divisa in partes tres, quarum.</p></span></a>*@
+
+                    </div>
+                    <hr>
+
+                    <figure class="img-right xl-wide-4 wide-12 text-center">
+                        <span style="border:solid; border-color:#194a6a" class="credit-hours">@Model.CMECredits.ToString("F2")</span>
+                        <strong>ACR Credits This Year</strong>
+                        <br>                      
+                        <br>
+                    </figure>
+                 
+                      @Editable(Model.DashboardModel, x => x.CMEText)
+                  
+
+                    @*<a href="#" class="button">Access CME Gateway</a>*@
+                    @Editable(Model.DashboardModel, x => x.GatewayLink, new System.Collections.Specialized.NameValueCollection() { { "class", "button" } })
+
+                </div>
+            </section>
+                }
+            }
+        @Html.Partial("_EngageLinks")
+        <section class="col-12">
+            <div class="box-account">
+                <h2>Reading Lists</h2>
+                <hr>
+                <div class="tab-container">
+                    <div class="inline-ul acr-tabs tabs" role="menubar">
+                        <ul>
+                            <li><a href="#othersreading"><span>What Others are Reading</span></a></li>
+                            <li><a href="#myreading"><span>My Reading List</span></a></li>
+                        </ul>
+                    </div>
+                    <div class="tabs-body acr-tabs-body neg-vertical-margin">
+                        <div data-tab-id="othersreading">
+                            <div class="flex-content-left row-adjust reading-lists">
+                                @{
+                                    int artCount = 0;
+                                    string hide1 = "";
+                                    foreach (var a in Model.ReccomendedArticles)
+                                    {
+                                        if (artCount > 6)
+                                        {
+                                            hide1 = "style=\"display:none\"";
+                                        }
+                                        <div class="xl-col-4 lg-col-6 show-reccomend" @hide1>
+                                            <div class="event-tile text-content">
+                                                <h3><a href="@a.Url">@a.Title</a></h3>
+                                                <!--#dev no its not a .tile-bottom-link but the class works! -->
+                                                <span class="text-size-p75 tile-bottom-link"><i class="acr-icon icon-star text-acr-light-blue text-size-p875"></i> Saved @a.Article.CreatedDate.ToString("MMMM dd, yyyy")</span>
+                                            </div>
+                                        </div>
+                                        artCount++;
+                                    }
+                                }
+                            </div>
+                            @if (artCount > 6)
+                            {
+                                <a href="#viewmore" class="read-more-link show-all-reccomended"><strong>View More</strong></a>
+                            }
+                        </div>
+                        <div data-tab-id="myreading">
+                            <div class="flex-content-left row-adjust reading-lists">
+                                @{
+                                    int bmCount = 0;
+                                    string hide = "";
+                                    foreach (var bookmark in Model.MyBookmarks)
+                                    {
+                                        if (bmCount > 6)
+                                        {
+                                            hide = "style=\"display:none\"";
+                                        }
+                                        <div class="xl-col-4 lg-col-6 show-bookmark" @hide>
+                                            <div class="event-tile text-content">
+                                                <h3><a href="@bookmark.Url">@bookmark.Title</a></h3>
+                                                <!--#dev no its not a .tile-bottom-link but the class works! -->
+                                                <span class="text-size-p75 tile-bottom-link"><i class="acr-icon icon-star text-green remove-bookmark" data-bookmark-id="@bookmark.Bookmark.BookmarkID" style="font-size:1.3rem"></i> Saved @bookmark.Bookmark.CreatedDate.ToString("MMMM dd, yyyy")</span>
+                                            </div>
+                                        </div>
+
+                                        bmCount++;
+
+                                    }
+                                }
+
+                            </div>
+                            @if (bmCount > 6)
+                            {
+                                <a href="#viewmore" class="read-more-link show-all-bookmarks"><strong>View More</strong></a>
+                            }
+                        </div>
+
+                    </div>
+                </div>
+
+
+            </div>
+        </section>
+    </div>
+</div>

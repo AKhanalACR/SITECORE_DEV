@@ -1,0 +1,8 @@
+﻿@inherits Glass.Mapper.Sc.Web.Mvc.GlassView<RHEC.Website.ViewModels.LogoViewModel>
+
+
+@using (BeginRenderLink(x => x.Link, isEditable: true))
+{
+    @RenderImage(m => m.Image, new { @alt = "Radiology Health Equity Coalition logo" }, isEditable: true)
+}
+

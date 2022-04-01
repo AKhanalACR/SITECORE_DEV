@@ -1,0 +1,185 @@
+﻿
+namespace ACR.layouts.ACR.sublayouts
+{
+    using System;
+    using System.IO;
+    using System.Web;
+    using System.Text;
+    using iTextSharp.text;
+    using iTextSharp.text.pdf;
+    using iTextSharp.text.html.simpleparser;
+    using System.Collections.Generic;
+    using System.Net.Mail;
+    using Sitecore.Diagnostics;
+  using global::ACR.Foundation.Personify.PersonifyService;
+  using global::ACR.Foundation.Personify.PersonifyDS;
+
+  public partial class sltVisaInvitationLetter : System.Web.UI.UserControl
+    {
+        private void Page_Load(object sender, EventArgs e)
+        {
+            if (!IsPostBack)
+            {
+                ConfirmationPanel.Visible = false;
+                var item = Sitecore.Context.Item;
+                LtlInstruction.Text = item.Fields["Body Text"].Value;
+
+                List<string> countries = new List<string>();
+                IEnumerator<Country> enumerator = SvcClient.Ctxt.Countries.Execute().GetEnumerator();
+                while (enumerator.MoveNext())
+                {
+                    if(enumerator.Current.ActiveFlag != null && enumerator.Current.ActiveFlag == true)
+                        countries.Add(enumerator.Current.CountryDescription);
+                }
+                countries.Remove("All Countries");
+                countries.Sort();
+                countries.Insert(0, "- Select -");
+                ddlCountry.DataSource = countries;
+                ddlCountry.DataBind();
+            }
+        }
+
+        protected void btnSubmit_Click(object sender, EventArgs e)
+        {
+            //Sitecore.Data.Database master = Sitecore.Configuration.Factory.GetDatabase("master");
+            var item = Sitecore.Context.Item; 
+            
+            StringBuilder sb = new StringBuilder();
+            sb.Append("<p style='font-family: Arial; font-size: 10px; line-height:90%'>");
+            sb.Append(txtName.Text + "<br />");
+            sb.Append(txtAddress1.Text + "<br />");
+            if(!string.IsNullOrEmpty(txtAddress2.Text))
+                sb.Append(txtAddress2.Text + "<br />");
+            sb.Append(txtCity.Text + " " + txtState.Text + " " + txtZip.Text + "<br />");
+            sb.Append(ddlCountry.SelectedValue + "<br /><br />");
+            sb.Append("Date: " + (DateTime.Today).ToString("MMMM dd, yyyy"));
+            sb.Append("<br /> </p> ");
+            var body = item.Fields["Letter Body"].Value.Replace("##LastName##", txtName.Text);
+            sb.Append(body);
+
+            var imageField = (Sitecore.Data.Fields.ImageField)item.Fields["Signature Line Image"];
+            if(imageField != null)
+            {
+                var image = new Sitecore.Data.Items.MediaItem(imageField.MediaItem);
+                var imageURL = string.Empty;
+                if (Request.IsSecureConnection)
+                    imageURL = "https://" + Request.Url.Host;
+                else
+                    imageURL = "http://" + Request.Url.Host;
+                imageURL += Sitecore.StringUtil.EnsurePrefix('/', Sitecore.Resources.Media.MediaManager.GetMediaUrl(image));
+                sb.Append("<img src='" + imageURL + "' height='42' />");
+            }
+            sb.Append(item.Fields["Signature Line Text"]);
+            Session["Letter"] = sb.ToString();
+            try
+            {
+                var ms = new MemoryStream(GetPDF(sb.ToString()));
+                SendEmail(txtName.Text, txtEmail.Text, ms);
+            }
+            catch (Exception ex)
+            {
+
+            }
+            FormPanel.Visible = false;
+            ConfirmationPanel.Visible = true;
+            LtlConfirmation.Text = item.Fields["Confirmation Text"] != null ? item.Fields["Confirmation Text"].Value : "<span style=\"color: #404340; letter-spacing: normal; background-color: #ffffff;\">Thank you. The VISA Letter of Invitation has been sent to the email provided. You may also download or print the letter by clicking the link provided here.</span>";
+        }
+
+        protected void btnPdf_Click(object sender, EventArgs e)
+        {
+            string sb = (string)Session["Letter"];
+            var bytes = GetPDF(sb);
+            Response.ContentType = "application/pdf";
+            Response.AddHeader("content-disposition", "attachment;filename=LetterOfInvitation.pdf");
+            Response.Buffer = true;
+            HttpContext.Current.Response.Cache.SetCacheability(HttpCacheability.NoCache);
+            Response.BinaryWrite(bytes);
+            Response.Flush();
+            Response.End();
+        }
+
+        private byte[] GetPDF(string sb)
+        {
+            string imageFilePath = string.Empty;
+            if (Request.IsSecureConnection)
+                imageFilePath = "https://" + Request.Url.Host;
+            else
+                imageFilePath = "http://" + Request.Url.Host;
+
+            //Sitecore.Data.Database master = Sitecore.Configuration.Factory.GetDatabase("master");
+            var item = Sitecore.Context.Item;
+            var imageField = (Sitecore.Data.Fields.ImageField)item.Fields["Letter Head"];
+            if (imageField != null)
+            {
+                var image = new Sitecore.Data.Items.MediaItem(imageField.MediaItem);
+                imageFilePath += Sitecore.StringUtil.EnsurePrefix('/', Sitecore.Resources.Media.MediaManager.GetMediaUrl(image));  
+            }
+            //Log.Info("Letter Head Image Path: " + imageFilePath, this);
+
+            Image jpg = Image.GetInstance(imageFilePath);
+            jpg.ScaleAbsolute(PageSize.LETTER);
+            jpg.SetAbsolutePosition(0, 0);
+            jpg.Alignment = Image.UNDERLYING;
+
+            Document pdfDoc = new Document(PageSize.LETTER, 35f, 35f, 130f, 0f);
+            //var font = FontFactory.GetFont("Arial", 10, Font.NORMAL);
+
+            HTMLWorker htmlparser = new HTMLWorker(pdfDoc);
+            byte[] bytes = null;
+
+            StringReader sr = new StringReader(sb);
+            using (MemoryStream memoryStream = new MemoryStream())
+            {
+                PdfWriter writer = PdfWriter.GetInstance(pdfDoc, memoryStream);
+                pdfDoc.Open();
+                pdfDoc.NewPage();
+                pdfDoc.Add(jpg);
+                htmlparser.Parse(sr);
+                pdfDoc.Close();
+
+                bytes = memoryStream.ToArray();
+                memoryStream.Close();               
+            }
+            return bytes;     
+        }
+
+        private void SendEmail(string regName, string emailAddr, Stream sm)
+        {
+            var attm = new Attachment(sm, "Letter-of-Invitation.pdf", "application/pdf");
+            var item = Sitecore.Context.Item;
+
+            //Send mail to ACR Meeting Registration
+            var body = (item.Fields["Email Body"].Value).Replace("[RegistrantName]", regName);
+            body = body.Replace("[RegistrantEmail]", emailAddr);
+            MailMessage message1 = new MailMessage
+            {
+                From = new MailAddress(item.Fields["Email From"].Value, "American College of Radiology"), 
+                Subject = item.Fields["Email Subject"].Value,
+                IsBodyHtml = true,
+                Body = body
+            };
+            message1.To.Add(new MailAddress(item.Fields["Email To"].Value));
+            message1.Attachments.Add(attm);
+            
+
+            //Send mail to User with attachement 
+            MailMessage message2 = new MailMessage
+            {
+                From = new MailAddress(item.Fields["Email From"].Value, "American College of Radiology"), 
+                Subject = item.Fields["Email Subject"].Value,
+                IsBodyHtml = true,
+                Body = item.Fields["Confirmation Email"].Value
+            };
+            message2.To.Add(new MailAddress(emailAddr));
+            message2.Attachments.Add(attm);
+
+            SmtpClient smtpClient = new SmtpClient();
+            smtpClient.Host = "smtp01.acr.org";
+            smtpClient.Port = 25;
+            smtpClient.UseDefaultCredentials = false;
+            smtpClient.Send(message1);
+            smtpClient.Send(message2);
+        }
+
+    }
+}

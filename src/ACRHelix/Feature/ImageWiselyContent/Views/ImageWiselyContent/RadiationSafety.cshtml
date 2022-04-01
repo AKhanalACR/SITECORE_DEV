@@ -1,0 +1,55 @@
+﻿@inherits Glass.Mapper.Sc.Web.Mvc.GlassView<ACRHelix.Feature.ImageWiselyContent.ViewModels.RadiationSafetyViewModel>
+
+<section class="white-bg radiation-img">
+    <div class="container">
+        <h1 class="header-title">@Editable(x => x.SubTitle)</h1>
+        @if (Model.ModalitiesList.Count() > 0)
+        {
+             <div class="ibox">
+                 <div class="ibox-content padding-0">
+                     <div class="row text-center">
+                         @foreach (var item in Model.ModalitiesList.Take(3))
+                         {
+                             <div class="radiation-item col-sm-4 col-md-4 col-lg-4">
+                                 <a href="@item.Url" style='background:url( @if (item.Image != null) { @Html.Raw(item.Image.Src) })center top no-repeat; height: 157px; display: block; width: 100%; position: relative;'>
+                                     <div class="intext">
+                                         <h2>
+                                             @Html.Raw(item.Title)
+                                         </h2>
+                                         @if (!string.IsNullOrWhiteSpace(item.TileText))
+                                         {
+                                             <span>@item.TileText</span>
+                                         }                                         
+                                     </div>
+                                 </a>
+                             </div>
+                         }
+                     </div>
+                 </div>
+             </div>
+             
+             <div class="ibox">
+                 <div class="ibox-content padding-0">
+                     <div class="row text-center">
+                         @foreach (var item in Model.ModalitiesList.Skip(3))
+                         {
+                             <div class="radiation-item2 col-sm-4 col-md-4 col-lg-4">
+                                 <a href="@item.Url" style='background:url( @if (item.Image != null) { @Html.Raw(item.Image.Src) })center top no-repeat; height: 292px; display: block; width: 100%; position: relative;'>                                    
+                                     <div class="intext">
+                                         <h2>
+                                             @Html.Raw(item.Title)
+                                         </h2>
+                                         @if (!string.IsNullOrWhiteSpace(item.TileText))
+                                         {
+                                             <span>@item.TileText</span>
+                                         }
+                                     </div>
+                                 </a>
+                             </div>
+                         }
+                     </div>
+                 </div>
+             </div>                 
+        }
+    </div>       
+</section>

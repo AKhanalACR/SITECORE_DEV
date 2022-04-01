@@ -1,0 +1,167 @@
+﻿@using Glass.Mapper.Sc.Web.Mvc
+@using System.Web.Mvc
+@using Sitecore.Mvc
+@using ACRHelix.Feature.RhecContent.DAL
+
+@inherits Glass.Mapper.Sc.Web.Mvc.GlassView<ACRHelix.Feature.RhecContent.ViewModels.PledgeViewModel>
+
+<section class="commit">
+    <h2>@Editable(x => x.Title)</h2>
+    @if (!string.IsNullOrWhiteSpace(Model.SubTitle) || Sitecore.Context.PageMode.IsExperienceEditor)
+    {
+        <p class="sub-header">
+            @Editable(x => x.SubTitle)
+        </p>
+    }
+        <div id="pledgeforms" class="commit-container">
+            @if (!string.IsNullOrWhiteSpace(Model.RichText) || Sitecore.Context.PageMode.IsExperienceEditor)
+            {
+                <div class="pledge-list-container pledge-page-content">
+                    @Editable(x => x.RichText)
+                </div>
+            }
+            <div id="formbuttonscontainer" class="form-btn-container">
+                <label class="section-text">Select One:</label>
+                <input type="button" id="professional" name="professional" value="@Html.Raw(Model.ProTabTex)" class="professional-btn active">
+                <input type="button" id="facility" name="facility" value="@Html.Raw(Model.FacTabText)" class="facility-btn">
+            </div>
+            <p id="proTextTitle"class="sub-header">
+                @Editable(x => x.ProPledgeTitle)
+            </p>
+            <div id="proTextcontent" class="pledge-list-container pledge-page-content">
+                @Editable(x => x.ProPledgeText)
+            </div>
+            <p id="facTextTitle" class="sub-header" style="display:none;">
+                @Editable(x => x.FacPledgeTitle)
+            </p>
+            <div id="facTextcontent" class="pledge-list-container pledge-page-content" style="display:none;">
+                @Editable(x => x.FacPledgeText)
+            </div>
+            <form id="professionalForm" class="professional-form">
+                <div class="desktop-row">
+                    <div class="label-input-wrapper">
+                        <label class="requiredlabelred" for="profname">First Name</label>
+                        <input class="procominput" type="text" id="profname" name="profname" placeholder="First Name">
+                        <div id="proFnameError" class="field-validation-error" style="display:none">Please enter your first name.  </div>
+                    </div>
+                    <div class="label-input-wrapper">
+                        <label class="requiredlabelred" for="prolname">Last Name</label>
+                        <input class="procominput" type="text" id="prolname" name="prolname" placeholder="Last Name">
+                        <div id="proLnameError" class="field-validation-error" style="display:none">Please enter your last name.   </div>
+                    </div>
+                </div>
+                <div class="desktop-row">
+                    <div class="label-input-wrapper">
+                        <label class="requiredlabelred" for="proemail">Email Address</label>
+                        <input class="procominput" type="text" id="proemail" name="proemail" placeholder="Email Address">
+                        <input id="existemail" name="existemail" type="hidden" value="">
+                        <div id="proEmailError" class="field-validation-error" style="display:none">Please enter your email address.   </div>
+                        <div id="proEmailpatternerror" class="field-validation-error" style="display:none">Invalid email address. Please try again.</div>
+                        <div id="proEmailexistserror" class="field-validation-error" style="display:none">This email address has already been used to make the pledge. You do not need to pledge multiple times.</div>
+                    </div>
+                    <div class="label-input-wrapper">
+                        <label class="requiredlabelred" for="proconfirm-email">Confirm Email Address</label>
+                        <input class="procominput" type="text" id="proconfirm-email" name="proconfirm-email" placeholder="Confirm Email">
+                        <div id="proEmailConfirmError" class="field-validation-error" style="display:none">Please confirm your email address.   </div>
+                        <div id="proEmailConfirmMatchError" class="field-validation-error" style="display:none">Email addresses do not match. Please try again.   </div>
+                    </div>
+                </div>
+                <div class="desktop-row">
+                    <div class="label-input-wrapper">
+                        <label class="requiredlabelred" for="procountry">Country</label>
+                        <select id="procountry" name="procountry"></select>@* type="text" placeholder="Country" class="procominput"*@
+                        <div id="proCountryerror" class="field-validation-error" style="display:none">Please Select your country.</div>
+                    </div>
+                </div>
+                <div class="desktop-row">
+                    <div class="label-input-wrapper">
+                        <div id="proFormCaptcha" data-callback="prorecaptcha_callback"></div>
+                        <div id="proCaptchaerror" class="field-validation-error" style="display:none">Captcha is not valid! Please, try it again.</div>
+                        <noscript><div class="field-validation-error">Please Enable javascript to submit form.</div></noscript>
+                    </div>
+                </div>
+                <div class="loader" id="proloader" style="display:none"></div>
+                <button id="proPledgeSubmit" type="submit" class="oval-btn submit-btn">Submit</button>
+            </form>
+            <form id="facilityForm" class="facility-form">
+                <div class="desktop-row">
+                    <div class="label-input-wrapper">
+                        <label class="requiredlabelred" for="facility-name">Facility Name</label>
+                        <input class="faccominput" type="text" id="facility-name" name="facility-name" placeholder="Facility Name">
+                        <div id="facFacilityError" class="field-validation-error" style="display:none">Please enter facility name.   </div>
+                    </div>
+                    <div class="label-input-wrapper">
+                        <label class="requiredlabelred" for="city">City</label>
+                        <input class="faccominput" type="text" id="city" name="city" placeholder="City">
+                        <div id="facCityerror" class="field-validation-error" style="display:none">Please enter your city.</div>
+                    </div>
+                </div>
+                <div class="desktop-row">
+                    <div class="label-input-wrapper">
+                        <label class="requiredlabelred" for="faccountry">Country</label>
+                        <select id="faccountry" name="faccountry"></select>@*placeholder="Country" class="faccominput" type="text"*@
+                        <div id="facCountryerror" class="field-validation-error" style="display:none">Please Select your country.</div>
+                    </div>
+                    <div class="label-input-wrapper" id="stateWrapper">
+                        <label class="requiredlabelred" for="state">State / Province</label>
+                        <select id="state" name="state"></select>@*class="faccominput" type="text" placeholder="State"*@
+                        <div id="facStateerror" class="field-validation-error" style="display:none">Please Select your state or province.</div>
+                    </div>
+                </div>
+                <div class="desktop-row">
+                    <div class="label-input-wrapper" id="zipCodeWrapper">
+                        <label class="requiredlabelred" for="zipcode">Zip Code / Postal Code</label>
+                        <input class="faccominput" type="text" id="zipcode" name="zipcode" placeholder="Zip Code">
+                        <div id="facZiperror" class="field-validation-error" style="display:none">Please enter your zip code or postal code.</div>
+                    </div>
+                    @*<div class="label-input-wrapper">
+                    <label for="province">Province</label>
+                    <input class="faccominput" type="text" id="province" name="province" placeholder="Province">
+                </div>*@
+                </div>
+                <div class="desktop-row">
+                    <div class="label-input-wrapper" style="padding-bottom: 5px;">
+                        <label for="">Individual taking pledge on behalf of the Facility:</label>
+                    </div>
+                </div>
+                <div class="desktop-row">
+                    <div class="label-input-wrapper">
+                        <label class="requiredlabelred" for="facfname">First Name</label>
+                        <input class="faccominput" type="text" id="facfname" name="facfname" placeholder="First Name">
+                        <div id="facFnameError" class="field-validation-error" style="display:none">Please enter your first name.  </div>
+                    </div>
+                    <div class="label-input-wrapper">
+                        <label class="requiredlabelred" for="faclname">Last Name</label>
+                        <input class="faccominput" type="text" id="faclname" name="faclname" placeholder="Last Name">
+                        <div id="facLnameError" class="field-validation-error" style="display:none">Please enter your last name.   </div>
+                    </div>
+                </div>
+                <div class="desktop-row">
+                    <div class="label-input-wrapper">
+                        <label class="requiredlabelred" for="facemail">Email Address</label>
+                        <input class="faccominput" type="text" id="facemail" name="facemail" placeholder="Email Address">
+                        <div id="facEmailError" class="field-validation-error" style="display:none">Please enter your email address.   </div>
+                        <div id="facEmailpatternerror" class="field-validation-error" style="display:none">Invalid email address. Please try again.</div>
+                    </div>
+                    <div class="label-input-wrapper">
+                        <label class="requiredlabelred" for="facconfirm-email">Confirm Email Address</label>
+                        <input class="faccominput" type="text" id="facconfirm-email" name="facconfirm-email" placeholder="Confirm Email">
+                        <div id="facEmailConfirmError" class="field-validation-error" style="display:none">Please confirm your email address.   </div>
+                        <div id="facEmailConfirmMatchError" class="field-validation-error" style="display:none">Email addresses do not match. Please try again.   </div>
+                    </div>
+                </div>
+                <div class="desktop-row">
+                    <div class="label-input-wrapper">
+                        <div id="facFormCaptcha" data-callback="facrecaptcha_callback"></div>
+                        <div id="facCaptchaerror" class="field-validation-error" style="display:none">Captcha is not valid! Please, try it again.</div>
+                        <noscript><div class="field-validation-error">Please Enable javascript to submit form.</div></noscript>
+                    </div>
+                </div>
+                <div class="loader" id="facloader" style="display:none"></div>
+                <button id="facPledgeSubmit" type="submit" class="oval-btn submit-btn">Submit</button>
+            </form>
+        </div>
+    </section>
+@*<script type="text/javascript" src="/js/jquery-2.2.0.min.js"></script>
+<script type="text/javascript" src="~/js/RHEC/Pledge.js"></script>*@
+<script src="https://www.google.com/recaptcha/api.js?onload=CaptchaCallback&amp;render=explicit" async="" defer=""></script>

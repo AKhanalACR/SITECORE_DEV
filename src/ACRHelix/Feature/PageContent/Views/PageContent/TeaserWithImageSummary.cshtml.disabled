@@ -1,0 +1,25 @@
+﻿@inherits Glass.Mapper.Sc.Web.Mvc.GlassView<ACRHelix.Feature.PageContent.ViewModels.TeaserWithImageSummaryViewModel>
+
+<section class="img-rl section-spacing content row xl-text-left md-text-center text-center addParent-@Model.NoContainCss">
+    <header class="xl-col-8 md-col-6 @Model.ImageLeftRightClass">
+        <h1 class="xl-wide-11 lg-wide-12 @Model.ImageLeftRightClass">@Editable(x => x.Title)</h1>
+    </header>
+    <div class="xl-col-4 md-col-6 text-center @Model.OppositeImageLeftRightClass @Model.NoContainCss">
+        <figure class="lg-wide-6 lg-margin-auto">
+            @*@Html.Sitecore().ImageField(Templates.HasPageContent.Fields.Image, Model.Item, 0, string.IsNullOrWhiteSpace(Model.NoContainCss) ? 400 : 0)*@
+            @RenderImage(x => x.Image)
+        </figure>
+        <br>
+    </div>
+    <div class="xl-col-8 md-col-6 @Model.ImageLeftRightClass">
+        <div class="text-content xl-wide-11 lg-wide-12 @Model.ImageLeftRightClass">
+            <p>@Editable(x => x.Summary)</p>
+        </div>
+        <div class="has-button xl-wide-11 lg-wide-12 @Model.ImageLeftRightClass">
+            <a href="@Model.Url" target="_blank">@Editable(x => x.Title)</a>
+        </div>
+    </div>
+</section>
+
+
+

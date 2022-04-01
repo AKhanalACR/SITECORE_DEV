@@ -1,0 +1,62 @@
+﻿@inherits Glass.Mapper.Sc.Web.Mvc.GlassView<ACRHelix.Feature.RadPACContent.ViewModels.RichtextSectionViewModel>
+@using Sitecore.Foundation.SitecoreExtensions.Extensions
+
+<section>
+    <div class="container">
+        @if (!string.IsNullOrWhiteSpace(Model.Title) || Sitecore.Context.PageMode.IsExperienceEditor)
+        {
+            <div class="row">
+                <div class="col-12">
+                    <div class="section-header">
+                        <h3 class="header-style"><span class="underline-red"><span>@Editable(x => x.Title)</span></span><hr class="hr-style-red" /></h3>
+                    </div>
+                </div>
+            </div>
+        }
+        
+        <div class="row mb-5">
+            @if (Model.DefaultImageLocation)
+            {
+                <div class="col-12 order-1 order-md-0 col-md-7">
+                    @if (!string.IsNullOrWhiteSpace(Model.SubTitle) || Sitecore.Context.PageMode.IsExperienceEditor)
+                    {
+                        <h3>@Editable(x => x.SubTitle)</h3>
+                    }
+                    @if (!string.IsNullOrWhiteSpace(Model.RichText) || Sitecore.Context.PageMode.IsExperienceEditor)
+                    {
+                        @Editable(x => x.RichText)
+                    }
+                </div>
+
+                if (Model.Image != null || Sitecore.Context.PageMode.IsExperienceEditor)
+                {
+                    <div class="col-12 order-0 order-md-1 col-md-5 pb-10">
+                        @RenderImage(x => x.Image, new { @class = "img-fluid" }, isEditable: true)
+                    </div>
+                }
+            }
+            else
+            {
+                <div class="col-12 order-0 order-md-1 col-md-7 pb-10">
+                    @if (!string.IsNullOrWhiteSpace(Model.SubTitle) || Sitecore.Context.PageMode.IsExperienceEditor)
+                    {
+                        <h3>@Editable(x => x.SubTitle)</h3>
+                    }
+                    @if (!string.IsNullOrWhiteSpace(Model.RichText) || Sitecore.Context.PageMode.IsExperienceEditor)
+                    {
+                        @Editable(x => x.RichText)
+                    }
+                </div>
+
+                if (Model.Image != null || Sitecore.Context.PageMode.IsExperienceEditor)
+                {
+                    <div class="col-12 order-1 order-md-0  col-md-5">
+                        @RenderImage(x => x.Image, new { @class = "img-fluid" }, isEditable: true)
+                    </div>
+                }
+            }
+            
+            
+        </div>
+    </div>
+</section>

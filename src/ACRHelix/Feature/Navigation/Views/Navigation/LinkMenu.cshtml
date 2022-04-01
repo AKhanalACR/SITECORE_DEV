@@ -1,0 +1,42 @@
+﻿@using Glass.Mapper.Sc.Web.Mvc
+@inherits Glass.Mapper.Sc.Web.Mvc.GlassView<ACRHelix.Feature.Navigation.ViewModels.LinkMenuViewModel>
+
+@{ 
+    int itemCount = Model.MenuItems.Count();
+} 
+
+<ul>
+    @if (itemCount > 0)
+    {
+        foreach (var item in Model.MenuItems.Select((value, index) => new { index, value }))
+        {
+            if (item.value.Link != null)
+            {
+                if (Model.IncludeCharacterBasedDivider)
+                {
+                    <li><a target="@item.value.Link.Target" href="@item.value.Link.Url">@item.value.Title</a></li>
+                    if (item.index < itemCount - 1)
+                    {
+                        <li> | </li>
+                    }
+                }
+                else if (String.IsNullOrEmpty(item.value.IconCSSClass))
+                {
+                   //li>@RenderLink(item, x => x.value.Link, false, contents: item.value.Title)</li>
+                    <li><a target="@item.value.Link.Target" href="@item.value.Link.Url">@item.value.Title</a></li>
+                }
+                else
+                {
+                    if (item.value.Title == "Renew" || item.value.Title == "Join" || item.value.Title == "ACR Jobs")
+                    {
+                        <li><a target="@item.value.Link.Target" href="@item.value.Link.Url" style="color:#FBAF3F;"><i class="acr-icon @item.value.IconCSSClass"></i>@item.value.Title</a></li>
+                    }
+                    else
+                    {
+                        <li><a target="@item.value.Link.Target" href="@item.value.Link.Url"><i class="acr-icon @item.value.IconCSSClass"></i>@item.value.Title</a></li>
+                    }
+                }
+            }
+        }
+    }
+</ul>

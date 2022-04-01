@@ -1,0 +1,50 @@
+﻿@inherits Glass.Mapper.Sc.Web.Mvc.GlassView<ACRHelix.Feature.ImageWiselyContent.ViewModels.RadiationSafetyViewModel>
+@{ int index = 0; }
+
+@foreach (var item in Model.ArticlePagesList)
+{
+    <section class="white-bg">
+        <div class="container">
+            <div class="ibox margin-b-0">
+                <div class="ibox-content padding-0">
+                    <div class="feed-element lst-heading">
+                       @if (index == 0)
+                       {
+                           <h2 class="tag-h2-red">@Editable(m => m.NewSectionTitle)</h2> 
+                       }
+                       else if (index == 1)
+                       {
+                           <h2 class="tag-h2-red">@Editable(m => m.PreviousSectionTitle)</h2> 
+                       }
+                       <h3 class="tag-h3-blue">@Editable(item, x => x.Title)</h3> 
+                       <a href="@item.Url" class="pull-left">
+                            @RenderImage(item, x => x.Image, isEditable: true)
+                       </a>                 
+                       <div class="media-body">                                                     
+                           @if (!string.IsNullOrWhiteSpace(item.TileText))
+                           {
+                               @Editable(item, x => x.TileText)
+                               
+                           }
+                           <div class="float-e-margins t-center">
+                               @if (!string.IsNullOrWhiteSpace(item.LinkText))
+                               {
+                                <a href="@item.Url">@Editable(item, x => x.LinkText) <i class="fa fa-angle-double-right"></i></a>
+                               }
+                               else
+                               {
+                                <a href="@item.Url">Access the case <i class="fa fa-angle-double-right"></i></a>
+                               }
+                                    
+                           </div>
+                       </div>
+                    </div>
+                </div>
+            </div>
+            <div class="padding-l-0 padding-r-0">
+                <div class="g-line"></div>
+            </div>
+        </div>
+    </section>
+    ++index;
+}

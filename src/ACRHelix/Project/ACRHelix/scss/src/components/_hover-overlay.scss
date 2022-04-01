@@ -1,0 +1,28 @@
+.hover-show-overlay {
+  position: relative;
+  .overlay-to-show {
+    opacity: 0;
+    position: absolute;
+    min-height: 100%;
+    top: 0;
+    left: 0;
+    margin-right: 0;
+    padding: 1rem;
+    z-index: 100;
+    background: $white;
+    transition: 200ms opacity ease-out 60ms;
+  }
+  .text-content {
+    cursor: default;
+  }
+  &:hover {
+    .overlay-to-show {
+      opacity: 1;
+      max-height: 100%;
+      overflow: hidden;
+    }
+    .hide-on-hover {
+      opacity: 0;
+    }
+  }
+}

@@ -1,0 +1,60 @@
+﻿@using Glass.Mapper.Sc.Web.Mvc;
+@using System.Collections.Specialized;
+@inherits Glass.Mapper.Sc.Web.Mvc.GlassView<ACRHelix.Feature.Callouts.ViewModels.CalloutsItemViewModel>
+
+<style>    
+    .btn-bordered:hover {
+        color: #ffffff !important;
+        background: #425563;
+    }
+	a.btn-bordered{
+		border: 1px solid #425563;
+        border-radius: 0;
+        cursor: pointer;
+        text-decoration: none;
+        font-family: inherit;
+        text-align: center;
+        margin-top: .3rem;
+        margin-bottom: .3rem;
+        vertical-align: middle;        
+        background: none;
+        display: inline-block;
+        padding: .75rem 1.5rem;
+        line-height: 1;
+        white-space: nowrap;
+        font-size: 1rem;        
+    }
+	.btn-bordered a{
+		color: #425563 !important;
+	}
+	.btn-bordered a:hover{
+		color: #ffffff !important;
+        background: #425563;
+	}
+</style>
+
+<section class="img-rl section-spacing content row xl-text-left md-text-center text-center addParent-@Model.NoContainCss" style="margin-top:2.5rem; margin-bottom:0rem;">
+  <div class="row">
+        <div class="xl-col-6 md-col-6">
+            <div class="text-center @Model.OppositeImageLeftRightClass ">
+                <figure class="lg-wide-6 lg-margin-auto">
+                    @RenderImage(Model, x => x.Image, isEditable: true)
+                </figure>
+                <br>
+            </div>
+        </div>
+        <div class="xl-col-6 md-col-6">
+            <header class="fl-left">
+                <h1 class="xl-wide-11 lg-wide-12 @Model.ImageLeftRightClass">@Editable(x => x.Title)</h1>
+            </header>
+            <div class="@Model.ImageLeftRightClass">
+                <div class="pad-bottom-1em text-content xl-wide-11 lg-wide-12 fl-left">
+                    @Editable(x => x.Teaser)
+                </div>
+                <div class="has-button xl-wide-11 lg-wide-12 @Model.ImageLeftRightClass">
+                    @RenderLink(Model, x => x.Link, isEditable: true)
+                </div>
+            </div>
+        </div>
+    </div>    
+</section>

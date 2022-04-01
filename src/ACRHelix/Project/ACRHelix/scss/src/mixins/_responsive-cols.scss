@@ -1,0 +1,44 @@
+//
+// Mixin for the old columns, nothing fancy here
+//
+
+@mixin responsive-cols($bkpt){
+
+	[class*='#{$bkpt}col-'] {
+		padding-left: $col-gutter;
+		padding-right: $col-gutter;
+	}
+
+	[class*='#{$bkpt}wide-'] {
+		padding-left: 0;
+		padding-right: 0
+	}
+
+	.#{$bkpt}col-1, .#{$bkpt}wide-1 { width: 8.33333333%; }
+	.#{$bkpt}col-8th, .#{$bkpt}wide-8th { width: 12.5%; }
+	.#{$bkpt}col-6th, .#{$bkpt}col-2, .#{$bkpt}wide-2, .#{$bkpt}wide-6th { width: 16.6666%; }
+	.#{$bkpt}col-5th, .#{$bkpt}wide-5th { width: 20%; }
+	.#{$bkpt}col-4th, .#{$bkpt}col-3, .#{$bkpt}wide-3, .#{$bkpt}wide-4th { width: 25%; }
+	.#{$bkpt}col-3rd, .#{$bkpt}col-4, .#{$bkpt}wide-4, .#{$bkpt}wide-3rd { width: 33.3333%; }
+	.#{$bkpt}col-30pct{width: 30%;}
+	.#{$bkpt}col-2-5ths, .#{$bkpt}wide-2-5ths { width: 40%; }
+	.#{$bkpt}col-5, .#{$bkpt}wide-5 { width: 41.66666667%; }
+	.#{$bkpt}col-half, .#{$bkpt}col-6, .#{$bkpt}wide-6, .#{$bkpt}wide-half { width: 50%; }
+	.#{$bkpt}col-7, .#{$bkpt}wide-7 { width: 58.33333333%; }
+	.#{$bkpt}col-3-5ths, .#{$bkpt}wide-3-5ths { width: 60%; }
+	.#{$bkpt}col-2-3rds, .#{$bkpt}col-8, .#{$bkpt}wide-8, .#{$bkpt}wide-2-3rds { width: 66.6666%; }
+	.#{$bkpt}wide-70pct,.#{$bkpt}col-70pct{width: 70%;}
+	.#{$bkpt}col-3-4ths, .#{$bkpt}col-9, .#{$bkpt}wide-9, .#{$bkpt}wide-3-4ths { width: 75%; }
+	.#{$bkpt}col-4-5ths, .#{$bkpt}wide-4-5ths { width: 80%; }
+	.#{$bkpt}col-5-6ths, .#{$bkpt}col-10, .#{$bkpt}wide-10, .#{$bkpt}wide-5-6ths { width: 83.3333%; }
+	.#{$bkpt}col-7-8ths, .#{$bkpt}wide-7-8ths { width: 87.5%; }
+	.#{$bkpt}col-11, .#{$bkpt}wide-11 { width: 91.66666667%; }
+	.#{$bkpt}col-full, .#{$bkpt}col-12, .#{$bkpt}wide-12, .#{$bkpt}wide-full { width: 100%; }
+	.#{$bkpt}width-auto{width: auto;}
+
+	.#{$bkpt}add-col-l-pad { padding-left: $additional-col-pad; }
+	.#{$bkpt}add-col-r-pad { padding-right: $additional-col-pad; }
+
+	.#{$bkpt}col-l-pad { padding-left: $col-gutter; }
+	.#{$bkpt}col-r-pad { padding-right: $col-gutter; }
+}

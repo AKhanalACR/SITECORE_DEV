@@ -1,0 +1,22 @@
+﻿@inherits Glass.Mapper.Sc.Web.Mvc.GlassView<ACRHelix.Feature.Toolkits.ViewModels.SignupWithEmailViewModel>
+
+<div class="content section-spacing">
+    <div class="row indented-section">
+        <div class="button-block text-center xl-text-left">
+            <div class="xl-col-6" style="margin-top: .6em;margin-bottom: .6em;">
+                <a class="inline-block text-size-1p125">
+                    <span class="acr-icon"></span>
+                    @Editable(x => x.Title)
+                    <span class="acr-icon icon-db-chevron2-right"></span>
+                </a>
+            </div>
+            <div class="xl-col-6 xl-text-right has-button">
+                <input name="MesoSignupWithEmail" type="text" placeholder="Enter your email address" style="height: 42px;margin-top: .3rem;margin-bottom: .3rem;">
+                <a id="mesoSignUpEmail" class="button btn article-btn" style="cursor:pointer;z-index:100;">Submit</a>
+            </div>
+        </div>
+    </div>
+    <div class="mktoForm">
+        @Editable(x => x.Teaser)
+    </div>  
+</div>

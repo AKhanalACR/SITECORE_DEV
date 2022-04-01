@@ -1,0 +1,37 @@
+﻿@inherits Glass.Mapper.Sc.Web.Mvc.GlassView<ACRHelix.Feature.PageContent.Models.TextImageSection>
+
+<section class="content section-spacing">
+    @{ var anchorLink = Server.HtmlEncode(Model.Id.ToShortID().ToString());
+
+        var imgLocation = "fl-right";
+        if (Model.ImageLocation != null && !string.IsNullOrWhiteSpace(Model.ImageLocation.CssClass))
+        {
+            imgLocation = Model.ImageLocation.CssClass;
+        }
+
+    }
+    <div class="indented-section text-content" id="@anchorLink">
+        <section class="row-adjust">
+            @if (Sitecore.Context.PageMode.IsExperienceEditor || !string.IsNullOrWhiteSpace(Model.Title))
+            {
+                <h2>@Editable(x => x.Title)</h2>
+            }
+            @Editable(x => x.SubTitle)
+            <figure class="xl-col-30pct lg-col-5 @imgLocation xl-text-right img-max-400">
+                @if ((Model.ImageLink != null && !String.IsNullOrWhiteSpace(Model.ImageLink.Url)) || Sitecore.Context.PageMode.IsExperienceEditor)
+                {
+                    using (BeginRenderLink(x => x.ImageLink, new { @class = "no-target-icon" }, isEditable: true))
+                    {
+                        @RenderImage(x => x.Image, isEditable: true)
+                    }
+                }
+                else
+                {
+                    @RenderImage(x => x.Image, isEditable: true)
+                }
+            </figure>
+            <div class="pad-bottom-1em">@Editable(x => x.Text)</div>
+        </section>
+    </div>
+
+</section>

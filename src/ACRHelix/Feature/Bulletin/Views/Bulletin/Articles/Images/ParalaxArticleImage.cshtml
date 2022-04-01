@@ -1,0 +1,28 @@
+﻿@inherits Glass.Mapper.Sc.Web.Mvc.GlassView<ACRHelix.Feature.Bulletin.ViewModels.ArticleViewModel>
+
+<div class="bulletin-pg-article-hero background-area @(Model.Article.StrongGradient ? "stronger-title-gradient" : "")">
+    @if (!string.IsNullOrWhiteSpace(Model.ParalaxMobileImageUrl))
+    {
+        <figure class="hero-img-mb" data-bg-img="@Model.ParalaxMobileImageUrl" aria-hidden="true"><a href="@Model.Article.Url" class="hero-img-link"><span class="sr-only">@Model.Article.TileLinkText</span></a></figure>
+    }
+    else
+    {
+        <figure class="hero-img-mb" data-bg-img="@Model.ParalaxImageUrl" aria-hidden="true"><a href="@Model.Article.Url" class="hero-img-link"><span class="sr-only">@Model.Article.TileLinkText</span></a></figure>
+    }
+
+    <figure class="hero-img-dk bg-hero-zoom" data-bg-img="@Model.ParalaxImageUrl" aria-hidden="true"><a href="@Model.Article.Url" class="hero-img-link"><span class="sr-only">@Model.Article.TileLinkText</span></a></figure>
+
+    <div class="content row">
+        <div class="md-col-12 md-text-center bulletin-hero-title">
+            <h1>@Editable(Model, m => m.Article.Title)</h1>
+        </div>
+    </div>
+    <a href="#article-main" class="bulletin-hero-jump-button green-link lg-less-hide">
+        <i class="acr-icon icon-arrow-skinny-right">
+            <span class="sr-only">Jump to Article</span>
+        </i>
+    </a>
+</div>
+<div class="content bulletin-pg-article-hero-subtitle">
+    @Editable(Model, m => m.Article.TileText)
+</div>

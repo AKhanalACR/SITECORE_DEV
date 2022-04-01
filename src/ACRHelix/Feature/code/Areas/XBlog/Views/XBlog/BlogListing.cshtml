@@ -1,0 +1,74 @@
+﻿@using Sitecore.Feature.XBlog.Areas.XBlog.Items.Blog
+@using Sitecore.Feature.XBlog.Areas.XBlog.Models.Blog
+@using Sitecore.Feature.XBlog.Areas.XBlog.Search
+@using Sitecore.Feature.XBlog.Areas.XBlog.General
+@using Sitecore.Data.Items
+@using Sitecore.Mvc
+@using Sitecore.Links
+@using Sitecore.Resources.Media
+@model Sitecore.Feature.XBlog.Areas.XBlog.Models.Blog.BlogListingModel
+@{ BlogSettings settingsItem = DataManager.GetBlogSettingsItem(Model.dataSourceItem != null ? Model.dataSourceItem : Sitecore.Context.Item); }
+<div>
+    @{ if (Model.BlogPosts == null || !Model.BlogPosts.Any())
+        {@Html.Raw("Sorry no matching results were found.");
+    }
+    else
+    {
+        <div class="container-wrapper">
+            <div class="container-fluid">
+                <ul class="post-list">
+                    @foreach (BlogPost blogPost in Model.BlogPosts)
+                    {
+                        string blogFeaturedImage = "";
+                        string authorNames = string.Empty;
+                        if (blogPost.Authors.Any())
+                        {
+                            List<Sitecore.Data.ID>
+                            authorIds = new List<Sitecore.Data.ID>();
+                            foreach (Author a in blogPost.Authors)
+                            {
+                                authorIds.Add(a.ItemId);
+                            }
+                            List<Author>
+                                authors = AuthorManager.GetAuthorsForBlogPost(authorIds);
+                            foreach (Author a in authors)
+                            {
+                                authorNames += a.FullName + "; ";
+                            }
+                            char[] trimChars = { ';', ',', ' ' };
+                            authorNames = authorNames.TrimEnd(trimChars);
+                        }
+                        <li acr="list-column" v-for="(item, index) in articles.featured" :key="item.id" v-if="index != 0" class="v-center">
+                            @if (blogPost.FeaturedImage != null && blogPost.FeaturedImage.MediaItem != null)
+                            {
+                                blogFeaturedImage = String.Format("<img src=\"{0}\" v-if='window.width > window.mobileWidth' />", MediaManager.GetMediaUrl(blogPost.FeaturedImage.MediaItem));
+                            }
+                            @Html.Raw(blogFeaturedImage)
+                            <div acr="list">
+                                <a href="@Html.Raw(LinkManager.GetItemUrl(blogPost.InnerItem))" acr="link" class="article-title">@Html.Raw(blogPost.Title)</a>
+                                <div acr="list-column" class="article-info v-center" style="color:#757575 !important;">
+                                    <div>
+                                        @Html.Raw(blogPost.PublishDate.DateTime.ToString(settingsItem.BlogListingDateFormat))
+                                        | @Html.Raw(authorNames)
+                                    </div>
+                                </div>
+                                <p acr>
+                                    @if (!String.IsNullOrEmpty(blogPost.Summary))
+                                    {
+                                        @Html.Raw(Sitecore.Feature.XBlog.Areas.XBlog.Helpers.Helper.SubstringHtml(blogPost.Summary, settingsItem.DisplaySummaryLength, true));
+                                    }
+                                    else
+                                    {
+                                        @Html.Raw(Sitecore.Feature.XBlog.Areas.XBlog.Helpers.Helper.SubstringHtml(blogPost.Body, settingsItem.DisplaySummaryLength, true));
+                                    }
+                                </p>
+                                <div class="article-tags categorylist">
+                                    @Html.Raw("Categories: " + CategoryManager.GetCommaSeperatedCategoryList(blogPost))
+                                </div>
+                        </li>
+                    }
+                </ul>
+                <div class="pagination">@Html.Raw(BlogManager.GetBlogPagination(settingsItem, Model.CurrentPage, Model.TotalRows, Model.MaximumRows))</div>
+            </div>
+        </div> } }
+</div>

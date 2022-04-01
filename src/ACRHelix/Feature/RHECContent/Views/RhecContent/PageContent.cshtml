@@ -1,0 +1,20 @@
+﻿@using Glass.Mapper.Sc.Web.Mvc
+@using System.Web.Mvc
+@using Sitecore.Mvc
+
+@inherits Glass.Mapper.Sc.Web.Mvc.GlassView<ACRHelix.Feature.RhecContent.Models.PageContent>
+
+<section class="about-us">
+    <h2>@Editable(x => x.Title)</h2>
+    @if (!string.IsNullOrEmpty(Model.SubTitle) || Sitecore.Context.PageMode.IsExperienceEditor)
+    {
+        <p class="sub-header">@Editable(x => x.SubTitle)</p>
+    }
+    @if (!string.IsNullOrEmpty(Model.RichText) || Sitecore.Context.PageMode.IsExperienceEditor)
+    {
+        <div class="about-us-container page-content">
+            @Editable(x => x.RichText)
+        </div>
+    }
+    @Html.Sitecore().Placeholder("rhec-contact-form")
+</section>

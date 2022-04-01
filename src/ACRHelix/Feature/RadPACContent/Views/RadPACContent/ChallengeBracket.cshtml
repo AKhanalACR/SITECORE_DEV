@@ -1,0 +1,104 @@
+﻿@inherits Glass.Mapper.Sc.Web.Mvc.GlassView<ACRHelix.Feature.RadPACContent.ViewModels.ChallengeBracketViewModel>
+@using Sitecore.Foundation.SitecoreExtensions.Extensions
+@using ACRHelix.Feature.RadPACContent.ViewModels
+
+<section>
+    <div class="container">
+        <div class="row">
+            <div class="col-12 text-center">
+                <div class="selectdiv">
+                    @if (Model.Divisions.Count() > 0)
+                    {
+                        <label>
+                            @Html.DropDownListFor(m => m.Divisions, Model.DivisionSelectList, "All Divisions", new { @id = "divisionSelector", @class = "normal_select" })
+                        </label>
+                    } 
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12">
+                <div class="selectAll">
+                    @{ int counter = 0; }
+
+                    @if (Model.Chapters.Count() > 0)
+                    {
+                        foreach (var dv in Model.Divisions)
+                        {
+                            counter++;
+                            <div id="@dv.ToLower().Replace(' ', '-')" class="division">
+                                <div class="row">                                   
+                                    <div class="col-6 col-lg-3 col-md-3 text-center">
+                                        <h4>@dv</h4>
+                                        @foreach (var ch in Model.Chapters)
+                                        {
+                                            if (dv.Equals(ch.Division, StringComparison.OrdinalIgnoreCase))
+                                            {
+                                                <p>
+                                                    <div class="badge badge-gray ">@ch.State</div>
+                                                </p>
+                                            }
+
+                                        }
+                                    </div>
+                                    @{ int stageCounter = 0; string stage3 = Model.Stages.Last().Name; }
+
+                                    @foreach (var stg in Model.Stages)
+                                    {
+                                        stageCounter++;
+                                        <div class="col-6 col-lg-3 col-md-3 text-center">
+                                            <p>@Html.Raw(stg.Name) @if (stageCounter == Model.Stages.Count()) { @Html.Raw("<b>Winner</b>") }</p> 
+                                            @foreach (var ch2 in Model.Chapters)
+                                            {
+                                                if (dv.Equals(ch2.Division, StringComparison.OrdinalIgnoreCase))
+                                                {
+                                                    @*if (stg.Name.Equals(ch2.Stage, StringComparison.OrdinalIgnoreCase))
+                                                    {
+                                                        <p>
+                                                            <div class="badge @stg.Color">@ch2.State</div>
+                                                        </p>
+                                                    }*@
+
+                                                    if (stageCounter == 1)
+                                                    {
+                                                        if (!string.IsNullOrWhiteSpace(ch2.Stage))
+                                                        {
+                                                            <p>
+                                                                <div class="badge @stg.Color">@ch2.State</div>
+                                                            </p>
+                                                        }
+                                                    }
+                                                    else if (stageCounter == 2)
+                                                    {
+                                                        if (stg.Name.Equals(ch2.Stage, StringComparison.OrdinalIgnoreCase) || stage3.Equals(ch2.Stage, StringComparison.OrdinalIgnoreCase))
+                                                        {
+                                                            <p>
+                                                                <div class="badge @stg.Color">@ch2.State</div>
+                                                            </p>
+                                                        }
+                                                    }
+                                                    else if (stageCounter == 3)
+                                                    {
+                                                        if (stg.Name.Equals(ch2.Stage, StringComparison.OrdinalIgnoreCase))
+                                                        {
+                                                            <p>
+                                                                <div class="badge @stg.Color">@ch2.State</div>
+                                                            </p>
+                                                        }
+                                                    }
+
+
+                                                }
+                                            }
+                                        </div>
+                                    }     
+                                </div>
+                                @if (counter < Model.Divisions.Count()) { @Html.Raw("<hr />") }
+                            </div>
+                        }
+                    } 
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

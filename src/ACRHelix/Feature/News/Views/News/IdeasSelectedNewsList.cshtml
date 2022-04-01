@@ -1,0 +1,16 @@
+﻿@inherits Glass.Mapper.Sc.Web.Mvc.GlassView<ACRHelix.Feature.News.ViewModels.IdeasSelectedNewsListViewModel>
+
+
+<h1 class="blue">@Editable(x => x.Title)</h1>
+<ul class="sky">
+    @if (Model.SelectedArticles != null && Model.SelectedArticles.Count > 0)
+            {
+                foreach (var article in Model.SelectedArticles)
+                {
+            <li style="list-style: none;"><a href="@article.Url">@article.Title</a></li>
+        }
+    }
+</ul>
+<a class="mt-3 btn btn-ideas-purple" href="@(Model.ViewMoreLink != null ? Model.ViewMoreLink.Url : "#")" role="button">@Editable(x => x.ViewMoreLinkText)</a>
+
+

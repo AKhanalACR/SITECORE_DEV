@@ -1,0 +1,65 @@
+﻿@inherits Glass.Mapper.Sc.Web.Mvc.GlassView<ACRHelix.Feature.MeetingsCalendar.ViewModels.EventTilesViewModel>
+@using ACRHelix.Foundation.EditFrames;
+
+<style>
+    .slick-slide .scLooseFrameZone {
+        width: 25%;
+    }
+</style>
+
+<div class="content section-spacing">
+    <section>
+        <header id="upcomingChapterMeetings-">
+            <h2>@Model.HeaderText</h2>
+            <hr>
+        </header>
+        <!--start: Module -->
+        <div class="content section-spacing">
+            <div class="row indented-section">
+                <section class="event-tile-area">
+                    @*<div class="slick-slide flex-container">*@
+
+                    @if (Sitecore.Context.PageMode.IsExperienceEditor)
+                    {
+                        Model.PageSize = Model.Events.Count;
+                    }
+
+                    @foreach (var list in Model.EventTilePages)
+                    {
+                        <div class="slick-slide flex-content-left">
+                            @foreach (var eventTile in list)
+                            {
+                                using (BeginEditFrame(EditFrameConstants.Paths.Edit, eventTile.Id.ToString(), "Event"))
+                                {
+                                    string style = "";
+                                    if (Sitecore.Context.PageMode.IsExperienceEditor)
+                                    {
+                                        style = "width:100%";
+                                    }
+
+                                    <div class="xl-col-3 lg-col-6" style="@style">
+                                        <div class="event-tile text-content" style="min-height: 203px">
+                                            <span class="text-size-p75 event-tile-date">@eventTile.StartDate.ToString("MMMM dd, yyyy")</span>
+                                            <h3>
+                                                @using (BeginRenderLink(eventTile, e => e.Link, isEditable: false)) {
+                                                               @Editable(eventTile, x=> x.EventTitle)
+                                                                        }
+                                            </h3>
+                                            <span class="text-size-p75 event-tile-location">@Editable(eventTile, e => e.Location)</span>
+                                            @RenderLink(eventTile, e => e.Link, new System.Collections.Specialized.NameValueCollection { { "class", "tile-bottom-link read-more-link" } }, isEditable: true)
+                                        </div>
+                                    </div>
+                                }
+                            }
+                        </div>
+                    }
+                    @*</div>*@
+                </section>
+                <div class="resources-slider-nav">
+                    <div class="slick-custom-pager"></div>
+                </div>
+            </div>
+        </div>
+        <!--end: Module -->
+    </section>
+</div>

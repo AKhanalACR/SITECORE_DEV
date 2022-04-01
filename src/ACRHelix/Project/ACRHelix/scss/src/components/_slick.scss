@@ -1,0 +1,145 @@
+//slick slider main
+
+.slick-list, .slick-slider, .slick-track {
+  position: relative;
+  display: block;
+}
+
+.slick-loading {
+  .slick-slide, .slick-track {
+    visibility: hidden;
+  }
+}
+
+.slick-slider {
+  box-sizing: border-box;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  -webkit-touch-callout: none;
+  -khtml-user-select: none;
+  -ms-touch-action: pan-y;
+  touch-action: pan-y;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.slick-list {
+  overflow: hidden;
+  margin: 0;
+  padding: 0;
+  &:focus {
+    outline: 0;
+  }
+  &.dragging {
+    cursor: pointer;
+    cursor: hand;
+  }
+}
+
+.slick-slider {
+  .slick-list, .slick-track {
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+.slick-track {
+  top: 0;
+  left: 0;
+  &:after, &:before {
+    display: table;
+    content: "";
+  }
+  &:after {
+    clear: both;
+  }
+}
+
+.slick-slide {
+  display: block;
+  float: left;
+  height: 100%;
+  min-height: 1px;
+}
+
+[dir=rtl] .slick-slide {
+  float: right;
+}
+
+.slick-slide {
+  img {
+    display: block;
+  }
+  &.slick-loading img {
+    display: none;
+  }
+  &.dragging img {
+    pointer-events: none;
+  }
+}
+
+.slick-initialized .slick-slide {
+  display: block;
+}
+
+.slick-vertical .slick-slide {
+  display: block;
+  height: auto;
+  border: 1px solid transparent;
+}
+
+.slick-arrow.slick-hidden {
+  display: none;
+}
+
+/*#slider dots#*/
+
+.slick-dots {
+  display: inline-block;
+  width: 100%;
+  list-style: none;
+  text-align: center;
+  padding: 0;
+  margin: 0;
+  li {
+    width: 13px;
+    cursor: pointer;
+    height: 13px;
+    border: 1px solid #425563;
+    display: inline-block;
+    list-style: inherit;
+    background: $white;
+    text-indent: -1000em;
+    overflow: hidden;
+    border-radius: 50%;
+    margin: .125em .5em;
+    transition: 150ms all ease-out;
+    &.slick-active {
+      background: $color-green;
+      border-color: #d9d9d9;
+    }
+  }
+}
+
+.slick-arrow {
+  border: 0;
+  background: none;
+  color: $color-green;
+  display: inline-block;
+  position: absolute;
+  left: 0;
+  top: -.3rem;
+  padding: 0;
+  height: auto;
+  margin: 0;
+  &:before {
+    color: inherit;
+    font-size: 1.75em;
+    display: inline-block;
+  }
+}
+
+.slick-next {
+  left: auto;
+  right: 0;
+}

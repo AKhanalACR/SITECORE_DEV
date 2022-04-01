@@ -1,0 +1,5 @@
+﻿<Project>
+  <PropertyGroup>
+    <Site Server="ACRHelix" UserName="sitecore\ageteneh" IsRemoteSitecore="False" />
+  </PropertyGroup>
+</Project>

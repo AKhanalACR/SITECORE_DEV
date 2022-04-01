@@ -1,0 +1,132 @@
+//
+// Mixin for the old columns, nothing fancy here
+//
+
+
+
+@mixin responsive-bk-props($bkpt){
+
+	//Position
+	.#{$bkpt}relative { position: relative; }
+	.#{$bkpt}absolute{ position: absolute; }
+	//*margin*/
+	.#{$bkpt}margin-auto { margin: auto; float: none;}
+	.#{$bkpt}margin-top-0 {margin-top: 0;}
+	.#{$bkpt}margin-bottom-0 {margin-bottom: 0;}
+	//*padding*/
+	.#{$bkpt}pad-none, .#{$bkpt}pad-all-0 {padding: 0; }
+	.#{$bkpt}pad-all-1em {padding: 1em; }
+	.#{$bkpt}pad-all-2em {padding: 2em; }
+	.#{$bkpt}pad-top-0 {padding-top: 0; }
+	.#{$bkpt}pad-top-1em {padding-top: 1em; }
+	.#{$bkpt}pad-top-2em {padding-top: 2em; }
+	.#{$bkpt}pad-right-0em {padding-right: 0; }
+	.#{$bkpt}pad-right-1em {padding-right: 1em; }
+	.#{$bkpt}pad-right-2em {padding-right: 2em; }
+	.#{$bkpt}pad-bottom-0 {padding-bottom: 0; }
+	.#{$bkpt}pad-bottom-1em {padding-bottom: 1em; }
+	.#{$bkpt}pad-bottom-2em {padding-bottom: 2em; }
+	.#{$bkpt}pad-left-0 {padding-left: 0; }
+	.#{$bkpt}pad-left-1em {padding-left: 1em; }
+	.#{$bkpt}pad-left-2em {padding-left: 2em; }
+	//clearing
+	.#{$bkpt}clear {clear: both;}
+	.#{$bkpt}clear-after:after {content: ''; display: block; clear: both; }
+
+
+	.#{$bkpt}inline { display: inline; }
+	.#{$bkpt}inline-block { display: inline-block; float: none; max-width: 100%; }
+	.#{$bkpt}block { display: block; }
+	.#{$bkpt}table { display: table; }
+	.#{$bkpt}table-cell { display: table-cell; }
+	.#{$bkpt}hide { display: none !important; }
+
+
+	.#{$bkpt}table-like {
+		display: table;
+		table-layout: fixed;
+		width: 100%;
+		> {
+		div, section, aside {
+				display: table-cell;
+			}
+		}
+		&:after {
+			content: none;
+		}
+	}
+	.#{$bkpt}untable-like {
+		display: block;
+		> {
+		div, section, aside {
+				display: block;
+				float: left;
+			}
+		}
+	}
+	// .#{bkpt}text-right and .#{bkpt}text-left
+	// are only used in the old frame-work
+	//the shorter-hand of .text-r and .text-l are not
+	.#{$bkpt}text-center{ text-align: center; }
+	.#{$bkpt}text-right{ text-align: right; }
+	.#{$bkpt}text-left{ text-align: left; }
+	//floats should be the same
+	.#{$bkpt}fl-right{ float: right; }
+	.#{$bkpt}fl-left{float: left; }
+	.#{$bkpt}fl-none{float:none !important;}
+
+	.#{$bkpt}border-left { border-left: 1px solid #ccc; }//found on xl- sized
+	.#{$bkpt}bdr-right { border-right: 1px solid; }
+	.#{$bkpt}bdr-left { border-left: 1px solid; }
+	.#{$bkpt}bdr-top { border-top: 1px solid; }
+	.#{$bkpt}bdr-bottom { border-bottom: 1px solid; }
+
+	/*font adjustments*/
+
+	.#{$bkpt}uppercase { text-transform: uppercase; }
+	.#{$bkpt}lowercase { text-transform: lowercase; }
+	.#{$bkpt}text-size-p875 { font-size: .875em; }
+	.#{$bkpt}text-size-1p0 { font-size: 1em; }
+	.#{$bkpt}text-size-1p125 { font-size: 1.125em; }
+	.#{$bkpt}text-size-1p25 { font-size: 1.25em; }
+	.#{$bkpt}text-size-1p5 { font-size: 1.5em; }
+	.#{$bkpt}text-size-1p75 { font-size: 1.75em; }
+	.#{$bkpt}text-size-2 { font-size: 2em; }
+	.#{$bkpt}text-content > img { max-width: 50% }
+
+
+
+	//flexbox
+	.#{$bkpt}flex-sp-between,
+	.#{$bkpt}flex-l,
+	.#{$bkpt}flex-r,
+	.#{$bkpt}flex-m,
+	.#{$bkpt}flex-c{
+		display: flex;
+		flex-flow: row wrap;
+		&:after,
+		&:before{
+			content:none;
+		}
+	}
+
+	.#{$bkpt}flex-sp-between{
+		align-content: space-between;
+		justify-content: space-between;
+	}
+
+	.#{$bkpt}flex-l{
+		justify-content: flex-start;
+		align-content: flex-start;
+	}
+
+	.#{$bkpt}flex-r{
+		justify-content: flex-end;
+		align-content: flex-end;
+	}
+
+	.#{$bkpt}flex-c{
+		justify-content:center;
+		align-content: center;
+	}
+}

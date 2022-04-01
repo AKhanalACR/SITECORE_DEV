@@ -1,0 +1,37 @@
+﻿<configuration xmlns:patch="http://www.sitecore.net/xmlconfig/">
+  <sitecore>
+    <coveo>
+      <defaultIndexConfiguration>
+        <skipFirstTimeSetupCheck>true</skipFirstTimeSetupCheck>
+        <securityConfiguration>
+          <skipSitecoreCredentialsUpdate>true</skipSitecoreCredentialsUpdate>
+          <skipSitecoreLoginCheck>true</skipSitecoreLoginCheck>
+        </securityConfiguration>
+      </defaultIndexConfiguration>
+    </coveo>
+    <contentSearch>
+      <indexConfigurations>
+        <indexUpdateStrategies>
+          <coveoSyncMaster name="CoveoSyncMaster">
+            <patch:attribute name="ref" value="contentSearch/indexConfigurations/indexUpdateStrategies/manual" />
+          </coveoSyncMaster>
+          <coveoOnPublishEndAsync name="CoveoOnPublishEndAsync">
+            <patch:attribute name="ref" value="contentSearch/indexConfigurations/indexUpdateStrategies/manual" />
+          </coveoOnPublishEndAsync>
+        </indexUpdateStrategies>
+      </indexConfigurations>
+      <configuration>
+        <indexes>
+          <index id="Coveo_master_index">
+            <patch:delete />
+          </index>
+        </indexes>
+      </configuration>
+    </contentSearch>
+    <scheduling>
+      <agent name="CoveoSynchronizeTopResults">
+        <patch:delete />
+      </agent>
+    </scheduling>
+  </sitecore>
+</configuration>

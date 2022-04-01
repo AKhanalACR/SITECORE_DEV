@@ -1,0 +1,57 @@
+﻿
+@using ACRHelix.Feature.Navigation.Constants;
+@inherits Glass.Mapper.Sc.Web.Mvc.GlassView<ACRHelix.Feature.Navigation.ViewModels.MainNavbarViewModel>
+
+<div class="collapse navbar-collapse" id="mobile-nav">
+    <ul>
+        @foreach (var menu in Model.NavigationItems)
+        {
+            <li>
+                <a href="@menu.URL" target="@menu.Target">@menu.Title </a>
+                @if (menu.Children.Count() > 0)
+                {
+                    <ul>
+                        <li><a href="@menu.URL" target="@menu.Target">@menu.Title</a></li>
+                        @foreach (var secondMenu in menu.Children)
+                        {
+                            <li><a href="@secondMenu.URL" target="@secondMenu.Target">@secondMenu.Title</a></li>
+                        }
+                    </ul>
+                }
+            </li>
+        }
+
+    </ul>
+</div>
+
+<div class="collapse navbar-collapse" id="main-nav">
+    <ul class="navbar-nav mt-10 ml-auto">
+        @foreach (var menu in Model.NavigationItems)
+        {
+            <li class="nav-item @if (menu.Children.Count() > 0) { @Html.Raw("mega-dropdown") } ">
+                <a href="@menu.URL" target="@menu.Target" onclick="tabEvent(event)" class="nav-link" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <h5>@menu.Title </h5>
+                </a>
+                @if (menu.Children.Count() > 0)
+                {
+                    <div class="dropdown-menu b-none bg-lightgray" aria-labelledby="mega-dropdown">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-lg-3">
+                                    <ul>
+                                        @foreach (var secondMenu in menu.Children)
+                                        {
+                                            <li><a href="@secondMenu.URL" target="@secondMenu.Target">@secondMenu.Title</a></li>
+                                        }
+                                    </ul>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                }
+            </li>
+        }
+    </ul>
+</div>
+

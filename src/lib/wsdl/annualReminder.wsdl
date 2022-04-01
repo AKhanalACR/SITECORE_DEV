@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://www.mammographysaveslives.org/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" targetNamespace="http://www.mammographysaveslives.org/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://www.mammographysaveslives.org/">
+      <s:element name="AddAnnualReminder">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="skey" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="month" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="name" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="email" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="zip" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="AddAnnualReminderResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="AddAnnualReminderResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="string" nillable="true" type="s:string" />
+    </s:schema>
+  </wsdl:types>
+  <wsdl:message name="AddAnnualReminderSoapIn">
+    <wsdl:part name="parameters" element="tns:AddAnnualReminder" />
+  </wsdl:message>
+  <wsdl:message name="AddAnnualReminderSoapOut">
+    <wsdl:part name="parameters" element="tns:AddAnnualReminderResponse" />
+  </wsdl:message>
+  <wsdl:message name="AddAnnualReminderHttpGetIn">
+    <wsdl:part name="skey" type="s:string" />
+    <wsdl:part name="month" type="s:string" />
+    <wsdl:part name="name" type="s:string" />
+    <wsdl:part name="email" type="s:string" />
+    <wsdl:part name="zip" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="AddAnnualReminderHttpGetOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="AddAnnualReminderHttpPostIn">
+    <wsdl:part name="skey" type="s:string" />
+    <wsdl:part name="month" type="s:string" />
+    <wsdl:part name="name" type="s:string" />
+    <wsdl:part name="email" type="s:string" />
+    <wsdl:part name="zip" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="AddAnnualReminderHttpPostOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:portType name="AnnualReminderServiceSoap">
+    <wsdl:operation name="AddAnnualReminder">
+      <wsdl:input message="tns:AddAnnualReminderSoapIn" />
+      <wsdl:output message="tns:AddAnnualReminderSoapOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:portType name="AnnualReminderServiceHttpGet">
+    <wsdl:operation name="AddAnnualReminder">
+      <wsdl:input message="tns:AddAnnualReminderHttpGetIn" />
+      <wsdl:output message="tns:AddAnnualReminderHttpGetOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:portType name="AnnualReminderServiceHttpPost">
+    <wsdl:operation name="AddAnnualReminder">
+      <wsdl:input message="tns:AddAnnualReminderHttpPostIn" />
+      <wsdl:output message="tns:AddAnnualReminderHttpPostOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="AnnualReminderServiceSoap" type="tns:AnnualReminderServiceSoap">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="AddAnnualReminder">
+      <soap:operation soapAction="http://www.mammographysaveslives.org/AddAnnualReminder" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="AnnualReminderServiceSoap12" type="tns:AnnualReminderServiceSoap">
+    <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="AddAnnualReminder">
+      <soap12:operation soapAction="http://www.mammographysaveslives.org/AddAnnualReminder" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="AnnualReminderServiceHttpGet" type="tns:AnnualReminderServiceHttpGet">
+    <http:binding verb="GET" />
+    <wsdl:operation name="AddAnnualReminder">
+      <http:operation location="/AddAnnualReminder" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="AnnualReminderServiceHttpPost" type="tns:AnnualReminderServiceHttpPost">
+    <http:binding verb="POST" />
+    <wsdl:operation name="AddAnnualReminder">
+      <http:operation location="/AddAnnualReminder" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="AnnualReminderService">
+    <wsdl:port name="AnnualReminderServiceSoap" binding="tns:AnnualReminderServiceSoap">
+      <soap:address location="https://www.acr.org/services/annualreminderservice.asmx" />
+    </wsdl:port>
+    <wsdl:port name="AnnualReminderServiceSoap12" binding="tns:AnnualReminderServiceSoap12">
+      <soap12:address location="https://www.acr.org/services/annualreminderservice.asmx" />
+    </wsdl:port>
+    <wsdl:port name="AnnualReminderServiceHttpGet" binding="tns:AnnualReminderServiceHttpGet">
+      <http:address location="https://www.acr.org/services/annualreminderservice.asmx" />
+    </wsdl:port>
+    <wsdl:port name="AnnualReminderServiceHttpPost" binding="tns:AnnualReminderServiceHttpPost">
+      <http:address location="https://www.acr.org/services/annualreminderservice.asmx" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

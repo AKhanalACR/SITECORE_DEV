@@ -1,0 +1,16 @@
+﻿@inherits Glass.Mapper.Sc.Web.Mvc.GlassView<ACRHelix.Feature.DsiNewsAndBlogs.Models.SignUpBlogUpdate>
+
+<aside class="bg-acr-blue" id="footer-newsletter">
+    <div class="content row">
+
+        <div class="xl-col-12 text-center dsi-footer-banner v-align-items-m">
+            <h2 style="display:inline-block">@Editable(x => x.Title)</h2>
+            @*<input id="newsletter-email-tb" type="text" placeholder="Enter Your Email Address">*@
+
+            @using (BeginRenderLink(x => x.ButtonLink, new { @class = "button" }, isEditable: true))
+            {
+                @Editable(x => x.ButtonText)
+            }
+        </div>
+    </div>
+</aside>

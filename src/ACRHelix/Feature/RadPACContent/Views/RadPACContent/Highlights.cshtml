@@ -1,0 +1,100 @@
+﻿@inherits Glass.Mapper.Sc.Web.Mvc.GlassView<ACRHelix.Feature.RadPACContent.ViewModels.HighlightsViewModel>
+@using Sitecore.Foundation.SitecoreExtensions.Extensions
+
+<section>
+    <div class="board-members">
+        <div class="container">
+            <div class="row">
+                @if (!string.IsNullOrWhiteSpace(Model.Title) || Sitecore.Context.PageMode.IsExperienceEditor)
+                {
+                    <div class="col-12">
+                        <div class="section-header">
+                            <h4 class="header-style"><span class="underline-blue"><span>@Editable(x => x.Title)</span></span><hr class="hr-style-blue" /></h4>
+                        </div>
+                    </div>
+                }               
+                <div class="col-12 col-sm-6 mb-6">
+                    <div class="card">
+                        @RenderImage(x => x.LeftTileImage, new { @class = "card-img-top" }, isEditable: true)                                               
+                        <div class="card-body">
+                            @if (!string.IsNullOrWhiteSpace(Model.LeftTileHeading) || Sitecore.Context.PageMode.IsExperienceEditor)
+                            {
+                                <h5 class="card-title">@Editable(x => x.LeftTileHeading)</h5>
+                            }
+                            @if (!string.IsNullOrWhiteSpace(Model.LeftTileText) || Sitecore.Context.PageMode.IsExperienceEditor)
+                            {
+                                <p class="card-text">@Editable(x => x.LeftTileText) </p>
+                            }
+                            @if (Model.LeftTileLink != null || Sitecore.Context.PageMode.IsExperienceEditor)
+                            {
+                                using (BeginRenderLink(x => x.LeftTileLink, new { @class = "moreabout" }, isEditable: true))
+                                {
+                                    if (Model.LeftTileLink != null)
+                                    {
+                                        @Html.Raw(Model.LeftTileLink.Text) <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+                                    }
+                                }
+                            }                          
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 col-sm-6 mb-6">
+                    <div class="card">
+                        @RenderImage(x => x.RightTileImage, new { @class = "card-img-top" }, isEditable: true)
+                        <div class="card-body">
+                            @if (!string.IsNullOrWhiteSpace(Model.RightTileHeading) || Sitecore.Context.PageMode.IsExperienceEditor)
+                            {
+                                <h5 class="card-title">@Editable(x => x.RightTileHeading)</h5>
+                            }
+                            @if (!string.IsNullOrWhiteSpace(Model.RightTileText) || Sitecore.Context.PageMode.IsExperienceEditor)
+                            {
+                                <p class="card-text">@Editable(x => x.RightTileText) </p>
+                            }
+                            @if (Model.RightTileLink != null || Sitecore.Context.PageMode.IsExperienceEditor)
+                            {
+                                using (BeginRenderLink(x => x.RightTileLink, new { @class = "moreabout" }, isEditable: true))
+                                {
+                                    if (Model.RightTileLink != null)
+                                    {
+                                        @Html.Raw(Model.RightTileLink.Text) <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+                                    }
+                                }
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    @if (!string.IsNullOrWhiteSpace(Model.AdditionalTextSectionHeading) || Sitecore.Context.PageMode.IsExperienceEditor)
+    {
+        <div class="additional-memebers section-bg">
+            <div class="container">
+                <div class="row">
+                    @if (!string.IsNullOrWhiteSpace(Model.AdditionalTextSectionHeading) || Sitecore.Context.PageMode.IsExperienceEditor)
+                    {
+                        <div class="col-12">
+                            <div class="section-header">
+                                <h3 class="header-style"><span class="underline-red"><span>@Editable(x => x.AdditionalTextSectionHeading)</span></span><hr class="hr-style-red" /></h3>
+                            </div>
+                        </div>
+                    }
+                    @{ int fh = Model.Contributors.Count() / 2; }
+                    <div class="col-12 col-sm-6 mb-6">
+                        @foreach (var str in @Model.Contributors.Take(fh))
+                        {
+                            <p> @str</p>
+                        }
+                    </div>
+                    <div class="col-12 col-sm-6 mb-6">
+                        @foreach (var str in @Model.Contributors.Skip(fh))
+                        {
+                            <p>@str</p>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    }    
+</section>

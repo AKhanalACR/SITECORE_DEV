@@ -1,0 +1,17 @@
+﻿@using Glass.Mapper.Sc.Web.Mvc
+@inherits Glass.Mapper.Sc.Web.Mvc.GlassView<ACRHelix.Feature.RhecContent.ViewModels.PledgeCounterViewModel>
+
+@if (Model.DisplayCounter)
+{
+
+
+    <div class="pledges-container">
+        <div>
+            <p class="pledges-amount">@Html.Raw(Model.PledgeCount)</p>
+            <p>@Editable(x => x.Title)</p>
+        </div>
+        <img src="../../images/RHEC/pledge-squares.png"
+             alt="squares"
+             class="pledge-squares" />
+    </div>
+}

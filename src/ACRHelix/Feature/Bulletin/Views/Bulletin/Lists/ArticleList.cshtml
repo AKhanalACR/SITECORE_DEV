@@ -1,0 +1,35 @@
+﻿@inherits Glass.Mapper.Sc.Web.Mvc.GlassView<ACRHelix.Feature.Bulletin.ViewModels.ArticleListModel>
+
+@{
+    int i = 1;
+
+    foreach (var article in Model.Articles)
+    {
+        string url = Sitecore.Links.LinkManager.GetItemUrl(article.GetItem());
+        string imageClass = "xl-add-col-r-pad";
+        if (i % 2 != 0)
+        {
+            imageClass = "fl-right xl-add-col-l-pad";
+        }
+        <section class="wide-12 spaced-item">
+            <div class="col-12 xl-col-4 lg-col-5 text-center @imageClass">
+                @if (!string.IsNullOrWhiteSpace(article.TileImageUrl))
+                {
+                    <figure>
+                        <img src="@article.TileImageUrl" alt="@article.Title image" />
+                    </figure>
+                    <br>
+                }
+            </div>
+            <div class="col-12 xl-col-8 lg-col-7 ">
+                <h2><a href="@url">@article.Title</a></h2>
+                <p>
+                    @Html.Raw(article.TileText)
+                    &nbsp;
+                    <a href="@url">@article.LinkText</a>
+                </p>
+            </div>
+        </section>
+        i++;
+    }
+}

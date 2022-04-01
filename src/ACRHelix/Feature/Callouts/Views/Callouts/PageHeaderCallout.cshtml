@@ -1,0 +1,19 @@
+﻿@using Glass.Mapper.Sc.Web.Mvc;
+@using System.Collections.Specialized;
+@inherits Glass.Mapper.Sc.Web.Mvc.GlassView<ACRHelix.Feature.Callouts.ViewModels.CalloutsItemViewModel>
+
+<!--start: Module -->
+<div class="page-hero-image meeting-hero section-spacing-bottom">
+    @RenderImage(Model, x => x.Image, isEditable: true)
+    <header class="content text-center">
+        <h1>@Editable(Model, x => x.Title)</h1>
+        <span class="meeting-header-location">@Editable(Model, x => x.SubTitle)</span>
+        <br>
+        @RenderLink(x => x.Link, new NameValueCollection() { { "class", "button" } }, isEditable: true)
+        @if (!String.IsNullOrWhiteSpace(Model.Teaser) || Sitecore.Context.PageMode.IsExperienceEditorEditing)
+        {
+            <div class="meeting-bottom-hero-text">@Editable(Model, x => x.Teaser)</div>
+        }        
+    </header>
+</div>
+<!--end: Module -->

@@ -1,0 +1,85 @@
+﻿@inherits Glass.Mapper.Sc.Web.Mvc.GlassView<ACRHelix.Feature.MembershipTestimonials.ViewModels.TestimonialByCategoryViewModel>
+<div class="content">    
+    <header class="header-underrule">
+        <h2>@Editable(x => x.Title)</h2>
+    </header>
+   
+    @if (Model.Testimonials != null && Model.Testimonials.Count() > 0)
+    {
+        <div class="mtTiles flex-content-left spaced-column-area testimonial-cards-area">
+            @foreach (var item in Model.Testimonials)
+            {
+                <div class="xl-col-4 lg-col-4 md-col-6">
+                        <section class="news-slide hover-show-overlay">
+                            <div class="news-box">
+                                <div class="news-image">
+                                    <a class="block" href="#">
+                                        <div class="news-type-tag">
+                                            @if (!string.IsNullOrEmpty(item.Category))
+                                            {
+                                                @item.Category
+                                            }
+                                            else
+                                            {
+                                                @Html.Raw("Category")
+                                            }
+                                        </div>
+                                        <div class="news-content">
+                                            <div class="overlay-to-show" data-item-id="@item.Id">
+                                                <h3>@item.FullName</h3>
+                                                <div class="text-content">
+                                                    @if (!string.IsNullOrWhiteSpace(item.Chapter))
+                                                    {
+                                                        <p>
+                                                            Chapter: @item.Chapter
+                                                            @if (item.MemberDate != DateTime.MinValue)
+                                                            {
+                                                                <br />
+                                                                @Html.Raw("Member Date: " + item.MemberDate.ToString("MM-dd-yyyy"))
+                                                            }
+                                                        </p>
+                                                    }
+                                                    <p>@item.BriefMessage</p>
+                                                </div>
+                                            </div>
+                                            <figure>
+                                                @if (!string.IsNullOrWhiteSpace(item.YouTubeLink))
+                                                {
+                                                    <img src="~/css/mbr-testimonials/images/play.png" class="play-img" />
+                                                }
+
+                                                @Html.Raw(RenderImage(item, x => x.ProfileImage, new { W = 294, H = 288, Width = 294, Height = 288 }))
+                                            </figure>
+                                        </div>
+                                        <div class="news-display-header text-center mt-tile-title">
+                                            <h3>@item.IntroMessage</h3>
+                                        </div>
+                                    </a>
+                                </div>
+                                <footer class="text-center">
+                                    <a href="#" class="read-more-link" data-item-id="@item.Id">Read more</a>
+                                </footer>
+                            </div>
+                        </section>
+                    </div>
+            }
+        </div>
+    }
+
+    @if (Model.ArchiveLink != null)
+    {
+        <div class="text-center">  
+            @RenderLink(x => x.ArchiveLink, new { @class = "read-more-link" }, isEditable: true)
+        </div>
+    }
+</div>
+<div id="myModal" class="modal fade" role="dialog" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div id="myModalContent">
+            </div>
+        </div>
+    </div>
+</div>
+
+    

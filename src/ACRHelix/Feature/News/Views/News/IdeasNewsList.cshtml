@@ -1,0 +1,35 @@
+﻿@inherits Glass.Mapper.Sc.Web.Mvc.GlassView<ACRHelix.Feature.News.ViewModels.IdeasNewsListViewModel>
+<div id="search-result-wrapper">
+    <div class="container">
+        <div class="row">
+            <div class="col-6 pl-0">
+                <h1 class="blue mt-5">@Editable(x => x.Title)</h1>
+            </div>
+            <div class="col-6 text-right">
+                <div id="search-filters" class="mt-5">
+
+                    <label>
+                        <select id="searchSelector">
+                            <option value="all">All</option>
+                            @foreach (var year in Model.NewsYears)
+                            {
+                                <option value="event-@year">@year</option>
+                            }
+                        </select>
+                        <i class="fa fa-angle-double-down" aria-hidden="true"></i>
+                    </label>
+                </div>
+            </div>
+
+
+        </div>
+        <div class="row search-container">
+            @foreach (var news in Model.NewsArticles)
+            {
+                <div class="col-12 search-item event-@news.Date.Year" id="event-@news.Date.Year">
+                    <p><a href="@news.Url">@news.Title</a></p>
+                </div>
+            }
+        </div>
+    </div>
+</div>

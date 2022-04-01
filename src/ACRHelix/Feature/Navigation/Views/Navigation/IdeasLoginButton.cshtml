@@ -1,0 +1,9 @@
+﻿@using Glass.Mapper.Sc.Web.Mvc
+@inherits Glass.Mapper.Sc.Web.Mvc.GlassView<ACRHelix.Feature.Navigation.ViewModels.LinkMenuViewModel>
+
+@*@foreach (var item in Model.MenuItems.Select((value, index) => new { index, value }))
+{*@
+    <li class="nav-item login"><a class="nav-link" href="@Model.MenuItems.FirstOrDefault().Link.Url">@Model.MenuItems.FirstOrDefault().Title</a></li>
+
+
+@*<li class="nav-item login"><a class="nav-link" href="#">Login / Register</a></li>*@

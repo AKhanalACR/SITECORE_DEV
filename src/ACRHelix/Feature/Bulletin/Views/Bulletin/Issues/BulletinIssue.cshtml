@@ -1,0 +1,50 @@
+﻿@inherits Glass.Mapper.Sc.Web.Mvc.GlassView<ACRHelix.Feature.Bulletin.Models.Issue>
+
+@if (Model != null)
+{
+
+    <div class="content section-spacing">
+        <div class="row text-center">
+            <div class="col-12 xl-text-left md-text-center">
+                <h1>@Editable(x => x.IssueName) </h1>
+            </div>
+        </div>
+        @using (BeginEditFrame(Model, "Edit Issue", x => x.IssueName, x => x.ReleaseDate, x => x.Articles, x => x.BulletinPDF, x => x.Image))
+        {
+            <div class="row">
+
+                <div class="col-12 xl-col-4 md-col-12 section-spacing-bottom text-center">
+                    <figure>
+                        @RenderImage(x => x.Image, isEditable: true)
+                    </figure>
+                </div>
+                <div class="col-12 xl-col-8 md-col-12">
+                    <h2>In This Issue</h2>
+                    <hr>
+                    @if (Model.Articles != null)
+                    {
+
+                        <ul class="no-bullet-ul heading-no-margin">
+                            @foreach (var article in Model.Articles)
+                            {
+                                <li>
+                                    <h3><a href="@article.Url">@article.Title</a></h3>
+                                    @Html.Raw(article.TileText)
+                                </li>
+                            }
+                        </ul>
+                    }
+                </div>
+            </div>
+        }
+    </div>
+}
+else
+{<div class="content section-spacing">
+        <div class="row text-center">
+            <div class="col-12 xl-text-left md-text-center">
+                <h1>Error Displaying Issue </h1>
+            </div>
+        </div>
+    </div>
+}

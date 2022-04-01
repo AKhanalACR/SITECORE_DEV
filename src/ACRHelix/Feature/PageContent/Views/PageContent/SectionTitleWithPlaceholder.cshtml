@@ -1,0 +1,20 @@
+﻿@inherits Glass.Mapper.Sc.Web.Mvc.GlassView<ACRHelix.Feature.PageContent.ViewModels.SectionTitleWithPlaceholderViewModel>
+@using Sitecore.Foundation.SitecoreExtensions.Extensions
+
+<section class="content section-spacing">
+    <header class="header-underrule">
+        <h2>@Editable(x => x.Title)</h2>
+    </header>
+    <div class="indented-section">
+        @*@Html.Sitecore().Placeholder("section-content")*@
+        @*<h1>Full Item Path: @Sitecore.Context.Item.Paths.FullPath.ToLower() </h1>*@
+        @if (Sitecore.Context.Item.Paths.FullPath.ToLower().StartsWith("/sitecore/content/dsi"))
+        {
+            @Html.Sitecore().DynamicPlaceholder("dsi-content", false)
+        }
+        else
+        {
+            @Html.Sitecore().DynamicPlaceholder("content", false)
+        }
+    </div>
+</section>

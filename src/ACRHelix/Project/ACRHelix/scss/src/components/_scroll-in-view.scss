@@ -1,0 +1,109 @@
+/*#sroll in view plugin#*/
+
+.tabs.in-view-btns-added {
+  position: relative;
+  padding-left: 2rem;
+  padding-right: 2rem;
+  transition: 100ms padding ease-out;
+  &.hide-left-btn {
+    padding-left: 0;
+  }
+}
+
+.tabs-rotating.in-view-btns-added.hide-left-btn {
+  padding-left: 2rem;
+}
+
+.has-acr-table {
+  &.in-view-btns-added {
+    padding-right: 0;
+    padding-left: 0;
+    padding-top: 2.25em;
+  }
+  &.hide-left-btn {
+    padding-left: 0.75rem;
+  }
+  &.hide-right-btn {
+    padding-right: 0.75rem;
+    .in-view-wrapper > table {
+      margin-left: 0.875rem;
+    }
+  }
+}
+
+.in-view-wrapper {
+  display: block;
+  overflow: hidden;
+  position: relative;
+  z-index: 2;
+  max-width: 100%;
+  > * {
+    transition: transform 500ms ease-out;
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+.in-view-btn {
+  position: absolute;
+  top: .5rem;
+  left: 0;
+  cursor: pointer;
+  display: inline-block;
+  font-size: 1.25rem;
+  color: $color-green;
+  z-index: 1000;
+  &.view-btn-right {
+    left: auto;
+    right: 0;
+  }
+}
+
+.tab-container .in-view-btn.view-btn-right, .tabs-rotating .in-view-btn.view-btn-right {
+  left: auto;
+  right: 0;
+}
+
+.tab-container .in-view-btn, .tabs-rotating .in-view-btn {
+  left: 0;
+  top: .4rem;
+  right: auto;
+}
+
+.has-acr-table .view-btn-left {
+  left: auto;
+  right: 2.2rem;
+}
+
+.tabs {
+  &.hide-left-btn > .view-btn-left, &.hide-right-btn > .view-btn-right {
+    display: none;
+  }
+}
+
+.hide-left-btn .view-btn-left:before, .hide-right-btn .view-btn-right:before {
+  color: $color-gray;
+}
+
+.has-acr-table .in-view-btn {
+  padding: 0 .8rem;
+  background: $white;
+}
+
+.in-view-wrapper {
+  > ul, li, > table, td, div {
+    position: relative;
+  }
+}
+
+.hide-contents {
+  * {
+    color: transparent;
+    transition: 150ms color ease-out, 150ms opacity ease-out;
+  }
+  color: transparent;
+  transition: 150ms color ease-out, 150ms opacity ease-out;
+}
+
+.has-acr-table .contents-in-view + .hide-contents, .slide-table .contents-in-view + .hide-contents {
+  border-left: 0;
+}

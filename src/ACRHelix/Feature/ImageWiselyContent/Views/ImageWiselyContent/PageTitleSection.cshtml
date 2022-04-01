@@ -1,0 +1,37 @@
+﻿@inherits Glass.Mapper.Sc.Web.Mvc.GlassView<ACRHelix.Feature.ImageWiselyContent.ViewModels.PageTitleSectionViewModel>
+
+<section class="padding-0 theme2-bg2" @if (Model.PageTitleSection.BackgroundImage != null) { @Html.Raw("style = 'background:url(" + Model.PageTitleSection.BackgroundImage.Src + ") right top #406a83 no-repeat'");  }>
+    <div class="container">
+        <div class="bannerBlock text-justify text-last-justify">
+            <div class="row">
+                @if (Model.PageTitleSection.Image != null)
+                {
+                    <div class="col-sm-6 col-md-6 col-lg-6">
+                        @RenderImage(x => x.PageTitleSection.Image, new { @class = "img-responsive" }, isEditable: true)
+                    </div>
+                }  
+                      
+                <div class="col-sm-6 col-md-6 col-lg-6">
+                    @if (!string.IsNullOrWhiteSpace(Model.PageTitleSection.Title))
+                    {
+                        <h1>@Editable(x => x.PageTitleSection.Title)</h1>
+                    }
+                    @if (!string.IsNullOrWhiteSpace(Model.PageTitleSection.SubTitle))
+                    {
+                        <p class="text-justify text-">
+                            @Editable(x => x.PageTitleSection.SubTitle)
+                        </p>
+                    }
+                    @if (Model.PageTitleSection.Link != null)
+                    {
+                        using (BeginRenderLink(x => x.PageTitleSection.Link, new { @class = "btn btn-primary btn-md active banner-btn", role = "button" }, isEditable: true))
+                        {
+                            @Model.PageTitleSection.Link.Text <i class="fa fa-angle-double-right"></i>
+                        }
+                    }
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

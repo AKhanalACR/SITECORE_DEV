@@ -1,0 +1,65 @@
+﻿@inherits Glass.Mapper.Sc.Web.Mvc.GlassView<ACRHelix.Feature.RadPACContent.ViewModels.CalloutCardsViewModel>
+@using Sitecore.Foundation.SitecoreExtensions.Extensions
+
+<section>
+    <div class="container">
+        <div class="row mb-5">
+            @if (!string.IsNullOrWhiteSpace(Model.Title) || Sitecore.Context.PageMode.IsExperienceEditorEditing)
+            {
+                <div class="col-12">
+                    <div class="section-header">
+                        <h2 class="header-style"><span class="underline-red"><span>@Editable(x => x.Title)</span></span><hr class="hr-style-red" /></h2>
+                    </div>
+                </div>
+            }            
+            <div class="col-md-6">
+                <div class="box-1 bg-gray">
+                    @if (!string.IsNullOrWhiteSpace(Model.LeftCardTitle) || Sitecore.Context.PageMode.IsExperienceEditor)
+                    {
+                        <h3>@Editable(x => x.LeftCardTitle)</h3>
+                    }
+                    @if (!string.IsNullOrWhiteSpace(Model.LeftCardDescription) || Sitecore.Context.PageMode.IsExperienceEditor)
+                    {
+                        <p class="description">@Editable(x => x.LeftCardDescription)</p>
+                    }
+                    @if (Model.LeftCardLink != null || Sitecore.Context.PageMode.IsExperienceEditor)
+                    {
+                        <h3 class="title text-center">
+                            @using (BeginRenderLink(x => x.LeftCardLink, new { }, isEditable: true))
+                            {
+                                if (Model.LeftCardLink != null)
+                                {
+                                    @Html.Raw(Model.LeftCardLink.Text) <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+                                }
+                            }
+                        </h3>
+                    }
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="box-2 bg-patina">
+                    @if (!string.IsNullOrWhiteSpace(Model.RightCardTitle) || Sitecore.Context.PageMode.IsExperienceEditor)
+                    {
+                        <h3>@Editable(x => x.RightCardTitle)</h3>
+                    }
+                    @if (!string.IsNullOrWhiteSpace(Model.RightCardDescription) || Sitecore.Context.PageMode.IsExperienceEditor)
+                    {
+                     <p class="description">@Editable(x => x.RightCardDescription)</p>
+                    }
+                    @if (Model.RightCardLink != null || Sitecore.Context.PageMode.IsExperienceEditor)
+                    {
+                        <h3 class="title text-center">
+                            @using (BeginRenderLink(x => x.RightCardLink, new { }, isEditable: true))
+                            {
+                                if (Model.RightCardLink != null)
+                                {
+                                    @Html.Raw(Model.RightCardLink.Text) <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+                                }
+                            }
+                        </h3>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

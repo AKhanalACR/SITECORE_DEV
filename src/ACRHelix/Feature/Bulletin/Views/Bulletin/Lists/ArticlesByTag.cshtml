@@ -1,0 +1,26 @@
+﻿@inherits Glass.Mapper.Sc.Web.Mvc.GlassView<ACRHelix.Feature.Bulletin.ViewModels.ArticlesByTagViewModel>
+
+<div class="content section-spacing-top">
+
+    <div class="row text-center flex-center">
+        <div class="xl-col-6 md-col-12 xl-text-left md-text-center sm-pad-bottom-1em md-pad-bottom-1em">
+            <h1 class="margin-bottom-0">@Model.Title</h1>
+        </div>
+        <div class="xl-col-6 md-col-12 xl-text-right md-text-center">
+            <select name="bulletin-years" id="bulletin-year-ddl">
+                @foreach (var year in Model.Years)
+                {
+                    <option value="@year">@year</option>
+                }
+            </select>
+        </div>
+    </div>
+
+    <div class="section-spacing">
+        <div id="ajaxLoader" class="content text-center ajax-loader">
+            <img src="~/css/mbr-testimonials/images/ajax-loader.gif" />
+        </div>
+        <div class="flex-l row-adjust spaced-item-area-s2" id="bulletin-tag-article-area" data-tag="@Model.CurrentTagID" style="min-height:500px">
+        </div>
+    </div>
+</div>

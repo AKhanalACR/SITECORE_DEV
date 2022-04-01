@@ -1,0 +1,27 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+
+<!--=============================================================
+    File: xmlExpressUrlApp.xml                                                   
+    Created by: sitecore\admin                                       
+    Created: 10/28/2009 4:05:37 PM                                               
+==============================================================-->
+
+<control xmlns:def="Definition" xmlns="http://schemas.sitecore.net/Visual-Studio-Intellisense">
+  <xmlExpressUrlConfirm>
+    <FormDialog OKButton="OK" CancelButton="true">
+
+      <!--<CodeBeside Type="Velir.SitecorePlugins.ExpressURL.ExpressUrlConfirmCodeBeside,Velir.SitecorePlugins"/>-->
+      <CodeBeside Type="ACR.Foundation.ExpressUrls.ExpressUrlConfirmCodeBeside,ACR.Foundation.ExpressUrls"/>
+      <Border Class="">
+        <Literal ID="Alert" Text="The Express URL you input contains special characters or is improperly formatted.  Would you like to use the suggested Express URL, below?" />
+      </Border>
+
+      <ul>
+        <li class="">
+          <Literal ID="SuggestedUrl" />
+        </li>
+      </ul>
+      
+    </FormDialog>
+  </xmlExpressUrlConfirm>
+</control>

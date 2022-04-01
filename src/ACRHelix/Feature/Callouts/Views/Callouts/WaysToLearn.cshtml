@@ -1,0 +1,41 @@
+﻿@using Glass.Mapper.Sc.Web.Mvc;
+@using ACRHelix.Foundation.EditFrames;
+@using System.Collections.Specialized;
+@inherits Glass.Mapper.Sc.Web.Mvc.GlassView<ACRHelix.Feature.Callouts.ViewModels.CalloutsViewModel>
+
+<section class="content section-spacing">
+    <div class="ways-learn row flex-container text-center">
+        @if (Model.CalloutItems.Count() > 0)
+        {
+            string style = "";
+            if (Sitecore.Context.PageMode.IsExperienceEditor)
+            {
+                style = "width:100%";
+            }
+            foreach (var item in Model.CalloutItems)
+            {
+                using (BeginEditFrame(EditFrameConstants.Paths.Edit, item.Id.ToString(), "Callout Item"))
+                {
+            <section class="xl-col-3 lg-col-6 col-6" style="@style">
+                <div class="ways-learn-tile">
+                    <div class="ways-learn-header">
+                        <h3>
+                            @using (BeginRenderLink(item, x => x.Link, new NameValueCollection { { "class", "read-more-link" } }, isEditable: true))
+                            {
+                            @Editable(item, x => x.Title)
+                            }
+                        </h3>
+                    </div>
+                    <figure>
+                        @using (BeginRenderLink(item, x => x.Link, new NameValueCollection { { "class", "block" } }, isEditable: true))
+                        {
+                        @RenderImage(item, x => x.Image, isEditable: true)
+                        }
+                    </figure>
+                </div>
+            </section>
+                }
+            }
+        }
+    </div>
+</section>

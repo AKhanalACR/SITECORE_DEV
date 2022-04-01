@@ -1,0 +1,130 @@
+﻿@inherits Glass.Mapper.Sc.Web.Mvc.GlassView<ACRHelix.Feature.IdeasContent.Models.IdeasPatientTwoImagesColumn>
+@{string marginTop = RenderingContext.Current.Rendering.Parameters["ContainerMarginTop"];
+    if (!string.IsNullOrEmpty(marginTop)){
+        marginTop = "style=margin-top:" + marginTop ;
+
+    }
+    else
+    {
+        marginTop = "";
+    }
+    }
+ 
+<div class="container" id="PatientTwoImages" @marginTop>
+    <div class="row">
+        @if (Model.ShowTitle) {
+            var backgroundUrl = "";
+            if(Model.TitleBackgroundImage!=null && Model.TitleBackgroundImage.MediaExists)
+            {
+                backgroundUrl = Model.TitleBackgroundImage.Src;
+            }
+        <div class="col-12 sectionTitle" style=" background-image: url(@backgroundUrl);">
+            <h1 class="blue mt-5 mb-5">@Editable(x => x.SectionTitle)</h1>            
+        </div>
+        }
+
+        <div class="col-12 col-md-6 col-lg-6">
+            @if (Model.FirstRedirectionLink != null)
+            {
+                <a href=@Model.FirstRedirectionLink.Url>
+                    @RenderImage(x => x.FirstImage, new { @id = "TwoImages" }, isEditable: true)
+                </a>
+            }
+            else
+            {
+                @RenderImage(x => x.FirstImage, new { @id = "TwoImages" }, isEditable: true)
+            }
+            <div class="Top-Center">
+                @if (Model.FirstRedirectionLink != null)
+                {
+                    <a href=@Model.FirstRedirectionLink.Url>
+                        <b> @Editable(x => x.FirstTitle)»</b>
+                    </a>
+                }
+                else
+                {
+                    <a>
+                        <b> @Editable(x => x.FirstTitle)»</b>
+                    </a>
+                }
+
+            </div>
+            @if (Model.ShowContactDetails)
+            {
+            <div class="text-center" style="margin-top: 3%;">
+                <div class="contacttitle">@Editable(x => x.FirstContactTitle)</div>
+                <div class="conactlinks">
+                    @{                        
+                        string firstContactLink1 = "#";
+                        string firstContactLink2 = "#";
+                        if (Model.FirstContactLink1 != null)
+                        {
+                            firstContactLink1 = Model.FirstContactLink1.Url;
+                        }
+                        if (Model.FirstContactLink2 != null)
+                        {
+                            firstContactLink2 = Model.FirstContactLink2.Url;
+                        }
+                    }
+                    <a href="@firstContactLink1">@RenderImage(x => x.FirstContactIcon1, new { @class = "iconimage" }, isEditable: true)</a>
+                    <a href="@firstContactLink2">@RenderImage(x => x.FirstContactIcon2, new { @class = "iconimage" }, isEditable: true)</a>
+
+                </div>
+            </div>
+                        }
+        </div>
+        <div class="col-12 col-md-6 col-lg-6">
+            @if (Model.SecondRedirectionLink != null)
+            {
+                <a href=@Model.SecondRedirectionLink.Url>
+                    @RenderImage(x => x.SecondImage, new { @id = "TwoImages" }, isEditable: true)
+                </a>
+            }
+            else
+            {
+                @RenderImage(x => x.SecondImage, new { @id = "TwoImages" }, isEditable: true)
+            }
+            <div class="Top-Right">
+                @if (Model.SecondRedirectionLink != null)
+                {
+                    <a href=@Model.SecondRedirectionLink.Url>
+                        <b> @Editable(x => x.SecondTitle)»</b>
+                    </a>
+                }
+                else
+                {
+                    <a>
+                        <b> @Editable(x => x.SecondTitle)»</b>
+                    </a>
+                }
+
+            </div>
+            @if (Model.ShowContactDetails)
+            {
+                <div class="text-center" style="margin-top: 3%;">
+                    <div class="contacttitle">@Editable(x => x.SecondContactTitle)</div>
+                    <div class="conactlinks">
+                        @{
+                            string SecondContactLink1 = "#";
+                            string SecondContactLink2 = "#";
+                            if (Model.SecondContactLink1 != null)
+                            {
+                                SecondContactLink1 = Model.SecondContactLink1.Url;
+                            }
+                            if (Model.SecondContactLink2 != null)
+                            {
+                                SecondContactLink2 = Model.SecondContactLink2.Url;
+                            }
+                        }
+                        <a href="@SecondContactLink1">@RenderImage(x => x.SecondContactIcon1, new { @class = "iconimage" }, isEditable: true)</a>
+                        <a href="@SecondContactLink2">@RenderImage(x => x.SecondContactIcon2, new { @class = "iconimage" }, isEditable: true)</a>
+
+                    </div>
+                </div>
+            }
+        </div>
+
+
+    </div>
+ 
+</div>

@@ -1,0 +1,47 @@
+﻿@using Sitecore.Feature.XBlog.Areas.XBlog.Items.Blog;
+@using Sitecore.Feature.XBlog.Areas.XBlog.Search;
+@using Sitecore.Mvc;
+@using Sitecore.Data;
+@model Sitecore.Feature.XBlog.Areas.XBlog.Models.Blog.CategoryListModel
+
+@{
+    if (Model == null)
+    {
+        return;
+    }
+    BlogSettings settingsItem = Sitecore.Feature.XBlog.Areas.XBlog.General.DataManager.GetBlogSettingsItem(Model.dataSourceItem != null ? Model.dataSourceItem : Sitecore.Context.Item);
+    //Database masterDB = Sitecore.Context.ContentDatabase ?? Sitecore.Configuration.Factory.GetDatabase("master");
+
+}
+
+
+<div id='@Html.Raw(settingsItem.PrimaryCSSID)-CategoryList'>
+    <h3>@Html.Sitecore().Field(BlogSettings.CategoryListTitleFieldId, settingsItem.InnerItem)</h3>
+    @{ if (Model.categories == null || !Model.categories.Any())
+        {
+            return;
+        }
+    }
+    <div class="">
+        <select name="CategorySelector" id="CategorySelector">
+            <option value="">Jump to Category...</option>
+            @if (Model.categories != null && Model.categories.Any())
+            {
+                foreach (Category category in Model.categories)
+                {
+                    if (category != null)
+                    {
+                        @*<option>@category.CategoryName</option>*@
+                        <option value="@Html.Raw(CategoryManager.GetCategoryUrl(category.CategoryName, Model.dataSourceItem != null ? Model.dataSourceItem : Sitecore.Context.Item))">@Html.Raw(category.CategoryName)</option>
+                    }
+
+                }
+            }
+        </select>
+
+    </div>
+
+
+
+
+</div>

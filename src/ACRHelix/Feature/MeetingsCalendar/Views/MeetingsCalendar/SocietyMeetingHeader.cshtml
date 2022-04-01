@@ -1,0 +1,32 @@
+﻿@inherits Glass.Mapper.Sc.Web.Mvc.GlassView<ACRHelix.Feature.MeetingsCalendar.ViewModels.SocietyMeetingViewModel>
+
+
+<section class="content">
+
+    <h1>@Editable(x => x.SocietyMeeting.SocietyName)</h1>
+
+    <h2>@Editable(x => x.SocietyMeeting.MeetingTitle)</h2>
+    <div class="text-content text-size-1p25">
+        @if (Model.SocietyMeeting.StartDate != DateTime.MinValue)
+            {
+            <strong>Start Date: </strong> @(Model.StartTimeSet ? Model.SocietyMeeting.StartDate.ToString("MMMM dd, yyyy - hh:mmtt") : Model.SocietyMeeting.StartDate.ToString("MMMM dd, yyyy"))
+            <br />
+
+        }
+        @if (Model.SocietyMeeting.EndDate != DateTime.MinValue)
+            {
+            <strong>End Date: </strong> @(Model.EndTimeSet ? Model.SocietyMeeting.EndDate.ToString("MMMM dd, yyyy - hh:mmtt") : Model.SocietyMeeting.EndDate.ToString("MMMM dd, yyyy"))<br />
+        }
+        @if (!string.IsNullOrWhiteSpace(Model.SocietyMeeting.Location) || Sitecore.Context.PageMode.IsExperienceEditorEditing)
+        {
+            <strong>Location: </strong> @Editable(x => x.SocietyMeeting.Location)
+        }
+    </div>
+    @if (!string.IsNullOrWhiteSpace(Model.SocietyMeeting.AdditionalInformation) || Sitecore.Context.PageMode.IsExperienceEditorEditing)
+    {
+        <div class="text-content">
+            @Editable(x => x.SocietyMeeting.AdditionalInformation)
+        </div>
+    }
+
+</section>

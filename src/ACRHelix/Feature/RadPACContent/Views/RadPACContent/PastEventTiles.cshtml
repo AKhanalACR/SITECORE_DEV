@@ -1,0 +1,78 @@
+﻿@inherits Glass.Mapper.Sc.Web.Mvc.GlassView<ACRHelix.Feature.RadPACContent.ViewModels.EventTilesViewModel>
+@using Sitecore.Foundation.SitecoreExtensions.Extensions
+
+
+<section id="chapter">
+    <div class="container">
+        @if (!string.IsNullOrWhiteSpace(Model.Title) || Sitecore.Context.PageMode.IsExperienceEditor)
+        {
+            <div class="row">
+                <div class="col-12">
+                    <div class="section-header">
+                        <h2 class="header-style"><span class="underline-red"><span>@Editable(x => x.Title)</span></span><hr class="hr-style-red" /></h2>
+                    </div>
+                </div>
+            </div>
+        }
+
+        <div class="row mb-5">
+            <div class="col-12">
+                <section id="events">
+                    <div class="container">
+                        <div class="row">
+                            <div id="events-flters" class="col-lg-12">
+                                <span class="mobile-label">Filter:</span>
+                                <ul>
+                                    <span>Filter:</span>
+                                    <li data-filter="*" class="filter-active">All</li>
+                                    @foreach (var fil in Model.Tags)
+                                {
+                                <li data-filter=".filter-@fil.ToLower()">@fil</li>
+                                }
+                                </ul>
+                                <label>
+                                    <select id="eventSelector">
+                                        <option value="*">All</option>
+                                        @foreach (var mfil in Model.Tags)
+                                    {
+                                    <option value=".filter-@mfil.ToLower()">@mfil</option>
+                                    }
+                                    </select>
+                                </label>
+                            </div>
+                        </div>
+                        <div class="row events-container">
+                            @foreach (var evt in Model.Tiles)
+                        {
+                            string tgs = "";
+                            if (evt.Tags.Count() > 0)
+                            {
+                                foreach(var tg in evt.Tags)
+                                {
+                                    tgs = tgs + "filter-" + tg.Name.ToLower() + " ";
+                                }
+
+                            }
+                            tgs = tgs.Trim();
+                        <div class="col-lg-4 col-md-6 events-item @tgs" data-wow-delay="0.2s">
+                            <div class="event">
+                                @if (evt.Image != null)
+                                    {
+                                    <img src="@evt.Image.Src" class="img-fluid" alt="@evt.Image.Alt">
+                                    }
+                                <div class="event-info">
+                                    <div class="event-info-content">
+                                        <h4>@evt.TileText</h4>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        }
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </div>
+</section>
+

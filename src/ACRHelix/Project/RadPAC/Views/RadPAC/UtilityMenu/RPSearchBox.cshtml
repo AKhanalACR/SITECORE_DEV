@@ -1,0 +1,9 @@
+﻿@inherits System.Web.Mvc.WebViewPage<ACRHelix.Project.RadPAC.Models.SearchSettings>
+@if (!string.IsNullOrWhiteSpace(Model.SearchPageUrl))
+{
+    <div class="search-bar">
+        <div>
+            <input id="rp-searchbox" type="text" class="form-control" placeholder="Enter Search Term" data-url="@Model.SearchPageUrl">
+        </div>  
+    </div>   
+}

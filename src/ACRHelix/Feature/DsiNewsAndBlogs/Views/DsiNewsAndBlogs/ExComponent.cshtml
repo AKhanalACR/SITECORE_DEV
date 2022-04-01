@@ -1,0 +1,35 @@
+﻿@inherits Glass.Mapper.Sc.Web.Mvc.GlassView<ACRHelix.Feature.DsiNewsAndBlogs.ViewModels.ExComponentViewModel>
+@using Sitecore.Mvc;
+@using ACRHelix.Foundation.EditFrames;
+
+@if (Sitecore.Context.PageMode.IsExperienceEditor)
+{
+    <style>
+        .staff-directory .scLooseFrameZone {
+            width: 33%;
+        }
+
+        .staff-directory div.scLooseFrameZone .xl-col-4 {
+            width: 100%;
+        }
+    </style>
+}
+<section id="exComponent" class="@if (!string.IsNullOrWhiteSpace(Model.ContainerClass)) { @Html.Raw(Model.ContainerClass) }">
+    @if (!string.IsNullOrWhiteSpace(Model.Title))
+    {
+        <h2>@Editable(x => x.Title)</h2>
+        <hr />
+    }
+    <div class="wrapper">
+
+    </div>
+    @if (!string.IsNullOrWhiteSpace(Model.RichText))
+    {
+        <p>@Editable(x => x.RichText)</p>
+        
+    }
+</section>
+@if (Model.ModuleUrl != null)
+{
+    <input id="dsiExModuleUrl" type="hidden" name="jsExModule" va value="@Model.ModuleUrl.Url" />
+}

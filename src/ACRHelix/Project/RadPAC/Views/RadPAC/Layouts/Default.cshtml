@@ -1,0 +1,54 @@
+﻿@using Sitecore.Foundation.Assets.Services
+@using Sitecore.Foundation.Assets.Models
+@using Sitecore.Mvc.Analytics.Extensions
+@using ACR.Foundation.SSO.Users;
+
+@inherits WebViewPage
+@{Layout = null;}
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta content="width=device-width, initial-scale=1.0" name="viewport">
+        @Html.Sitecore().VisitorIdentification()
+        @if (!Sitecore.Context.PageMode.IsExperienceEditor)
+        {
+            @Html.Sitecore().Placeholder("rp-html-head")
+        }
+        
+        @RenderAssetsService.Current.RenderVersionedCSS(ScriptLocation.Head)
+        @RenderAssetsService.Current.RenderRawAssetsHead(ScriptLocation.Head)
+        @RenderAssetsService.Current.RenderStyles(ScriptLocation.Head)
+        @if (Sitecore.Context.PageMode.IsExperienceEditor)
+        {
+            <!-- Fix Header only in Experience Editor Mode -->
+            <style type="text/css">
+                #site-header-outer {
+                    top: 0px;
+                    margin-top: 140px;
+                }
+            </style>
+            <!-- End Fix Header -->
+        }   
+    </head>   
+    <body id="main-body">
+        
+        <!-- BEGIN NOINDEX -->
+ 	@RenderAssetsService.Current.RenderBodyAssets(ScriptLocation.Body)
+        @Html.Sitecore().Placeholder("rp-header")
+        <!-- END NOINDEX -->
+       
+        <div class="main-page">
+            @Html.Sitecore().Placeholder("rp-content")
+        </div>
+       
+        <!-- BEGIN NOINDEX -->
+        @Html.Sitecore().Placeholder("rp-footer")
+        <!-- END NOINDEX -->       
+        
+        <a href="#" class="back-to-top"><i class="fa fa-angle-up" aria-hidden="true"></i></a> 
+	@RenderAssetsService.Current.RenderVersionedJs(ScriptLocation.Body)   
+        @RenderAssetsService.Current.RenderScript(ScriptLocation.Body)
+    </body>    
+</html>

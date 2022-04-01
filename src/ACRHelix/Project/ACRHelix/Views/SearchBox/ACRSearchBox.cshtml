@@ -1,0 +1,30 @@
+﻿@inherits System.Web.Mvc.WebViewPage<ACRHelix.Website.Models.SearchSettings>
+
+<style>
+	#header-search input[type=text] {
+        border-radius: 25px;
+        min-height: 1.8em!important;
+        margin-bottom: 20px;
+		padding-left: 20px !important;
+	}
+    .form-header-search-submit-btn {
+        background: #ffffff !important;
+        color: #4b9839 !important;
+        border: none !important;
+        width: auto !important;
+        height: auto !important;
+		top: .95em !important;
+    }
+	.form-header-search-submit-btn:before {
+            font-size: 0.925em !important;
+    }
+</style>
+
+<ul class="form-search">
+    <li>
+        <input id="header_tbSearch" placeholder="Enter Your Search" name="header$tbSearch" class="header_tbSearch" type="text">
+    </li>
+    <li>
+        <a data-url="@Model.ACRSeachPageUrl" id="header_hlSearchLink" class="form-header-search-submit-btn"></a>
+    </li>
+</ul>

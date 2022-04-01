@@ -1,0 +1,18 @@
+﻿@using Glass.Mapper.Sc.Web.Mvc;
+@inherits Glass.Mapper.Sc.Web.Mvc.GlassView<ACRHelix.Feature.Identity.ViewModels.IdeasContactsFooterViewModel>
+
+<div class="contact bg-lightgray">
+    <div class="container">
+        <div class="row d-flex">
+            <div class="col-12 col-md-4 noFlex">
+                @Editable(x => x.Column1)
+            </div>
+            <div class="col-12 col-md-5 fullWidth">
+                @Editable(x => x.Column2)
+            </div>
+            <div class="col-12 col-md-3 align-items-center d-flex justify-content-center btnPositions">
+                @Editable(x => x.Column3)
+            </div>
+        </div>
+    </div>
+</div>

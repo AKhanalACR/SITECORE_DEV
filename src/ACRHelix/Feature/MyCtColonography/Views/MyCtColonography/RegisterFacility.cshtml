@@ -1,0 +1,96 @@
+﻿@inherits Glass.Mapper.Sc.Web.Mvc.GlassView<ACRHelix.Feature.MyCtColonography.ViewModels.RegisterFacilityViewModel>
+
+<section class="section-spacing content row text-center addParent-callout-section">
+    <div class="content section-spacing">
+        <div style="text-align:left">
+            <h3>
+                @Editable(m => m.Title)
+            </h3>
+            <p>
+                @Editable(m => m.Subtitle)
+            </p>
+        </div>
+
+        @using (Html.BeginRouteForm(Sitecore.Mvc.Configuration.MvcSettings.SitecoreRouteName, FormMethod.Post, new { id = "regForm", role = "form" }))
+        {
+            @Html.Sitecore().FormHandler("MyCtColonography", "RegisterFacility")
+
+            @Html.AntiForgeryToken()
+            <div class="ctc-form-section">
+                <div class="row">
+                    <div class="xl-col-6 lg-col-6 text-align-left">
+                        @Html.LabelFor(m => m.FacilityLocation.FirstName, new { @class = "ctc-required-field" })
+                        @Html.TextBoxFor(m => m.FacilityLocation.FirstName, new { @class = "form-control", id = "txtFName" })
+                        <span id="reqmsg_fname" class="val-error-msg"></span>
+                    </div>
+                    <div class="xl-col-6 lg-col-6 text-align-left">
+                        @Html.LabelFor(m => m.FacilityLocation.LastName, new { @class = "ctc-required-field" })
+                        @Html.TextBoxFor(m => m.FacilityLocation.LastName, new { @class = "form-control", id = "txtLName" })
+                        <span id="reqmsg_lname" class="val-error-msg"></span>                    
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="xl-col-6 lg-col-6 text-align-left">
+                        @Html.LabelFor(m => m.FacilityLocation.Email, new { @class = "ctc-required-field" })
+                        @Html.TextBoxFor(m => m.FacilityLocation.Email, new { @class = "form-control", id = "txtEmail" })
+                        <span id="reqmsg_email" class="val-error-msg"></span> 
+                    </div>
+                    <div class="xl-col-6 lg-col-6 text-align-left">
+                        @Html.LabelFor(m => m.FacilityLocation.Store, new { @class = "ctc-required-field" })
+                        @Html.TextBoxFor(m => m.FacilityLocation.Store, new { @class = "form-control", id = "txtCenter" })
+                        <span id="reqmsg_center" class="val-error-msg"></span> 
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="xl-col-6 lg-col-6 text-align-left">
+                        @Html.LabelFor(m => m.FacilityLocation.Address1, new { @class = "ctc-required-field" })
+                        @Html.TextBoxFor(m => m.FacilityLocation.Address1, new { @class = "form-control", id = "txtAddress1" })
+                        <span id="reqmsg_address1" class="val-error-msg"></span> 
+                    </div>
+                    <div class="xl-col-6 lg-col-6 text-align-left">
+                        @Html.LabelFor(m => m.FacilityLocation.Address2)
+                        @Html.TextBoxFor(m => m.FacilityLocation.Address2, new { @class = "form-control", id = "txtAddress2" })
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="xl-col-6 lg-col-6 text-align-left">
+                        @Html.LabelFor(m => m.FacilityLocation.City, new { @class = "ctc-required-field" })
+                        @Html.TextBoxFor(m => m.FacilityLocation.City, new { @class = "form-control", id = "txtCity" })
+                        <span id="reqmsg_city" class="val-error-msg"></span> 
+                    </div>
+                    <div class="xl-col-6 lg-col-6 text-align-left">
+                            @Html.LabelFor(m => m.FacilityLocation.State, new { @class = "ctc-required-field" })
+                            @Html.DropDownListFor(m => m.FacilityLocation.State, Model.States, new { @class = "form-control", id = "dropDownStates" })
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="xl-col-3 lg-col-3 text-align-left">
+                        @Html.LabelFor(m => m.FacilityLocation.Zip, new { @class = "ctc-required-field" })
+                        @Html.TextBoxFor(m => m.FacilityLocation.Zip, new { @class = "form-control", id = "txtZip" })
+                        <span id="reqmsg_zip" class="val-error-msg"></span>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="xl-col-6 lg-col-6 text-align-left">
+                        @Html.LabelFor(m => m.FacilityLocation.Phone, new { @class = "ctc-required-field" })
+                        @Html.TextBoxFor(m => m.FacilityLocation.Phone, new { @class = "form-control", id = "txtPhone" })
+                        <span id="reqmsg_phone" class="val-error-msg"></span> 
+                    </div>
+                    <div class="xl-col-6 lg-col-6 text-align-left">
+                        <label>Website url (if any) - <br />Please enter the full web site address example: https://www.acr.org</label>
+                        @Html.TextBoxFor(m => m.FacilityLocation.URL, new { @class = "form-control", id = "txtUrl" })
+                    </div>
+                </div>
+                <div class="row" style="align-content:flex-start; margin-left: 40px; margin-top: 25px;">
+                    <div class="text-align-left">
+                        @Editable(m => m.AcceptText)
+                        <br />                        
+                    </div>
+                    <div class="text-align-left">
+                        <button type="submit" id="BtnSubmit" class="btn btn-primary">@Editable(m => m.ButtonText)</button>
+                    </div>
+                </div>               
+            </div>
+        }
+    </div>
+</section>

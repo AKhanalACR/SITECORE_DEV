@@ -1,0 +1,16 @@
+//
+// Layout
+//-------------------
+
+
+@mixin responsive-layout($breakpoint: ''){
+	//breakpoint being passed in will have the '-' appended in the end.
+
+	@include responsive-cols($breakpoint);
+	@include responsive-bk-props($breakpoint);
+	$img-pad: 1rem;
+	@if($breakpoint == "xl-"){
+		$img-pad: 2rem;
+	}
+	@include imageLR($breakpoint,$img-pad); 
+}

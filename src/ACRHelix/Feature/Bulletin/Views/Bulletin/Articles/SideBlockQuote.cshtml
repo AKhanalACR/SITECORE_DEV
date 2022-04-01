@@ -1,0 +1,11 @@
+﻿@inherits Glass.Mapper.Sc.Web.Mvc.GlassView<ACRHelix.Feature.Bulletin.Models.Quote>
+
+<blockquote class="bulletin-article-callout lg-less-hide">
+    <p>@Editable(x => x.QuoteText)</p>
+    @if (!string.IsNullOrWhiteSpace(Model.QuoteBy) || Sitecore.Context.PageMode.IsExperienceEditorEditing)
+    {
+        <footer>
+            &mdash;@Editable(x => x.QuoteBy)
+        </footer>
+    }
+</blockquote>

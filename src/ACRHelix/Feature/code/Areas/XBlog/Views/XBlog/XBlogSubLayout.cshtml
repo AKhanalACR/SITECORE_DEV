@@ -1,0 +1,14 @@
+﻿@using Sitecore.Mvc
+@using System.Web.Mvc.Html
+@inherits System.Web.Mvc.WebViewPage
+<div acr="main">
+<div acr="list" style="--gap:15px;">
+    <div class="XBlogFeatured">
+        @Html.Sitecore().Placeholder("xblogFeatured")
+    </div>
+    <div class="XBlogMain">
+        @Html.Sitecore().Placeholder("xblogmain")
+    </div>
+</div>
+</div>
+

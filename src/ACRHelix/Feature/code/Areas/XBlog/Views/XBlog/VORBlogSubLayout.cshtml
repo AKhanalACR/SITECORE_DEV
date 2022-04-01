@@ -1,0 +1,16 @@
+﻿@using Sitecore.Mvc
+@using System.Web.Mvc.Html
+@inherits System.Web.Mvc.WebViewPage
+<head>
+    <link rel="stylesheet" href="/css/VOR/vor-style.css" />
+</head>
+<div acr="main">
+    <div acr="list" style="--gap:15px;">
+
+        <section class="name-plate-convo-wrap">
+            <div class="container">
+                @Html.Sitecore().Placeholder("xblogmain")
+            </div>
+        </section>
+    </div>
+</div>

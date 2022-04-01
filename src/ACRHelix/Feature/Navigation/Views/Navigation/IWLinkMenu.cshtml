@@ -1,0 +1,26 @@
+﻿@using Glass.Mapper.Sc.Web.Mvc
+@inherits Glass.Mapper.Sc.Web.Mvc.GlassView<ACRHelix.Feature.Navigation.ViewModels.LinkMenuViewModel>
+
+@foreach (var item in Model.MenuItems.Select((value, index) => new { index, value }))
+{
+    <li class="dspn"><a href="@item.value.Link.Url">@item.value.Title</a></li>
+}
+
+
+@*@{ 
+    int itemCount = Model.MenuItems.Count();
+} 
+
+    @if (itemCount > 0)
+    {
+        int i = 1;
+        foreach (var item in Model.MenuItems.Select((value, index) => new { index, value }))
+        {
+            <li class="dspn"><a href="@item.value.Link.Url">@item.value.Title</a></li>
+            if (i < itemCount)
+            {
+                <li><div style="padding-top:7px;">|</div></li>
+            }
+            ++i;
+        }
+    }*@

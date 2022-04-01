@@ -1,0 +1,20 @@
+﻿@inherits Glass.Mapper.Sc.Web.Mvc.GlassView<ACRHelix.Feature.MeetingsCalendar.Models.RegistrationPriceTable>
+
+<h2>@Editable(Model, x => x.Title)</h2>
+<div class="row-adjust flex-container">
+    <div class="xl-col-9 lg-col-8 md-col-12 xl-pad-right-1p5em">
+        <div class="has-table-striped-odd">
+          @Editable(Model, x => x.Prices)
+        </div>
+    </div>
+    <div class="xl-col-3 lg-col-4 md-col-12 text-center xl-bdr-left lg-bdr-left md-border-none">
+        <br>
+        @if (Model.RegisterLink != null)
+        {
+        <a href="@Model.RegisterLink" class="button" target="_blank">Register Now</a>
+        }
+    </div>
+</div>
+
+<br>
+

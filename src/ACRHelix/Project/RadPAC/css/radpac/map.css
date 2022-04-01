@@ -1,0 +1,89 @@
+.mapcontainer {
+    max-width: 100%;
+    margin: auto;
+}
+
+
+.mapcontainer p{
+    font-size: 18px;
+}
+
+/* Specific mapael css class are below
+ * 'mapael' class is added by plugin
+*/
+
+.mapael .map {
+    position: relative;
+}
+
+.mapael .mapTooltip {
+    position: absolute;
+    background-color: #fff;
+    filter: alpha(opacity=70);
+    border-radius: 10px;
+    padding: 10px;
+    z-index: 999;
+    max-width: 200px;
+    display: none;
+    color: #343434;
+    box-shadow: 3px 3px 3px #656565;
+}
+
+.mapael .map text[data-id='DC'],
+.mapael .map text[data-id='DE'],
+.mapael .map text[data-id='RI'],
+.mapael .map text[data-id='HI'],
+.mapael .map text[data-id='MD']
+{
+    cursor: pointer;
+    fill: #00456a;
+}
+
+.mapael .map text[data-id='CT']
+{
+    cursor: pointer;
+    fill: #fff;
+}
+
+/* For all zoom buttons */
+.mapael .zoomButton {
+    background-color: #fff;
+    border: 1px solid #0f416b;
+    color: #0f416b;
+    width: 15px;
+    /* height: 15px; */
+    line-height: 15px;
+    text-align: center;
+    border-radius: 0px;
+    cursor: pointer;
+    position: absolute;
+    top: 0;
+    font-weight: bold;
+    left: 10px;
+    -webkit-user-select: none;
+    -khtml-user-select : none;
+    -moz-user-select: none;
+    -o-user-select : none;
+    user-select: none;
+}
+
+.mapael .zoomButton:hover {
+    background-color: #e02a2e;
+    border: 1px solid #e02a2e;
+    color: #fff;
+}
+
+/* Reset Zoom button first */
+.mapael .zoomReset {
+    top: 10px;
+}
+
+/* Then Zoom In button */
+.mapael .zoomIn {
+    top: 30px;
+}
+
+/* Then Zoom Out button */
+.mapael .zoomOut {
+    top: 50px;
+}

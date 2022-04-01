@@ -1,0 +1,290 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="IdeasEntityDataModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'ACR_APP_DATA_07172019.dbo.PRACTICE' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="PRACTICE">
+          <Key>
+            <PropertyRef Name="ID" />
+            <PropertyRef Name="NAME" />
+            <PropertyRef Name="EMAIL" />
+            <PropertyRef Name="STATUS" />
+            <PropertyRef Name="REGISTRATION_DATE" />
+            <PropertyRef Name="CREATED_DATETIME" />
+            <PropertyRef Name="CREATED_BY" />
+            <PropertyRef Name="IS_DATA_COLLECTION_AVAILABLE" />
+            <PropertyRef Name="IS_TERMINATED" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" />
+          <Property Name="NAME" Type="nvarchar" MaxLength="400" Nullable="false" />
+          <Property Name="STREET" Type="nvarchar" MaxLength="255" />
+          <Property Name="STREET2" Type="nvarchar" MaxLength="255" />
+          <Property Name="CITY" Type="nvarchar" MaxLength="50" />
+          <Property Name="STATE_ID" Type="nvarchar" MaxLength="2" />
+          <Property Name="ZIP" Type="nvarchar" MaxLength="10" />
+          <Property Name="PHONE" Type="nvarchar" MaxLength="50" />
+          <Property Name="FAX" Type="nvarchar" MaxLength="50" />
+          <Property Name="EMAIL" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="STATUS" Type="int" Nullable="false" />
+          <Property Name="REGISTRATION_DATE" Type="datetime" Nullable="false" />
+          <Property Name="LAST_UPDATE_DATE" Type="datetime" />
+          <Property Name="PRACTICE_TYPE" Type="int" />
+          <Property Name="PHONE_EXT" Type="nvarchar" MaxLength="50" />
+          <Property Name="LAST_UPDATE_USER_ID" Type="int" />
+          <Property Name="IRB_APPROVAL_TYPE" Type="int" />
+          <Property Name="IS_PARTICIPATING_SITE_APPROVAL_EXECUTED" Type="bit" />
+          <Property Name="IS_IRB_APPROVED" Type="bit" />
+          <Property Name="IS_FACILITY_APPROVED" Type="bit" />
+          <Property Name="IS_DEMENTIA_SPECIALIST_APPROVED" Type="bit" />
+          <Property Name="LATITUDE" Type="decimal" Precision="18" Scale="12" />
+          <Property Name="LONGITUDE" Type="decimal" Precision="18" Scale="12" />
+          <Property Name="CREATED_DATETIME" Type="datetime" Nullable="false" />
+          <Property Name="CREATED_BY" Type="nvarchar" MaxLength="256" Nullable="false" />
+          <Property Name="LAST_MODIFIED_DATETIME" Type="datetime" />
+          <Property Name="LAST_MODIFIED_BY" Type="nvarchar" MaxLength="256" />
+          <Property Name="IS_ACTIVE" Type="bit" />
+          <Property Name="IS_DATA_COLLECTION_AVAILABLE" Type="bit" Nullable="false" />
+          <Property Name="ORIGINAL_IRB_APPROVAL_DATE" Type="datetime" />
+          <Property Name="IRB_EXPIRATION_DATE" Type="datetime" />
+          <Property Name="SITE_ACTIVATION_DATE" Type="datetime" />
+          <Property Name="SITE_WITHDRAWAL_DATE" Type="datetime" />
+          <Property Name="IS_TERMINATED" Type="bit" Nullable="false" />
+          <Property Name="REASON_OF_TERMINATION" Type="varchar" MaxLength="500" />
+        </EntityType>
+        <Function Name="GetFacilitiesAndPhysician" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="GetFacilitiesAndPhysicianByZipCode" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Latitude" Type="varchar" Mode="In" />
+          <Parameter Name="Longitude" Type="varchar" Mode="In" />
+          <Parameter Name="ZipCode" Type="varchar" Mode="In" />
+          <Parameter Name="Miles" Type="varchar" Mode="In" />
+          <Parameter Name="Type" Type="varchar" Mode="In" />
+        </Function>
+        <EntityContainer Name="IdeasEntityDataModelStoreContainer">
+          <EntitySet Name="PRACTICE" EntityType="Self.PRACTICE" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [PRACTICE].[ID] AS [ID], 
+    [PRACTICE].[NAME] AS [NAME], 
+    [PRACTICE].[STREET] AS [STREET], 
+    [PRACTICE].[STREET2] AS [STREET2], 
+    [PRACTICE].[CITY] AS [CITY], 
+    [PRACTICE].[STATE_ID] AS [STATE_ID], 
+    [PRACTICE].[ZIP] AS [ZIP], 
+    [PRACTICE].[PHONE] AS [PHONE], 
+    [PRACTICE].[FAX] AS [FAX], 
+    [PRACTICE].[EMAIL] AS [EMAIL], 
+    [PRACTICE].[STATUS] AS [STATUS], 
+    [PRACTICE].[REGISTRATION_DATE] AS [REGISTRATION_DATE], 
+    [PRACTICE].[LAST_UPDATE_DATE] AS [LAST_UPDATE_DATE], 
+    [PRACTICE].[PRACTICE_TYPE] AS [PRACTICE_TYPE], 
+    [PRACTICE].[PHONE_EXT] AS [PHONE_EXT], 
+    [PRACTICE].[LAST_UPDATE_USER_ID] AS [LAST_UPDATE_USER_ID], 
+    [PRACTICE].[IRB_APPROVAL_TYPE] AS [IRB_APPROVAL_TYPE], 
+    [PRACTICE].[IS_PARTICIPATING_SITE_APPROVAL_EXECUTED] AS [IS_PARTICIPATING_SITE_APPROVAL_EXECUTED], 
+    [PRACTICE].[IS_IRB_APPROVED] AS [IS_IRB_APPROVED], 
+    [PRACTICE].[IS_FACILITY_APPROVED] AS [IS_FACILITY_APPROVED], 
+    [PRACTICE].[IS_DEMENTIA_SPECIALIST_APPROVED] AS [IS_DEMENTIA_SPECIALIST_APPROVED], 
+    [PRACTICE].[LATITUDE] AS [LATITUDE], 
+    [PRACTICE].[LONGITUDE] AS [LONGITUDE], 
+    [PRACTICE].[CREATED_DATETIME] AS [CREATED_DATETIME], 
+    [PRACTICE].[CREATED_BY] AS [CREATED_BY], 
+    [PRACTICE].[LAST_MODIFIED_DATETIME] AS [LAST_MODIFIED_DATETIME], 
+    [PRACTICE].[LAST_MODIFIED_BY] AS [LAST_MODIFIED_BY], 
+    [PRACTICE].[IS_ACTIVE] AS [IS_ACTIVE], 
+    [PRACTICE].[IS_DATA_COLLECTION_AVAILABLE] AS [IS_DATA_COLLECTION_AVAILABLE], 
+    [PRACTICE].[ORIGINAL_IRB_APPROVAL_DATE] AS [ORIGINAL_IRB_APPROVAL_DATE], 
+    [PRACTICE].[IRB_EXPIRATION_DATE] AS [IRB_EXPIRATION_DATE], 
+    [PRACTICE].[SITE_ACTIVATION_DATE] AS [SITE_ACTIVATION_DATE], 
+    [PRACTICE].[SITE_WITHDRAWAL_DATE] AS [SITE_WITHDRAWAL_DATE], 
+    [PRACTICE].[IS_TERMINATED] AS [IS_TERMINATED], 
+    [PRACTICE].[REASON_OF_TERMINATION] AS [REASON_OF_TERMINATION]
+    FROM [dbo].[PRACTICE] AS [PRACTICE]</DefiningQuery>
+          </EntitySet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="IdeasEntityDataModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="PRACTICE">
+          <Key>
+            <PropertyRef Name="ID" />
+            <PropertyRef Name="NAME" />
+            <PropertyRef Name="EMAIL" />
+            <PropertyRef Name="STATUS" />
+            <PropertyRef Name="REGISTRATION_DATE" />
+            <PropertyRef Name="CREATED_DATETIME" />
+            <PropertyRef Name="CREATED_BY" />
+            <PropertyRef Name="IS_DATA_COLLECTION_AVAILABLE" />
+            <PropertyRef Name="IS_TERMINATED" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" />
+          <Property Name="NAME" Type="String" MaxLength="400" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="STREET" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="STREET2" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="CITY" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="STATE_ID" Type="String" MaxLength="2" FixedLength="false" Unicode="true" />
+          <Property Name="ZIP" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="PHONE" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="FAX" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="EMAIL" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="STATUS" Type="Int32" Nullable="false" />
+          <Property Name="REGISTRATION_DATE" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="LAST_UPDATE_DATE" Type="DateTime" Precision="3" />
+          <Property Name="PRACTICE_TYPE" Type="Int32" />
+          <Property Name="PHONE_EXT" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="LAST_UPDATE_USER_ID" Type="Int32" />
+          <Property Name="IRB_APPROVAL_TYPE" Type="Int32" />
+          <Property Name="IS_PARTICIPATING_SITE_APPROVAL_EXECUTED" Type="Boolean" />
+          <Property Name="IS_IRB_APPROVED" Type="Boolean" />
+          <Property Name="IS_FACILITY_APPROVED" Type="Boolean" />
+          <Property Name="IS_DEMENTIA_SPECIALIST_APPROVED" Type="Boolean" />
+          <Property Name="CREATED_DATETIME" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="CREATED_BY" Type="String" MaxLength="256" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="LAST_MODIFIED_DATETIME" Type="DateTime" Precision="3" />
+          <Property Name="LAST_MODIFIED_BY" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Name="IS_ACTIVE" Type="Boolean" />
+          <Property Name="IS_DATA_COLLECTION_AVAILABLE" Type="Boolean" Nullable="false" />
+          <Property Name="ORIGINAL_IRB_APPROVAL_DATE" Type="DateTime" Precision="3" />
+          <Property Name="IRB_EXPIRATION_DATE" Type="DateTime" Precision="3" />
+          <Property Name="SITE_ACTIVATION_DATE" Type="DateTime" Precision="3" />
+          <Property Name="SITE_WITHDRAWAL_DATE" Type="DateTime" Precision="3" />
+          <Property Name="IS_TERMINATED" Type="Boolean" Nullable="false" />
+          <Property Name="REASON_OF_TERMINATION" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="LATITUDE" Type="Decimal" Precision="18" Scale="12" />
+          <Property Name="LONGITUDE" Type="Decimal" Precision="18" Scale="12" />
+        </EntityType>
+        <EntityContainer Name="IdeasDataEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="PRACTICEs" EntityType="Self.PRACTICE" />
+          <FunctionImport Name="GetFacilitiesAndPhysician" ReturnType="Collection(IdeasEntityDataModel.FacilitiesAndPhysicianDB)" />
+          <FunctionImport Name="GetFacilitiesAndPhysicianByZipCode" ReturnType="Collection(IdeasEntityDataModel.FacilitiesAndPhysicianByZipCodeDB)">
+            <Parameter Name="Latitude" Mode="In" Type="String" />
+            <Parameter Name="Longitude" Mode="In" Type="String" />
+            <Parameter Name="ZipCode" Mode="In" Type="String" />
+            <Parameter Name="Miles" Mode="In" Type="String" />
+            <Parameter Name="Type" Mode="In" Type="String" />
+          </FunctionImport>
+        </EntityContainer>
+        <ComplexType Name="FacilitiesAndPhysicianDB">
+          <Property Type="String" Name="NAME" Nullable="false" MaxLength="400" />
+          <Property Type="String" Name="Sta_ID" Nullable="true" MaxLength="2" />
+          <Property Type="String" Name="Sta_name" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="PHONE" Nullable="true" MaxLength="50" />
+          <Property Type="Int32" Name="Physician" Nullable="false" />
+          <Property Type="Int32" Name="Facilities" Nullable="false" />
+          <Property Type="String" Name="FullAddress" Nullable="false" MaxLength="579" />
+        </ComplexType>
+        <ComplexType Name="FacilitiesAndPhysicianByZipCodeDB">
+          <Property Type="String" Name="NAME" Nullable="true" MaxLength="400" />
+          <Property Type="String" Name="STREET" Nullable="true" MaxLength="255" />
+          <Property Type="String" Name="STREET2" Nullable="true" MaxLength="255" />
+          <Property Type="String" Name="CITY" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="STATE_ID" Nullable="true" MaxLength="2" />
+          <Property Type="String" Name="ZIP" Nullable="true" MaxLength="10" />
+          <Property Type="String" Name="PHONE" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="LATITUDE" Nullable="true" MaxLength="80" />
+          <Property Type="String" Name="LONGITUDE" Nullable="true" MaxLength="80" />
+          <Property Type="String" Name="Miles" Nullable="true" MaxLength="80" />
+        </ComplexType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="IdeasEntityDataModelStoreContainer" CdmEntityContainer="IdeasDataEntities">
+          <EntitySetMapping Name="PRACTICEs">
+            <EntityTypeMapping TypeName="IdeasEntityDataModel.PRACTICE">
+              <MappingFragment StoreEntitySet="PRACTICE">
+                <ScalarProperty Name="LONGITUDE" ColumnName="LONGITUDE" />
+                <ScalarProperty Name="LATITUDE" ColumnName="LATITUDE" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="NAME" ColumnName="NAME" />
+                <ScalarProperty Name="STREET" ColumnName="STREET" />
+                <ScalarProperty Name="STREET2" ColumnName="STREET2" />
+                <ScalarProperty Name="CITY" ColumnName="CITY" />
+                <ScalarProperty Name="STATE_ID" ColumnName="STATE_ID" />
+                <ScalarProperty Name="ZIP" ColumnName="ZIP" />
+                <ScalarProperty Name="PHONE" ColumnName="PHONE" />
+                <ScalarProperty Name="FAX" ColumnName="FAX" />
+                <ScalarProperty Name="EMAIL" ColumnName="EMAIL" />
+                <ScalarProperty Name="STATUS" ColumnName="STATUS" />
+                <ScalarProperty Name="REGISTRATION_DATE" ColumnName="REGISTRATION_DATE" />
+                <ScalarProperty Name="LAST_UPDATE_DATE" ColumnName="LAST_UPDATE_DATE" />
+                <ScalarProperty Name="PRACTICE_TYPE" ColumnName="PRACTICE_TYPE" />
+                <ScalarProperty Name="PHONE_EXT" ColumnName="PHONE_EXT" />
+                <ScalarProperty Name="LAST_UPDATE_USER_ID" ColumnName="LAST_UPDATE_USER_ID" />
+                <ScalarProperty Name="IRB_APPROVAL_TYPE" ColumnName="IRB_APPROVAL_TYPE" />
+                <ScalarProperty Name="IS_PARTICIPATING_SITE_APPROVAL_EXECUTED" ColumnName="IS_PARTICIPATING_SITE_APPROVAL_EXECUTED" />
+                <ScalarProperty Name="IS_IRB_APPROVED" ColumnName="IS_IRB_APPROVED" />
+                <ScalarProperty Name="IS_FACILITY_APPROVED" ColumnName="IS_FACILITY_APPROVED" />
+                <ScalarProperty Name="IS_DEMENTIA_SPECIALIST_APPROVED" ColumnName="IS_DEMENTIA_SPECIALIST_APPROVED" />
+                <ScalarProperty Name="CREATED_DATETIME" ColumnName="CREATED_DATETIME" />
+                <ScalarProperty Name="CREATED_BY" ColumnName="CREATED_BY" />
+                <ScalarProperty Name="LAST_MODIFIED_DATETIME" ColumnName="LAST_MODIFIED_DATETIME" />
+                <ScalarProperty Name="LAST_MODIFIED_BY" ColumnName="LAST_MODIFIED_BY" />
+                <ScalarProperty Name="IS_ACTIVE" ColumnName="IS_ACTIVE" />
+                <ScalarProperty Name="IS_DATA_COLLECTION_AVAILABLE" ColumnName="IS_DATA_COLLECTION_AVAILABLE" />
+                <ScalarProperty Name="ORIGINAL_IRB_APPROVAL_DATE" ColumnName="ORIGINAL_IRB_APPROVAL_DATE" />
+                <ScalarProperty Name="IRB_EXPIRATION_DATE" ColumnName="IRB_EXPIRATION_DATE" />
+                <ScalarProperty Name="SITE_ACTIVATION_DATE" ColumnName="SITE_ACTIVATION_DATE" />
+                <ScalarProperty Name="SITE_WITHDRAWAL_DATE" ColumnName="SITE_WITHDRAWAL_DATE" />
+                <ScalarProperty Name="IS_TERMINATED" ColumnName="IS_TERMINATED" />
+                <ScalarProperty Name="REASON_OF_TERMINATION" ColumnName="REASON_OF_TERMINATION" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="GetFacilitiesAndPhysician" FunctionName="IdeasEntityDataModel.Store.GetFacilitiesAndPhysician">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="IdeasEntityDataModel.FacilitiesAndPhysicianDB">
+                <ScalarProperty Name="NAME" ColumnName="NAME" />
+                <ScalarProperty Name="Sta_ID" ColumnName="Sta_ID" />
+                <ScalarProperty Name="Sta_name" ColumnName="Sta_name" />
+                <ScalarProperty Name="PHONE" ColumnName="PHONE" />
+                <ScalarProperty Name="Physician" ColumnName="Physician" />
+                <ScalarProperty Name="Facilities" ColumnName="Facilities" />
+                <ScalarProperty Name="FullAddress" ColumnName="FullAddress" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="GetFacilitiesAndPhysicianByZipCode" FunctionName="IdeasEntityDataModel.Store.GetFacilitiesAndPhysicianByZipCode">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="IdeasEntityDataModel.FacilitiesAndPhysicianByZipCodeDB">
+                <ScalarProperty Name="NAME" ColumnName="NAME" />
+                <ScalarProperty Name="STREET" ColumnName="STREET" />
+                <ScalarProperty Name="STREET2" ColumnName="STREET2" />
+                <ScalarProperty Name="CITY" ColumnName="CITY" />
+                <ScalarProperty Name="STATE_ID" ColumnName="STATE_ID" />
+                <ScalarProperty Name="ZIP" ColumnName="ZIP" />
+                <ScalarProperty Name="PHONE" ColumnName="PHONE" />
+                <ScalarProperty Name="LATITUDE" ColumnName="LATITUDE" />
+                <ScalarProperty Name="LONGITUDE" ColumnName="LONGITUDE" />
+                <ScalarProperty Name="Miles" ColumnName="Miles" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

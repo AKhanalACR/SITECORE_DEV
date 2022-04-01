@@ -1,0 +1,54 @@
+﻿@using Sitecore.Foundation.Assets.Services
+@using Sitecore.Foundation.Assets.Models
+@using Sitecore.Mvc.Analytics.Extensions
+@using ACR.Foundation.SSO.Users;
+
+@inherits WebViewPage
+@{Layout = null;}
+<!DOCTYPE html>
+<html class="no-js">
+<head>
+
+    <!-- Default Meta Tags -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    @Html.Sitecore().VisitorIdentification()
+    @if (!Sitecore.Context.PageMode.IsExperienceEditor)
+    {
+        @Html.Sitecore().Placeholder("html-head")
+    }
+    @RenderAssetsService.Current.RenderVersionedCSS(ScriptLocation.Head)
+    @RenderAssetsService.Current.RenderRawAssetsHead(ScriptLocation.Head)
+    @RenderAssetsService.Current.RenderStyles(ScriptLocation.Head)
+    @if (Sitecore.Context.PageMode.IsExperienceEditor)
+    {
+        <!-- Fix Header only in Experience Editor Mode -->
+        <style type="text/css">
+            #site-header-outer {
+                top: 0px;
+                margin-top: 140px;
+            }
+        </style>
+        <!-- End Fix Header -->
+    }
+</head>
+<body class="@(Sitecore.Context.PageMode.IsNormal ? "" : (Sitecore.Context.PageMode.IsExperienceEditor ? "pagemode-edit" : "pagemode-preview")) homePage"> 
+    <div class="wrapper">
+        @RenderAssetsService.Current.RenderBodyAssets(ScriptLocation.Body)
+        @Html.Sitecore().Placeholder("iw-global-banner")
+        <!-- BEGIN NOINDEX -->
+        
+        @Html.Sitecore().Placeholder("header")
+        <!-- END NOINDEX -->
+
+        @Html.Sitecore().Placeholder("iw-content")
+
+        <!-- BEGIN NOINDEX -->
+        @Html.Sitecore().Placeholder("footer")
+        <!-- END NOINDEX -->
+    </div>
+    @RenderAssetsService.Current.RenderVersionedJs(ScriptLocation.Body)
+    @RenderAssetsService.Current.RenderScript(ScriptLocation.Body)        
+</body>
+</html>

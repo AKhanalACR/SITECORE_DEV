@@ -1,0 +1,32 @@
+﻿@inherits Glass.Mapper.Sc.Web.Mvc.GlassView<ACRHelix.Feature.PageContent.Models.BlueLinkList>
+@using ACRHelix.Foundation.EditFrames
+@using System.Collections.Specialized;
+<section class="content ">
+	@if (Sitecore.Context.PageMode.IsExperienceEditor || !string.IsNullOrWhiteSpace(Model.Title))
+	{
+	<header>
+		<h2>@Editable(x => x.Title)</h2>
+		<hr>
+	</header>
+		}
+	@if (Model.Children != null)
+	{
+	<div class="select-item-area row flex-content-left text-center indented-section">
+		@foreach (var child in Model.Children)
+        {
+		<div class="xl-col-3 lg-col-6">
+			@using (BeginEditFrame(EditFrameConstants.Paths.Edit, child.Id.ToString(), "Link Item"))
+			{
+			<div class="select-item">
+				<h3>
+					@*@RenderLink(child, x => x.Link, new NameValueCollection() { { "class", "read-more-link same-size-arrow" } }, isEditable: true)
+                    <a class="read-more-link" href="@link">@Editable(child, x => x.LinkTitle)</a>*@
+                    <a class="read-more-link same-size-arrow" href="@child.Link.Url">@child.Link.Text</a>
+				</h3>
+			</div>
+				}
+		</div>
+			}
+	</div>
+		}
+</section>

@@ -1,0 +1,448 @@
+/* General Reset */
+html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, font, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, hr, button{
+	margin:0;
+	padding:0;
+	border:0;
+	outline:0;
+	font-size:100%;
+	vertical-align: top;
+	background:none;
+}
+ul {list-style:none;}
+h1, h2, h3, h4, h5, h6, li {line-height:100%;}
+blockquote, q {quotes:none;}
+q:before,
+q:after {content: "";}
+table {border-collapse:collapse; border-spacing:0; }
+td{ padding:5px; vertical-align:top; }
+input, textarea, select{
+	font:11px Arial, Helvetica, sans-serif;
+	vertical-align:middle;
+	padding:0;
+	margin:0;
+}
+form, fieldset{border-style:none;}
+
+
+/* General Settings */
+html {height:100%;}
+body {
+	font:12px/14px Verdana,Arial,Helvetica,sans-serif;
+	color:#000;
+	background:#666;
+	height:100%;
+}
+a {
+	text-decoration:none;
+	color:#00e;
+}
+a:hover {text-decoration:underline;}
+
+/* wrapper */
+.wrapper {
+	width:780px;
+	margin:0 auto;
+	border:1px solid #000;
+	background:#fff;
+}
+/* header */
+.header {
+	background:#f0f2f4 url(/images/AIRP/bg-header.gif) repeat-x;
+	overflow:hidden;
+	padding:38px 0 6px 29px;
+	width:751px;
+}
+.header-text
+{
+	text-indent:-9999px;
+}
+.logo 
+{
+	width:191px;
+	height:120px;
+	float:left;
+}
+.logo a {
+	display:block;
+	height:100%;
+}
+.login-box {
+	float:right;
+	padding:26px 6px 0 0;
+}
+.login {
+	width:93px;
+	height:23px;
+	display:block;
+	background:url(/images/AIRP/bg-login.gif) no-repeat;
+	color:#fff;
+	font-size:18px;
+	text-align:center;
+	padding:4px 0;
+	margin:0 5px 34px auto;
+}
+.login:hover {text-decoration:none;}
+.bookmark {
+	width:125px;
+	height:16px;
+	overflow:hidden;
+	display:block;
+	margin:0 0 10px auto;
+}
+.date {
+	display:block;
+	color:#000;
+	font-style:normal;
+	font:9pt Arial;
+	text-align:right;
+}
+/* end header */
+/* nav */
+.nav {
+	overflow:hidden;
+	width:100%;
+	background:url(/images/AIRP/bg-nav.gif) repeat-x;
+	margin:0 0 8px;
+}
+.nav li {
+	float:left;
+	/* padding:13px 51px 24px; */
+	background:url(/images/AIRP/separator1.gif) no-repeat;
+	margin:0 3px 0 -3px;
+}
+.add-nav a,
+.nav a {color:#fff;}
+.add-nav a:hover,
+.nav a:hover {
+	text-decoration:none;
+	color:#25467f;
+}
+/* end nav */
+/* main */
+.main {
+	background:url(/images/AIRP/bg-main.gif) repeat-y;
+	overflow:hidden;
+	width:100%;
+}
+/* content */
+.content {
+	width:633px;
+	float:right;
+	padding:13px 0 0;
+}
+/* Headings */
+.content h1 {
+	font-size:18px;
+	line-height:1.5em;
+	margin:0 0 14px;
+	font-weight:normal;
+}
+.content h1.pagetitle { padding:0 0 0 25px;}
+.content h2 {
+  color: #00467F;
+  font-size: 12px;
+  line-height:1em;
+  margin:6px 0 12px;
+  font-weight: bold;
+}
+.content h3 {
+  color: #00467F;
+  font-size: 12px;
+  line-height:1em;
+  margin:6px 0 12px;
+  font-weight: bold;
+}
+.content p {margin:0 0 12px; line-height:1.3em;}
+.content td p {margin:0;}
+.content .table1 { width:100% }
+.content .table1 td { border:solid 1px #ccc; text-align:center; padding:5px; font-size:11px;}
+.content .table1 h2 { margin:0; }
+.content ol {list-style-position: inside;}
+.content blockquote {font-style:normal; padding-left:30px; }
+
+/*Content Box styles */
+.content .box 
+{
+	clear:both;
+	padding:10px;
+	margin:8px 15px;
+}
+.content .divider {
+	border-bottom:solid 1px black;
+}
+.content .red {margin:0 0 12px;}
+.red {color:#f00;}
+
+.content .embedbox 
+{
+	clear:both;
+	padding:10px;
+	margin:8px 15px;
+	text-align:center;
+}
+.content .graybox 
+{
+	clear:both;
+	-moz-border-radius: 10px 10px 10px 10px;
+  -moz-box-shadow: 1px 1px 3px #555555;
+  background-color: #EEEEEE;
+  margin: 0px auto;
+  padding: 15px 20px;
+  text-align: left;
+  width:546px;
+}
+/* Info/Alert content boxes */
+.hideDisplay
+{
+    display: none;
+}
+.content .alertbox, .content .infobox 
+{
+	clear:both;
+	-moz-border-radius: 10px 10px 10px 10px;
+  -moz-box-shadow: 1px 1px 3px #555555;
+  margin: 0px auto;
+  padding: 15px 15px 15px 105px;
+  text-align: left;
+  width:470px;
+  border-bottom:solid 1px #555555;
+}
+.content .alertbox 
+{
+  background: #f26541 url("/images/AIRP/alert_icon.gif") no-repeat 20px 35px;
+}
+.content .infobox 
+{
+  background: #faf48b url("/images/AIRP/info_icon.gif") no-repeat 25px 35px;
+}
+.content .alertbox .title, .content .infobox .title
+{
+	font-size:18px;
+	line-height:1.5em;
+	margin:0 0 14px;
+	font-weight:bold;
+	text-shadow: #999999 1px 1px 1px;
+}
+
+.alertbox a img {
+    overflow: hidden;
+    display: block;
+}
+
+/* Box with Image and Caption */
+.content .feat-img-left .feat-img 
+{
+	clear:both;
+	float:left;
+	width:250px;
+	margin: 0 10px 10px 0;
+}
+.content .feat-img-right .feat-img 
+{
+	clear:both;
+	float:right;
+	width:250px;
+	margin: 0 0 10px 10px;
+}
+.content .feat-img-left .feat-img .caption,
+.content .feat-img-right .feat-img .caption 
+{
+	float:left;
+	font-size:10px;
+	font-weight:bold;
+}
+.content .feat-img img 
+{
+	display:block;
+	border:solid 1px black;
+}
+.feat-img
+{
+    border:1px solid black;
+}
+
+/* Box Frame */
+.content .box .frame {text-align:center;}
+.content .box .frame strong {
+	color:#004695;
+	display:block;
+	margin:0 0 15px;
+}
+.content .box .frame strong a {color:#00e;} 
+
+
+.start-case {
+	width:136px;
+	height:41px;
+	display:block;
+	overflow:hidden;
+	background:url(/images/AIRP/bg-start-case.gif) no-repeat;
+	margin:18px auto 11px;
+	color:#00467f;
+	text-align:center;
+	padding:8px 0 0;
+	font-size:14px;
+}
+.start-case:hover {text-decoration:none;}
+.decoration {text-decoration:underline;}
+.content ul {padding:0 0 2px;}
+.content ul ul,
+.content ul.indent {padding:0px 0 8px 24px;}
+.content ul li 
+{
+	clear:left;
+	width:auto;
+	padding:0 0 6px 16px;
+	background:url(/images/AIRP/bullet1.gif) no-repeat 0 4px;
+	line-height:1.3em;
+}
+.tabs {
+	overflow:hidden;
+	margin:0 0 0 -16px;
+}
+.content .tabs li 
+{
+	clear:none;
+	float:left;
+	background:none;
+	padding:0 0 8px;
+	text-align:center;
+	font-size:11px;
+}
+.tabs a {
+	width:139px;
+	height:31px;
+	float:left;
+	background:url(/images/AIRP/bg-tabs.gif) no-repeat;
+	color:#000;
+	padding:17px 0 0;
+}
+.tabs a:hover {
+	text-decoration:none;
+	color:#25467f;
+}
+cite {
+	color:#600;
+	font-weight:bold;
+	font-style:normal;
+}
+.panes {clear:both;}
+.panes .pane{display:none;}
+.panes div.p{display:none;}
+
+.box p img {
+    margin: 0 10px 10px 0;
+}
+
+/* end content */
+
+/* sidebar */
+.sidebar {
+	width:147px;
+	float:left;
+	background:url(/images/AIRP/bg-sidebar.gif) no-repeat;
+	padding:9px 0 0;
+}
+.add-nav {
+	overflow:hidden;
+	margin:-6px 0 7px;
+	height:1%;
+}
+.add-nav li {
+	background:url(/images/AIRP/divider1.gif) repeat-x;
+	/* padding:10px 0 10px; */
+	text-align:center;
+	margin:-2px 0 2px;
+	vertical-align:top;
+}
+.sidebar .box {
+	margin:0 0 10px;
+}
+.sidebar .box img {
+	display:block;
+	margin:0 0 26px;
+}
+.subscribe {
+	padding:0 14px 24px;
+	display:block;
+	line-height:16px;
+	background:url(/images/AIRP/divider1.gif) repeat-x 0 100%;
+	color:#000;
+	font-size:14px;
+}
+.subscribe:hover {text-decoration:none;}
+.sidebar .subscribe img {margin:0 auto;}
+.acr {
+	width:137px;
+	height:70px;
+	overflow:hidden;
+	display:block;
+	margin:8px 0 0 6px;
+}
+/* end sidebar */
+/* end main */
+.main-b {
+	background:url(/images/AIRP/bg-main-b.gif) no-repeat;
+	overflow:hidden;
+	padding:9px 12px 18px;
+	height:1%;
+}
+.social-networks {
+	float:right;
+	padding:0 6px 0 0;
+}
+.social-networks li {
+	float:left;
+	margin:0 0 0 2px;
+	display:inline;
+}
+.social-networks a {
+	width:16px;
+	height:16px;
+	overflow:hidden;
+	text-indent:-9999px;
+	overflow:hidden;
+	background:url(/images/AIRP/bg-social-networks.gif) no-repeat;
+	display:block;
+}
+.social-networks .facebook {background-position:-18px 0;}
+.acraddress {
+	float:right;
+	font-size:9px;
+	color:#999;
+}
+/* footer */
+.footer {
+	background:#bcae8a url(/images/AIRP/bg-footer.gif) repeat-x;
+	padding:14px 70px;
+	overflow:hidden;
+	height:1%;
+	font-size:10px;
+	color:#fff;
+}
+.copyright {float:left;}
+.copyright-list {
+	float:right;
+	overflow:hidden;
+	width:163px;
+}
+.copyright-list li {
+	float:left;
+	background:url(/images/AIRP/bullet2.gif) no-repeat 0 6px;
+	padding: 0 8px 0 10px;
+	margin:0 5px 0 -5px;
+	height:1%;
+	display:inline;
+	line-height:14px;
+}
+.copyright-list a {
+	color:#fff;
+	position:relative;
+}
+/* end footer */
+/* end wrapper */
+
+.clear-fix {clear:both; height:1px;}
+
+.errorpage-banner{ padding:15px; }
+.errorpage-msg{ padding:15px; }

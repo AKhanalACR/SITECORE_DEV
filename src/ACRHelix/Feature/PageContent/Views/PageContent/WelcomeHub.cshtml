@@ -1,0 +1,54 @@
+﻿@inherits Glass.Mapper.Sc.Web.Mvc.GlassView<ACRHelix.Feature.PageContent.ViewModels.WelcomeHubViewModel>
+@using ACRHelix.Foundation.EditFrames
+@using System.Collections.Specialized;
+
+<section class="mitHub" style="background-color:@(String.IsNullOrEmpty(Model.BgColor)? "#ffffff" : Model.BgColor)">
+    <div class="content row  bdr-grey mitHub-section-spacing">       
+            <div class="xl-col-3 lg-col-4" style="position:relative;">
+                <div class="mitHub-ImageWithText">
+                    @RenderImage(x => x.Image, new { @class = "mitHub-squareImage" }, isEditable: true)
+                    <div style="position: absolute; bottom:10px; padding-left:10px;">
+                        <div class="mitHub-rowTitle">@Html.Raw(Editable(x => x.Title))</div>
+                    </div>
+                </div>
+            </div>
+            <div class="xl-col-9 lg-col-8">
+                <div class="mitHub-cols xl-text-center lg-text-left text-center flex-container" style="padding-left:10px;">
+                    @foreach (var item in Model.WelcomeHubItems)
+                    {
+                        <div class="xl-col-4 lg-col-12 col-6 mitHub-item">
+                            <div class="mitHub-ItemTitleDiv">
+                                @if (item.Link != null)
+                                {
+                                    <a href="@item.Link.Url" target="@item.Link.Target" class="mitHub-ItemTitle">@Editable(item, x => x.Title)</a>
+                                }
+                                else
+                                {
+                                    <a href="" class="mit-ItemTitle">@Editable(item, x => x.Title)</a>
+                                }
+                            </div>
+                            <div class="mitHub-itemSubTitleDiv">
+                                <p>@Html.Raw(Editable(item, x => x.SubTitle))</p>
+                            </div>
+                            <div class="mitHub-itemIconDiv">
+                                @if (item.UseIconImage)
+                                {
+                                    using (BeginRenderLink(item, x => x.Link, isEditable: true))
+                                    { 
+                                            @RenderImage(item, x => x.Icon) 
+                                    }
+                                }
+                                else
+                                {
+                                    using (BeginRenderLink(item, x => x.Link, isEditable: true))
+                                    { 
+                                            <em class="@item.IconSymbol mitHub-icon"></em> 
+                                    }
+                                }
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>        
+    </div>
+</section>

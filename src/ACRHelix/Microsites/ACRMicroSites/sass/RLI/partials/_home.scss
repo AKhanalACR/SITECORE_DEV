@@ -1,0 +1,174 @@
+/**********
+	Home Page Specific Styling
+**********/
+.home {
+	.content {
+		background:#fff;
+		@include box-sizing(border-box);
+		width:775px;
+		color:#1F1F1F;
+		font-size:em(15, 16);
+		float:left;
+
+		.inner {
+			padding:18px 51px;
+		}
+
+		.item {
+			width:310px;
+			float:left;
+			margin:0 0 50px 0;
+
+			&:nth-of-type(2n+1) {
+				margin-right:51px;
+				clear:left;
+			}
+
+			.inner {
+				padding:0;
+				background:transparent;
+			}
+
+			section {
+				margin:0;
+			}
+
+			img {
+				display:block;
+				max-width:310px;
+				height:auto;
+				margin:0 1em 1em 0;
+			}
+			div {
+			display: block;
+			}
+		} // .item
+		
+		.homeFeatureItem {
+			 width: 671px;
+			 float: left;
+			 margin: 0 0 50px 0; 
+
+			 .inner{
+				padding:0;
+			  }
+		}//.homeFeatureItem
+		
+		h2 {
+			line-height:26px;
+			font-weight: normal;
+			font-size:18px;
+			.icon {
+				width:26px;
+				height:26px;
+				display:block;
+				float:left;
+				margin:0 0.5em 0 0;
+
+				&.calendar {background:url(/images/RLI/icons/icon_calendar.png) no-repeat;}
+				&.news {background:url(/images/RLI/icons/icon_news.png) no-repeat;}
+			} // .icon
+		} // h2
+	} // .content
+
+	h1, h2, h3 {
+		margin:0 0 0.5em 0;
+	}
+
+	h2 {
+		padding-top:em(10);
+
+		img {
+			float:left;
+			margin: 0 5px 0 0;
+		}
+	} // h2
+	
+	p {
+		margin:0 0 1em 0;
+	}
+	
+	ul {
+		margin:0;
+		padding:0;
+
+		li {
+			list-style:none;
+		}
+	} // ul
+
+	aside.widgets {
+		float:right;
+		width:253px;
+		@include box-sizing(border-box);
+
+		h2 {
+		
+			font-size:18px;
+			font-weight: normal;
+			.icon {
+				display:block;
+				float:left;
+				margin:0 1em 0 0;
+				}
+				}
+
+		.item {
+			margin:0 0 34px 0;
+		}
+
+		.inner {
+			padding:em(10) em(22);
+			color:#1F1F1F;
+			font-size: 16px;
+			background:#ffffff url('/images/RLI/backgrounds/background_gradient_e4e4e4_to_ffffff.png') repeat-x top;
+
+		}
+		
+		ul {
+			margin:1em 0 1em 1em;
+			padding:0;
+
+			li {
+				list-style:disc;
+				margin:0 0 1em 0;
+			}
+		} // ul
+
+
+		.button {
+			margin:0 0 1em 0;
+			&.icon {
+					display:block;
+					@include box-sizing(border-box);
+					min-height:48px;
+					line-height:28px;
+					padding:8px 0 8px 58px;
+					margin:8px 0;
+
+					&.house {background:url('/images/RLI/icons/icon_house.png') no-repeat top left;}
+					&.zoom {background:url('/images/RLI/icons/icon_zoom.png') no-repeat top left;}
+					img{
+						height:41px;
+						width:48px;
+						background-color:white;
+					}
+				} // &.icon
+		}
+	} // aside.widgets
+} // .home
+
+.ie7,
+.ie8,
+.ie9 {
+	
+	.home {
+		
+		.content {
+			
+			.item {
+				width:309px;
+			} // .item
+		} // .content
+	} // .home
+} // ie7, .ie8, .ie9

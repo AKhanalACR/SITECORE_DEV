@@ -1,0 +1,10 @@
+﻿@inherits Glass.Mapper.Sc.Web.Mvc.GlassView<ACRHelix.Feature.Identity.ViewModels.IWFooterTopSectionViewModel>
+
+<ul class="footer-links">
+    @foreach (var item in Model.IWFooterSection.SectionItems)
+    {
+        <li>
+            <a href="@item.Link.Url">@item.Link.Text</a>
+        </li>
+    }    
+</ul>

@@ -1,0 +1,298 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="..\..\..\..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.7\build\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props" Condition="Exists('..\..\..\..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.7\build\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" />
+  <Import Project="..\..\..\..\packages\Microsoft.Net.Compilers.2.1.0\build\Microsoft.Net.Compilers.props" Condition="Exists('..\..\..\..\packages\Microsoft.Net.Compilers.2.1.0\build\Microsoft.Net.Compilers.props')" />
+  <Import Project="..\..\..\..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.0\build\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props" Condition="Exists('..\..\..\..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.0\build\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" />
+  <Import Project="..\..\..\..\packages\Microsoft.Net.Compilers.1.0.0\build\Microsoft.Net.Compilers.props" Condition="Exists('..\..\..\..\packages\Microsoft.Net.Compilers.1.0.0\build\Microsoft.Net.Compilers.props')" />
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>
+    </ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{9CF547AA-D00E-4232-BEC1-D8F1D3413D28}</ProjectGuid>
+    <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Sitecore.Feature.XBlog</RootNamespace>
+    <AssemblyName>Sitecore.Feature.XBlog</AssemblyName>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <UseIISExpress>true</UseIISExpress>
+    <IISExpressSSLPort />
+    <IISExpressAnonymousAuthentication />
+    <IISExpressWindowsAuthentication />
+    <IISExpressUseClassicPipelineMode />
+    <UseGlobalApplicationHostFile />
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+    <TargetFrameworkProfile />
+    <Use64BitIISExpress />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Prod-Auth|AnyCPU' ">
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'PROD-CD1|AnyCPU' ">
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Castle.Core, Version=4.0.0.0, Culture=neutral, PublicKeyToken=407dd0808d44fbdc, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Castle.Core.4.2.1\lib\net45\Castle.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=11.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\VORBlogContent\Bin\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="SimpleInjector">
+      <HintPath>..\..\packages\SimpleInjector.4.9.2\lib\net45\SimpleInjector.dll</HintPath>
+    </Reference>
+    <Reference Include="SimpleInjector.Integration.Web">
+      <HintPath>..\..\packages\SimpleInjector.Integration.Web.4.9.2\lib\net40\SimpleInjector.Integration.Web.dll</HintPath>
+    </Reference>
+    <Reference Include="SimpleInjector.Integration.Web.Mvc">
+      <HintPath>..\..\packages\SimpleInjector.Integration.Web.Mvc.4.9.2\lib\net40\SimpleInjector.Integration.Web.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="Sitecore.Buckets">
+      <HintPath>..\..\..\lib\Sitecore.Buckets.dll</HintPath>
+    </Reference>
+    <Reference Include="Sitecore.ContentSearch">
+      <HintPath>..\..\..\lib\Sitecore.ContentSearch.dll</HintPath>
+    </Reference>
+    <Reference Include="Sitecore.ContentSearch.Linq, Version=3.1.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\lib\Sitecore.ContentSearch.Linq.dll</HintPath>
+    </Reference>
+    <Reference Include="Sitecore.Kernel">
+      <HintPath>..\..\..\lib\Sitecore.Kernel.dll</HintPath>
+    </Reference>
+    <Reference Include="Sitecore.Mvc">
+      <HintPath>..\..\..\lib\Sitecore.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="Sitecore.Mvc.Analytics">
+      <HintPath>..\..\..\lib\Sitecore.Mvc.Analytics.dll</HintPath>
+    </Reference>
+    <Reference Include="Sitecore.Services.Core, Version=1.3.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\lib\Sitecore.Services.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Sitecore.Speak.Client">
+      <HintPath>..\..\..\lib\Sitecore.Speak.Client.dll</HintPath>
+    </Reference>
+    <Reference Include="Sitecore.Web">
+      <HintPath>..\..\..\lib\Sitecore.Web.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.DynamicData" />
+    <Reference Include="System.Web.Entity" />
+    <Reference Include="System.Web.ApplicationServices" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Web.Mvc, Version=5.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\lib\System.Web.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\..\..\..\..\..\GitHubWorkingCopy\Sitecore92_Production\src\lib\XBlog\System.Web.Webpages.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.EnterpriseServices" />
+    <Reference Include="System.Xml.Linq" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Config\Include\Feature\Index\CustomBlogIndex.config" />
+    <Content Include="App_Config\Include\Feature\Index\VORBlogIndex.config" />
+    <Content Include="App_Config\Include\Feature\VORBlogItemService.config">
+      <SubType>Designer</SubType>
+    </Content>
+    <None Include="Areas\XBlog\Views\web.config" />
+    <Content Include="Areas\XBlog\Views\XBlog\AuthorView.cshtml" />
+    <Content Include="Areas\XBlog\Views\XBlog\BlogListing.cshtml" />
+    <Content Include="Areas\XBlog\Views\XBlog\BlogPost.cshtml" />
+    <Content Include="Areas\XBlog\Views\XBlog\Callouts\AuthorList.cshtml" />
+    <Content Include="Areas\XBlog\Views\XBlog\Callouts\AuthorViewList.cshtml" />
+    <Content Include="Areas\XBlog\Views\XBlog\Callouts\CategoryList.cshtml" />
+    <Content Include="Areas\XBlog\Views\XBlog\Callouts\OGPostMeta.cshtml" />
+    <Content Include="Areas\XBlog\Views\XBlog\Callouts\RecentBlog.cshtml" />
+    <Content Include="Areas\XBlog\Views\XBlog\Callouts\RelatedBlog.cshtml" />
+    <Content Include="Areas\XBlog\Views\XBlog\Callouts\TagCloud.cshtml" />
+    <Content Include="Areas\XBlog\Views\XBlog\Callouts\TagList.cshtml" />
+    <Content Include="Areas\XBlog\Views\XBlog\Callouts\TextSearch.cshtml" />
+    <Content Include="SampleTemplate.cshtml">
+      <Generator>RazorGenerator</Generator>
+    </Content>
+    <Content Include="Areas\XBlog\Views\XBlog\XBlogSubLayout.cshtml" />
+    <Content Include="Areas\XBlog\Views\XBlog\BlogHeader.cshtml" />
+    <Content Include="Areas\XBlog\Views\XBlog\VORAuthorView.cshtml" />
+    <Content Include="Areas\XBlog\Views\XBlog\VORBlogHeader.cshtml" />
+    <Content Include="Areas\XBlog\Views\XBlog\VORBlogListing.cshtml" />
+    <Content Include="Areas\XBlog\Views\XBlog\VORBlogPost.cshtml" />
+    <Content Include="Areas\XBlog\Views\XBlog\VORBlogSubLayout.cshtml" />
+    <Content Include="Areas\XBlog\Views\XBlog\VORRelatedBlog.cshtml" />
+    <Content Include="Areas\XBlog\Views\XBlog\Callouts\VORCategoryList.cshtml" />
+    <Content Include="Areas\XBlog\Views\XBlog\VORBlogComments.cshtml" />
+    <Content Include="Areas\XBlog\Views\XBlog\VORBlogCommentsForm.cshtml" />
+    <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Areas\XBlog\Constants\Indexes.cs" />
+    <Compile Include="Areas\XBlog\Controllers\BlogListingController.cs" />
+    <Compile Include="Areas\XBlog\Items\Blog\VORBlogEmail.cs" />
+    <Compile Include="Areas\XBlog\Items\Blog\VORBlogComment.cs" />
+    <Compile Include="Areas\XBlog\Models\Blog\AuthorListModel.cs" />
+    <Compile Include="Areas\XBlog\Models\Blog\VorBlogCommentsModel.cs" />
+    <Compile Include="Areas\XBlog\Models\Blog\BlogListingModel.cs" />
+    <Compile Include="Areas\XBlog\Models\Blog\BlogPostModel.cs" />
+    <Compile Include="Areas\XBlog\Models\Blog\BlogSearchItem.cs" />
+    <Compile Include="Areas\XBlog\Models\Blog\CategoryListModel.cs" />
+    <Compile Include="Areas\XBlog\Models\Blog\MetaModel.cs" />
+    <Compile Include="Areas\XBlog\Models\Blog\TagListModel.cs" />
+    <Compile Include="Areas\XBlog\Models\Importer\XBCreator.cs" />
+    <Compile Include="Areas\XBlog\Repositories\BlogRepository.cs" />
+    <Compile Include="Areas\XBlog\Repositories\IBlogRepository.cs" />
+    <Compile Include="Areas\XBlog\Services\IContentService.cs" />
+    <Compile Include="Areas\XBlog\Services\ClientService.cs" />
+    <Compile Include="Areas\XBlog\Services\SitecoreContentService.cs" />
+    <Compile Include="Areas\XBlog\XBlogAreaRegistration.cs" />
+    <Compile Include="Areas\XBlog\Buckets\BucketFolderConfigurationManager.cs" />
+    <Compile Include="Areas\XBlog\Buckets\EventHandlers\ItemSaved.cs" />
+    <Compile Include="Areas\XBlog\Buckets\PublishDateBasedFolderPath.cs" />
+    <Compile Include="Areas\XBlog\ContentSearch\ComputedFields\ParsedXBlogAuthorName.cs" />
+    <Compile Include="Areas\XBlog\ContentSearch\ComputedFields\ParsedXBlogCategoryName.cs" />
+    <Compile Include="Areas\XBlog\ContentSearch\ComputedFields\ParsedXBlogTagName.cs" />
+    <Compile Include="Areas\XBlog\Controllers\ImportController.cs" />
+    <Compile Include="Areas\XBlog\Controllers\XBlogController.cs" />
+    <Compile Include="Areas\XBlog\Fields\XBlogMultilist.cs" />
+    <Compile Include="Areas\XBlog\General\DataManager.cs" />
+    <Compile Include="Areas\XBlog\General\XBSettings.cs" />
+    <Compile Include="Areas\XBlog\Helpers\Helper.cs" />
+    <Compile Include="Areas\XBlog\Import\BlogCreator.cs" />
+    <Compile Include="Areas\XBlog\Import\ImportManager.cs" />
+    <Compile Include="Areas\XBlog\ItemExtensions.cs" />
+    <Compile Include="Areas\XBlog\ItemMapper\Configuration\Attributes\SitecoreItemAttribute.cs" />
+    <Compile Include="Areas\XBlog\ItemMapper\Configuration\Attributes\SitecoreItemFieldAttribute.cs" />
+    <Compile Include="Areas\XBlog\ItemMapper\Configuration\Attributes\SitecoreItemPropertyAttribute.cs" />
+    <Compile Include="Areas\XBlog\ItemMapper\Configuration\Attributes\SitecoreItemTemplateAttribute.cs" />
+    <Compile Include="Areas\XBlog\ItemMapper\DataHandler.cs" />
+    <Compile Include="Areas\XBlog\ItemMapper\DynamicProxy\ClassInterceptor.cs" />
+    <Compile Include="Areas\XBlog\ItemMapper\SitecoreItem.cs" />
+    <Compile Include="Areas\XBlog\ItemMapper\TypeMapper.cs" />
+    <Compile Include="Areas\XBlog\Items\Blog\Author.cs" />
+    <Compile Include="Areas\XBlog\Items\Blog\AuthorView.cs" />
+    <Compile Include="Areas\XBlog\Items\Blog\BlogHome.cs" />
+    <Compile Include="Areas\XBlog\Items\Blog\BlogPost.cs" />
+    <Compile Include="Areas\XBlog\Items\Blog\BlogSettings.cs" />
+    <Compile Include="Areas\XBlog\Items\Blog\Category.cs" />
+    <Compile Include="Areas\XBlog\Items\Blog\Shorts\BlogPostAuthorString.cs" />
+    <Compile Include="Areas\XBlog\Items\Blog\Shorts\BlogPostCategoryString.cs" />
+    <Compile Include="Areas\XBlog\Items\Blog\Shorts\BlogPostTagString.cs" />
+    <Compile Include="Areas\XBlog\Items\Blog\Tag.cs" />
+    <Compile Include="Areas\XBlog\Items\Blog\XBlogAuthors.cs" />
+    <Compile Include="Areas\XBlog\Items\Blog\XBlogCategories.cs" />
+    <Compile Include="Areas\XBlog\Items\Blog\XBlogComments.cs" />
+    <Compile Include="Areas\XBlog\Items\Blog\XBlogData.cs" />
+    <Compile Include="Areas\XBlog\Items\Blog\XBlogTags.cs" />
+    <Compile Include="Areas\XBlog\Items\Import\ProjectType.cs" />
+    <Compile Include="Areas\XBlog\Items\Import\WPAuthor.cs" />
+    <Compile Include="Areas\XBlog\Items\Import\WPCategory.cs" />
+    <Compile Include="Areas\XBlog\Items\Import\WPComment.cs" />
+    <Compile Include="Areas\XBlog\Items\Import\WPPost.cs" />
+    <Compile Include="Areas\XBlog\Items\Import\WPTag.cs" />
+    <Compile Include="Areas\XBlog\Pipelines\BlogItemResolver.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Areas\XBlog\Search\AuthorManager.cs" />
+    <Compile Include="Areas\XBlog\Search\BlogManager.cs" />
+    <Compile Include="Areas\XBlog\Search\CategoryManager.cs" />
+    <Compile Include="Areas\XBlog\Search\TagManager.cs" />
+    <Compile Include="Areas\XBlog\Search\XBlogDataManager.cs" />
+    <Compile Include="SublayoutParameterHelper.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="packages.config" />
+    <None Include="App_Config\Include\Feature\Sitecore.Feature.XBlog.Serialization.config.disabled" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Areas\XBlog\Views\Shared\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\Foundation\ACRHelix.Foundation.IoC\ACRHelix.Foundation.IoC.csproj">
+      <Project>{ec916a51-f8e1-4563-8543-87f9623ecaf1}</Project>
+      <Name>ACRHelix.Foundation.IoC</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Foundation\ACRHelix.Foundation.Model\ACRHelix.Foundation.Model.csproj">
+      <Project>{b27bf4a7-0302-4d75-a5d1-ce22af8597b2}</Project>
+      <Name>ACRHelix.Foundation.Model</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Foundation\ACRHelix.Foundation.Repository\ACRHelix.Foundation.Repository.csproj">
+      <Project>{2b13754f-b226-4d82-9dd2-5883328edf18}</Project>
+      <Name>ACRHelix.Foundation.Repository</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Prod-Preview|AnyCPU'">
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <LangVersion>7.3</LangVersion>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Prod-CD2|AnyCPU'">
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>True</UseIIS>
+          <AutoAssignPort>True</AutoAssignPort>
+          <DevelopmentServerPort>41094</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>http://localhost:41094/</IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>False</UseCustomServer>
+          <CustomServerUrl>
+          </CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+</Project>

@@ -1,0 +1,42 @@
+﻿/*.bannerBlock {
+    background: url(../../images/ImageWisely/main-page-bg.png)right top #406a83 no-repeat;
+    color: #fff;
+}
+.bannerBlock section {
+    padding: 16px;
+}*/
+
+    /*.readyPlege .background-Img {
+        display: block;
+        position: absolute;
+        width: 100%;
+        height: 60.5px;
+        background: url(../../images/ImageWisely/dropdwn-bg.png)center top no-repeat;
+    }*/
+    .header-title{
+        color: #164c82;
+    }
+    .news-head-a{
+        border:none;
+    }
+    .lst-heading h2 {
+        margin-bottom: 15px;
+        color: #154d80;
+    }
+
+    .img-with-title {
+        background: #A52F01;
+        min-height: 35px; 
+        position: relative;
+        top: -12px;
+        padding-bottom: 2px;
+        padding-top: 5px;
+        text-align:center;
+        width: 50%;
+        margin: 0 auto;
+    }
+    .img-with-title h1 {
+        color: white;
+        font-weight: 500;
+        font-size: 30px;
+    }

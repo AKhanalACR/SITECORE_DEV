@@ -1,0 +1,9 @@
+﻿@inherits Glass.Mapper.Sc.Web.Mvc.GlassView<ACRHelix.Feature.Social.ViewModels.SocialListViewModel>
+
+@if (Model.SocialItems.Count() > 0)
+{
+    foreach (var item in Model.SocialItems)
+    {
+        <a href='@(item.Link != null ? item.Link.Url : "#")' class="@item.CSSClass"></a><br>
+    }
+}

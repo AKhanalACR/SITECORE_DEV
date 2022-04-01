@@ -1,0 +1,28 @@
+﻿@using Glass.Mapper.Sc.Web.Mvc
+@inherits Glass.Mapper.Sc.Web.Mvc.GlassView<RHEC.Website.ViewModels.CopyrightViewModel>
+
+@{
+    int itemCount = Model.MenuItems.Count();
+    string divider = "&vert;";
+    bool first = true;
+}
+<p>@Html.Raw(Model.CopyrightText)</p>
+<div>
+    @if (itemCount > 0)
+    {
+
+        foreach (var item in Model.MenuItems.Select((value, index) => new { index, value }))
+        {
+            if (item.value.Link != null)
+            {
+                if (!first)
+                {
+                    @Html.Raw(divider)
+                }
+                <a target="@item.value.Link.Target" href="@item.value.Link.Url">@item.value.Title</a>
+                first = false;
+            }
+        }
+    }
+</div>
+

@@ -1,0 +1,467 @@
+label, .label-space:not(h3), .input-space {
+  font-size: .9375rem;
+  display: block;
+  font-weight: 600;
+  clear: both;
+  margin-top: 2rem;
+  margin-bottom: .2rem;
+  max-width: 420px;
+}
+
+.label-space:after {
+  content: '.';
+  color: transparent;
+  visibility: hidden;
+  opacity: 0;
+  position: relative;
+  right: -1ex;
+  margin-right: -1ex;
+}
+
+h3.label-space {
+  margin-top: 2rem;
+}
+
+.label-space[class*=wide-], label[class*=wide-] {
+  max-width: none;
+}
+
+.label-less-space {
+  label, .label, .label-space {
+    margin-top: .6em;
+  }
+}
+
+.no-lbl-space {
+  margin-top: 0;
+}
+
+.label-normal {
+  font-weight: 400;
+}
+
+textarea {
+  background: $white;
+  border: 1px solid #bebebe;
+  width: 100%;
+  max-width: 420px;
+  padding: .1em .4em;
+  min-height: 2em;
+  color: inherit;
+  font-family: inherit;
+}
+
+input {
+  &[type=text], &[type=password], &[type=email], &[type=number] {
+    background: $white;
+    border: 1px solid #bebebe;
+    width: 100%;
+    max-width: 420px;
+    padding: .1em .4em;
+    min-height: 2em;
+    color: inherit;
+    font-family: inherit;
+  }
+}
+
+textarea:focus, .TextAreaField:focus {
+  border: 1px solid #878e9c;
+}
+
+input {
+  &[type=text]:focus, &[type=password]:focus {
+    border: 1px solid #878e9c;
+  }
+}
+
+textarea {
+  min-height: 8em;
+  max-width: none;
+  padding-top: .4rem;
+  padding-bottom: 0.4rem;
+}
+
+input[type=file] {
+  margin-top: 0.5rem;
+}
+
+select {
+  max-width: 18em;
+}
+
+.member-login-form {
+    max-width: 22.75rem;
+    padding-right: 1em;
+}
+
+.btn-horiz-space, .input-horiz-space {
+  display: inline-block;
+  width: 1.75rem;
+}
+
+input {
+  &[disabled] {
+    background: #f0f0f0;
+    color: $color-gray;
+  }
+  &.input-zip {
+    max-width: 7.875rem;
+  }
+  &.input-chars-2 {
+    max-width: 2.75rem;
+  }
+  &.input-chars-3 {
+    max-width: 2.5rem;
+  }
+  &.input-chars-4 {
+    max-width: 3.5rem;
+  }
+  &.input-chars-7 {
+    max-width: 6.5rem;
+  }
+  &.input-chars-8 {
+    max-width: 7.25rem;
+  }
+  &.input-chars-9 {
+    max-width: 8rem;
+  }
+  &.input-chars-10 {
+    max-width: 9rem;
+  }
+  &[type="radio"] + label, &[type="checkbox"] + label {
+    margin-top: 0;
+    display: inline-block;
+    margin-left: 1ex;
+  }
+}
+
+/*main is used so when combined with for ex '.wide-n' class it'll be padded left*/
+
+main {
+  .acr-checkbox, .acr-radio {
+    position: relative;
+    padding: .6rem 0;
+    padding-left: 2.25rem;
+    font-size: .9375rem;
+    display: inline-block;
+    cursor: pointer;
+  }
+}
+
+.acr-checkbox, .acr-radio {
+  position: relative;
+  padding: .6rem 0;
+  padding-left: 2.25rem;
+  font-size: .9375rem;
+  display: inline-block;
+  cursor: pointer;
+}
+
+main {
+  .acr-checkbox label, .acr-radio label {
+    margin: 0;
+    color: $color-navy-2;
+    cursor: inherit;
+    max-width: none;
+  }
+}
+
+.acr-checkbox label, .acr-radio label {
+  margin: 0;
+  color: $color-navy-2;
+  cursor: inherit;
+  max-width: none;
+}
+
+.acr-checkbox input[type=checkbox], .acr-radio input[type=radio] {
+  visibility: hidden;
+  opacity: .0001;
+  position: absolute;
+  left: 0;
+  top: 0;
+}
+
+.acr-checkbox i {
+  display: inline-block;
+  width: 1.625rem;
+  height: 1.625rem;
+  margin-top: -.8125rem;
+  vertical-align: middle;
+  border: 1px solid $color-gray;
+  position: absolute;
+  left: 0;
+  top: 50%;
+  -webkit-transition: 120ms border ease-out;
+  transition: 120ms border ease-out;
+  overflow: hidden;
+}
+
+.acr-radio i {
+  display: inline-block;
+  width: 1.625rem;
+  height: 1.625rem;
+  margin-top: -.8125rem;
+  vertical-align: middle;
+  border: 1px solid $color-gray;
+  position: absolute;
+  left: 0;
+  top: 50%;
+  -webkit-transition: 120ms border ease-out;
+  transition: 120ms border ease-out;
+  overflow: hidden;
+  border-radius: 50%;
+  &:before {
+    border-radius: 50%;
+  }
+}
+
+.acr-checkbox i {
+  background: $color-green;
+  &:before {
+    content: '';
+    display: inline-block;
+    z-index: 2;
+    opacity: 0;
+    height: .1rem;
+    width: .1rem;
+    background: #4c9738;
+    position: absolute;
+    -webkit-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+    left: 50%;
+    top: 50%;
+  }
+}
+
+.acr-radio i:before {
+  content: '';
+  display: inline-block;
+  z-index: 2;
+  opacity: 0;
+  height: .1rem;
+  width: .1rem;
+  background: #4c9738;
+  position: absolute;
+  -webkit-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+  left: 50%;
+  top: 50%;
+}
+
+.acr-checkbox i:after {
+  content: '';
+  background: $white;
+  display: block;
+  height: 100%;
+  width: 100%;
+  opacity: 1;
+  position: absolute;
+  -webkit-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+  left: 50%;
+  top: 50%;
+  -webkit-transition: 100ms all ease-in-out;
+  transition: 100ms all ease-in-out;
+}
+
+.acr-radio i:before {
+  -webkit-transition: 100ms all ease-out;
+  transition: 100ms all ease-out;
+}
+
+.acr-checkbox i:before {
+  -webkit-transition: 130ms all ease-in-out 100ms;
+  transition: 130ms all ease-in-out 100ms;
+  background-image: url("data:image/svg+xml,%3C%3Fxml version='1.0' encoding='utf-8'%3F%3E%3Csvg version='1.1' id='checkbox' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' x='0px' y='0px' width='18px' height='18px' viewBox='0 0 18 18' style='enable-background:new 0 0 18 18;' xml:space='preserve'%3E%3Cstyle type='text/css'%3E.st0%7Bfill:%23ffffff;%7D%3C/style%3E%3Cpolygon class='st0' points='14.9,2.4 5.9,11.4 3.1,8.6 1,10.8 3.7,13.5 5.2,15 5.9,15.6 17,4.5 '/%3E%3C/svg%3E");
+  background-position: left top;
+  background-repeat: no-repeat;
+  background-color: transparent;
+  background-size: cover;
+}
+
+.acr-radio.input-checked i:before {
+  opacity: 1;
+  height: 1rem;
+  width: 1rem;
+}
+
+.acr-checkbox {
+  &:hover i {
+    border-color: $color-green;
+  }
+  &.input-checked i {
+    border-color: $color-green;
+    &:before {
+      opacity: 1;
+      height: 1.35em;
+      width: 1.35em;
+    }
+    &:after {
+      height: 0;
+      width: 0;
+      opacity: .5;
+    }
+  }
+}
+
+.acr-check-align-top {
+  .acr-checkbox i, &.acr-checkbox i {
+    margin-top: 0;
+    top: .75rem;
+  }
+}
+
+.disabled-input label {
+  color: #999;
+}
+
+.acr-checkbox.disabled-input i {
+  &:before {
+    background-color: #aaa;
+    border-color: #aaa;
+  }
+  &:after {
+    border-color: #aaa;
+  }
+  border-color: #aaa;
+  background: #aaa;
+}
+
+/*#date picker#*/
+
+.ui-datepicker {
+  background: $white;
+  border: 1px solid $color-gray;
+  padding: 4px;
+  margin: 3px 0;
+  box-shadow: 0 0 1rem rgba(0, 0, 0, 0.12);
+  z-index: 1100 !important;
+}
+
+.ui-icon {
+  cursor: pointer;
+}
+
+.ui-datepicker-title {
+  text-align: center;
+  font-weight: 600;
+}
+
+.ui-datepicker-calendar {
+  font-size: 14px;
+  text-align: center;
+  td {
+    text-align: center;
+    border: 1px solid $color-gray;
+  }
+  th {
+    text-align: center;
+    background: $white;
+    border-bottom: 2px solid #aaa;
+  }
+}
+
+.ui-datepicker-header {
+  position: relative;
+  min-height: 36px;
+  .ui-icon {
+    position: absolute;
+    top: 6px;
+    text-indent: -100rem;
+    overflow: hidden;
+    width: 1rem;
+  }
+}
+
+.ui-icon-circle-triangle-e {
+  left: auto;
+  right: 0;
+}
+
+.ui-icon-circle-triangle-w {
+  left: 0;
+}
+
+.ui-icon {
+  &:before, &:after {
+    font-size: 1rem;
+    display: block;
+    float: left;
+    text-indent: 0;
+    width: 1rem;
+  }
+}
+
+.ui-datepicker-week-end {
+  background: #f0f0f0;
+}
+
+.ui-datepicker-today:after {
+  content: '';
+  display: block;
+  height: 2px;
+  background: $color-sky;
+  width: 100%;
+}
+
+.ui-datepicker-calendar .ui-datepicker-current-day {
+  background: $color-sky;
+}
+
+.ui-state-active {
+  color: $white;
+  &:hover {
+    color: $white;
+  }
+}
+
+button.ui-datepicker-trigger {
+  padding: 0;
+  border: 0;
+  width: 28px;
+  height: 28px;
+  background: url('/images/calendar.svg') center center no-repeat;
+  margin: 0;
+}
+
+.date-multi-field {
+  position: relative;
+  padding-right: 36px;
+  display: block;
+  min-width: 12.75rem;
+  width: 12.75rem;
+  clear: both;
+  .date-day, .date-month {
+    width: 2.375rem;
+    text-align: center;
+  }
+  .date-year {
+    width: 4rem;
+  }
+  button {
+    position: absolute;
+    right: 0;
+    top: 2px;
+  }
+}
+
+.date-hidden {
+  display: none;
+}
+
+/*phone numbers*/
+
+input[maxlength='3'] { min-width: 2.7em; text-align: center }
+input[maxlength='4'] { min-width: 3.7em; text-align: center }
+.submit-spacer { height: 0; overflow: hidden; }
+input[type='submit'].FormButton { margin: 1em 0; max-width: 24em; float: left; }
+.EditingFormErrorLabel, .error { color: #c22; font-size: .875em;margin-top:0px }
+.required { color: #c22; }
+
+main{
+  @include placeholder-text{
+    color: $color-gray;
+    opacity: 1;
+    font-weight: 300
+  }
+}

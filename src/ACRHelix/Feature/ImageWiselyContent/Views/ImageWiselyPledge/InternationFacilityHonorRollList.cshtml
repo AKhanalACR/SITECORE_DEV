@@ -1,0 +1,35 @@
+﻿@inherits Glass.Mapper.Sc.Web.Mvc.GlassView<ACRHelix.Feature.ImageWiselyContent.ViewModels.InternationalFacilityHonorRollListViewModel>
+
+<section class="white-bg imgwise-block logos-block">
+    <div class="container international-facility-list">
+
+        @if (Model.FacilityCountries.Count == 0)
+        {
+            <p>@Model.NoFacilitiesText</p>
+        }
+        else
+        {
+            foreach (var country in Model.FacilityCountries)
+            {
+                <p class="country-list">
+                    <span class="country-name">
+                        @country.Country
+                    </span>
+                    @foreach (var city in country.Cities)
+                    {
+                        <span class="facility-city">
+                            @city.City
+                        </span>
+                        foreach (var facility in city.Facilities) {
+                        <span class="facility-facility">                        
+                            @facility.Facility
+                        </span>
+                        }
+                    }
+                </p>
+            }
+
+        }
+
+    </div>
+</section>

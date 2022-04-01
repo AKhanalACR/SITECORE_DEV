@@ -1,0 +1,47 @@
+﻿@inherits Glass.Mapper.Sc.Web.Mvc.GlassView<ACRHelix.Feature.Bulletin.ViewModels.ArticleListModel>
+
+@if ((Model.Articles != null && Model.Articles.Count > 0) || Sitecore.Context.PageMode.IsExperienceEditor)
+{
+    <!-- BEGIN NOINDEX -->
+    <aside class="content section-spacing">
+        <h3 class="h2">
+            Recommended Reading from the <span class="sr-only">Bulletin</span>
+            <img src="~/images/bulletin/bulletin-inline-text-tag.png" alt="" aria-hidden="true" class="bulletin-text-tag" />
+        </h3>
+        <hr class="section-spacing-bottom">
+        <div class="recommended-reading-tiles row spaced-item-area-s1">
+            @foreach (var article in Model.Articles)
+            {
+                string linkUrl = Sitecore.Links.LinkManager.GetItemUrl(article.GetItem());
+                string linkText = (string.IsNullOrWhiteSpace(article.LinkText) ? article.Title : article.LinkText);
+                <section class="xl-col-4 md-col-12 lg-col-6 slick-slide hover-show-overlay">
+                    <div class="rec-read-tile spaced-item news-box">
+                        <figure>
+                            <a href="@linkUrl" class="block">
+                                <img src="@article.TileImageUrl">
+                            </a>
+                            <div class="overlay-to-show wide-12">
+                                <a href="@linkUrl">
+                                    <h3>
+                                        @article.Title
+                                    </h3>
+                                    <div class="text-content">
+                                        @article.TileText
+                                    </div>
+				    <span class="tile-bottom-link read-more-link blue-link">Read more </span>
+                                </a>
+                            </div>
+                        </figure>
+                        <footer>
+                            <a href="@linkUrl" class="rec-read-title" tabindex="0">
+                                @article.Title
+                                <i class="read-more-arrow" aria-hidden="true"></i>
+                            </a>
+                        </footer>
+                    </div>
+                </section>
+            }
+        </div>
+    </aside>
+    <!-- END NOINDEX -->
+}

@@ -1,0 +1,17 @@
+﻿@using Glass.Mapper.Sc.Web.Mvc;
+@using System.Collections.Specialized;
+@inherits Glass.Mapper.Sc.Web.Mvc.GlassView<ACRHelix.Feature.DSIHomeBanner.ViewModels.BlockCalloutViewModel>
+
+<div class="full section-style-1 scrollTarget">
+    <div acr="list-column-between" class="v-center limit" style="--gap:15px;">
+
+        @RenderImage(Model, x => x.Image, new { @class = "lg-wide-6 lg-margin-auto book-cover" }, isEditable: true)
+
+        <h2 acr class="heading new-heading">@Editable(x => x.Title)</h2>
+
+        @RenderLink(Model, x => x.Link, new { @style = "color:#fff;--hover-color:#e2dbdb;", @class = "new-home-page-btn", @acr = "btn" }, isEditable: true)
+
+    </div>
+</div>
+
+

@@ -1,0 +1,175 @@
+﻿@using Glass.Mapper.Sc.Web.Mvc
+@*@using Sitecore.Foundation.Assets.Services
+    @using Sitecore.Foundation.Assets.Models*@
+@using System.Web.Mvc
+@using Sitecore.Mvc
+@inherits Glass.Mapper.Sc.Web.Mvc.GlassView<ACRHelix.Feature.RhecContent.ViewModels.ResourcesHomePageViewModel>
+
+@{
+    int itemCount = Model.Resources.Count();
+    int topicCount = Model.Topics.Count(); 
+    //for adding two extra resources in list
+    string exFirstredirectUrl = "";
+    string exFirsttarget = "";
+    string exFirstdate = "";
+    string exSecondredirectUrl = "";
+    string exSecondtarget = "";
+    string exSeconddate = "";
+
+}
+<section class="resources">
+    @if (itemCount > 0)
+    {
+        <div class="label section-label">@Editable(x => x.Subtitle)</div>
+        <h2>@Editable(x => x.Title)</h2>
+
+        <div class="figure-container">
+            @if (itemCount > 3)
+            {
+                <button class="desk-carousel-btn carousel_btn carousel_btn_left">
+                    <div class="arrow-btn material-icons material-icons-outlined"
+                         onclick="plusSlides(-1)">
+                        arrow_back
+                    </div>
+                </button>
+            }
+            @foreach (var resource in Model.Resources)
+            {
+                string redirectUrl = "";
+                string target = "";
+                string date = "";
+                if (!string.IsNullOrEmpty(resource.LinkOverride))
+                {
+                    redirectUrl = resource.LinkOverride;
+                }
+                else
+                {
+                    redirectUrl = resource.Url;
+                }
+                if (resource.NewWindow)
+                {
+                    target = "_blank";
+                }
+                if (resource.PublishDate != null)
+                {
+                    date = resource.PublishDate.ToString("dd MMMM yyy");
+                }
+                if (itemCount > 2)
+                {
+                    if (resource == Model.Resources.First())
+                    {
+                        exFirstredirectUrl = redirectUrl;
+                        exFirsttarget = target;
+                        exFirstdate = date;
+                    }
+                    if (resource == Model.Resources.Skip(1).First())
+                    {
+                        exSecondredirectUrl = redirectUrl;
+                        exSecondtarget = target;
+                        exSeconddate = date;
+                    }
+                }
+                <figure class="slideCustomCarousel">
+                    <a href="@redirectUrl" target="@target">
+                        @RenderImage(resource, m => m.image, new { @class = "why-image" }, isEditable: true)
+                        <figcaption class="why-image-caption">
+                            <p class="section-text bold-home">@date</p>
+                            <p title="@Html.Raw(resource.Title)" class="section-text ellipsis"> @Editable(resource, x => x.Title)</p>
+                        </figcaption>
+                    </a>
+                </figure>
+            }
+            @if (itemCount > 2)
+            {
+                <figure style="display:none" id="1">
+                    <a href="@exFirstredirectUrl" target="@exFirsttarget">
+                        @RenderImage(Model.Resources.First(), m => m.image, new { @class = "why-image" }, isEditable: true)
+                        <figcaption class="why-image-caption">
+                            <p class="section-text bold-home">@exFirstdate</p>
+                            <p title="@Html.Raw(Model.Resources.First().Title)" class="section-text ellipsis"> @Editable(Model.Resources.First(), x => x.Title)</p>
+                        </figcaption>
+                    </a>
+                </figure>
+                <figure style="display:none" id="2">
+                    <a href="@exSecondredirectUrl" target="@exSecondtarget">
+                        @RenderImage(Model.Resources.Skip(1).First(), m => m.image, new { @class = "why-image" }, isEditable: true)
+                        <figcaption class="why-image-caption">
+                            <p class="section-text bold-home">@exSeconddate</p>
+                            <p title="@Html.Raw(Model.Resources.Skip(1).First().Title)" class="section-text ellipsis"> @Editable(Model.Resources.Skip(1).First(), x => x.Title)</p>
+                        </figcaption>
+                    </a>
+                </figure>
+            }
+            @if (itemCount > 3)
+            {
+                <button class="desk-carousel-btn carousel_btn carousel_btn_right">
+                    <div class="arrow-btn material-icons material-icons-outlined"
+                         onclick="plusSlides(1)">
+                        arrow_forward
+                    </div>
+                </button>
+            }
+        </div>
+        if (itemCount > 1)
+        {
+            <!-- mobile slider buttons buttons -->
+            <div class="mob-btn-container">
+                <button class="carousel_btn carousel_btn_left-mobile">
+                    <div class="arrow-btn material-icons material-icons-outlined"
+                         onclick="plusSlides(-1)">
+                        arrow_back
+                    </div>
+                </button>
+                <button class="carousel_btn carousel_btn_right-mobile">
+                    <div class="arrow-btn material-icons material-icons-outlined"
+                         onclick="plusSlides(1)">
+                        arrow_forward
+                    </div>
+                </button>
+            </div>
+            <!-- mobile slider buttons buttons end -->
+        }
+        if (itemCount > 2)
+        {
+            <!-- tab slider buttons buttons -->
+            <div class="tab-btn-container">
+                <button class="carousel_btn carousel_btn_left-mobile">
+                    <div class="arrow-btn material-icons material-icons-outlined"
+                         onclick="plusSlides(-1)">
+                        arrow_back
+                    </div>
+                </button>
+                <button class="carousel_btn carousel_btn_right-mobile">
+                    <div class="arrow-btn material-icons material-icons-outlined"
+                         onclick="plusSlides(1)">
+                        arrow_forward
+                    </div>
+                </button>
+            </div>
+            <!-- tab slider buttons buttons end -->
+        }
+    }
+</section>
+    @if (topicCount > 0)
+    {
+<section class="topics">
+    <h2>@Editable(x => x.TopicTitle)</h2>
+    <div class="topics-container">
+        <div class="topics-list">
+            @foreach (var topic in Model.Topics)
+            {
+                if (!string.IsNullOrEmpty(topic.redirectUrl))
+                {
+                    <a href=@topic.redirectUrl class="topic">@Html.Raw(topic.TopicName)</a>
+                }
+                else
+                {
+                    <a href="#" class="topic">@Html.Raw(topic.TopicName)</a>
+                }
+            }
+        </div>
+    </div>
+</section>
+    }
+
+@*<script type="text/javascript" src="~/js/RHEC/RHECslider.js"></script>*@

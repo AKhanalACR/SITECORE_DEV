@@ -1,0 +1,85 @@
+﻿using ACRHelix.Feature.HTMLMetadata.Services;
+using ACRHelix.Feature.HTMLMetadata.ViewModels;
+using System.Web.Mvc;
+using Sitecore.Foundation.SitecoreExtensions.Extensions;
+using Glass.Mapper.Sc.Fields;
+using Sitecore.Data;
+
+namespace ACRHelix.Feature.HTMLMetadata
+{
+  public class HTMLMetadataController : Controller
+  {
+    private readonly IContentService _contentService;
+    public HTMLMetadataController(IContentService contentService)
+    {
+      _contentService = contentService;
+    }
+
+    public ViewResult PersonifyProductMetaData()
+    {
+      var viewModel = new PageMetadataViewModel();
+      ACR.Foundation.Personify.Services.SitecoreContentService _service = new ACR.Foundation.Personify.Services.SitecoreContentService();
+
+      var product = _service.GetProductStub(Sitecore.Context.Item.ID);
+      if (product != null)
+      {
+        viewModel.PageTitle = product.LongName;
+        viewModel.MetaDescription = product.ShortDescription_Raw;
+        viewModel.MetaKeywords = product.Keywords;
+        viewModel.Id = product.ID;
+      }
+      return View(viewModel);
+    }
+
+    public ViewResult HTMLMetadata()
+    {
+      var viewModel = new PageMetadataViewModel();
+
+      var currentItem = Sitecore.Context.Item;
+      if (currentItem != null)
+      {
+        var HTMLMetadataContent = _contentService.GetHTMLMetadataContent(currentItem.ID.ToString());
+        if (HTMLMetadataContent != null)
+        {
+          viewModel.Id = HTMLMetadataContent.Id;
+          viewModel.PageTitle = HTMLMetadataContent.PageTitle;
+          viewModel.MetaDescription = HTMLMetadataContent.MetaDescription;
+          viewModel.MetaKeywords = HTMLMetadataContent.MetaKeywords;
+                    viewModel.SiteName = HTMLMetadataContent.SiteName;
+          string sid = Request.QueryString["shareID"];
+          if (!string.IsNullOrWhiteSpace(sid))
+          {
+            ShortID shortID = new ShortID();
+            if (ShortID.TryParse(sid, out shortID))
+            {
+              var openGraphData = _contentService.GetOpenGraphContent(shortID.ToID().ToString());
+
+              viewModel.OG_Description = openGraphData.OG_Description;
+              viewModel.OG_Title = openGraphData.OG_Title;
+              viewModel.OG_URL = string.Format("{0}://{1}{2}", Request.Url.Scheme, Request.Url.Host, Request.RawUrl);
+              viewModel.OG_Image = buildImageUrl(openGraphData.OG_Image);
+            }
+          }
+          else
+          {
+            viewModel.OG_Description = string.IsNullOrWhiteSpace(HTMLMetadataContent.OG_Description) ? HTMLMetadataContent.MetaDescription : HTMLMetadataContent.OG_Description;
+            viewModel.OG_Title = string.IsNullOrWhiteSpace(HTMLMetadataContent.OG_Title) ? HTMLMetadataContent.PageTitle : HTMLMetadataContent.OG_Title;
+            viewModel.OG_URL = currentItem.GetCanonicalUrl();
+            viewModel.OG_Image = buildImageUrl(HTMLMetadataContent.OG_Image);
+          }
+        }
+      }
+      return View(viewModel);
+    }
+
+    private string buildImageUrl(Image image)
+    {
+      string url = string.Empty;
+      if (image != null)
+      {
+        url = string.Format("{0}://{1}{2}", Request.Url.Scheme, Request.Url.Host, image.Src);
+      }
+      return url;
+    }
+  }
+}

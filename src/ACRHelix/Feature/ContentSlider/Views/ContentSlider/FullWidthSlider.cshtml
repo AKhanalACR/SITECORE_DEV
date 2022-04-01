@@ -1,0 +1,44 @@
+﻿@inherits Glass.Mapper.Sc.Web.Mvc.GlassView<ACRHelix.Feature.ContentSlider.ViewModels.ContentSliderViewModel>
+@using System.Collections.Specialized;
+
+<div id="home-slider-outer">
+    <div class="relative">
+        <div id="slider-content-area">
+            <div class="home-slide-content">
+                <div class="content row">
+                    <div class="xl-wide-5 lg-wide-6 wide-12 home-slide-content-inner">
+                        <div class="slide-transition-content"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div role="slider" id="@Model.SliderID">
+            @foreach (var item in Model.Slides)
+            {
+            <section class="slick-slide home-slide">
+                <div class="home-slide-img-holder">
+                    @Editable(item, x => x.Image)
+                </div>
+
+                <div class="home-slide-text-area">
+                    <h1>@Editable(item, x => x.Title)</h1>
+                    <div class="home-slide-text">
+                        @Editable(item, x => x.Text)
+                        @RenderLink(item, x => x.Link,new NameValueCollection { { "class", "orange-link home-carousel-click" },{"data-carousel-slide-name", item.Title } }, isEditable: true)
+                    </div>
+                </div>
+
+            </section>
+            }
+        </div>
+        <div class="content row">
+            <div class="xl-wide-5 lg-wide-6">
+                <div class="relative">
+                    <div id="home-slider-nav">
+                        <div id="home-slider-dots"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
