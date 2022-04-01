@@ -1,6 +1,0 @@
-﻿@inherits Glass.Mapper.Sc.Web.Mvc.GlassView<ACRHelix.Feature.Identity.ViewModels.IWLogoViewModel>
-
-@using (BeginRenderLink(x => x.Logo.Link, new { @class = "navbar-brand" }, isEditable: true))
-{
-    @RenderImage(m => m.Logo.Image, isEditable: true)
-}

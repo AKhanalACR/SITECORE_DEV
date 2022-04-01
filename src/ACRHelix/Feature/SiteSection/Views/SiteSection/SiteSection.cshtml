@@ -1,9 +1,0 @@
-﻿@inherits Glass.Mapper.Sc.Web.Mvc.GlassView<ACRHelix.Feature.SiteSection.ViewModels.SiteSectionViewModel>
-
-<div class="page-hero-image section-spacing-bottom">
-    @*<img src="http://placehold.it/1400x300" alt="Image Size 1400 x 300px">*@
-    @RenderImage(m => m.HeaderImage, isEditable: true)
-    <header class="content">
-        <h1 class="hero-page-title">@Editable(x => x.Title)</h1>
-    </header>    
-</div>

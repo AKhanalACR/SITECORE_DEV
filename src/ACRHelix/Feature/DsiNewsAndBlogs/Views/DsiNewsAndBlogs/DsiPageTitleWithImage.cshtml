@@ -1,8 +1,0 @@
-﻿@inherits Glass.Mapper.Sc.Web.Mvc.GlassView<ACRHelix.Feature.DsiNewsAndBlogs.ViewModels.DsiPageTitleWithImageViewModel>
-
-<div id="pg-hero">
-    <div id="pg-hero-img" style="background-image: url(@Model.TitleBackgroundImage.Src); background-size:cover;"></div>
-    <figure id="dsi-hero-logo">
-        @RenderImage(m => m.TitleImage, isEditable: true) @*new { Width = 246 }, outputHeightWidth: true,*@
-    </figure>
-</div>

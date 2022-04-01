@@ -1,9 +1,0 @@
-@charset "UTF-8";
-/* login overides */
-html{min-height:100%;}
-#login-body{min-height: 100%; background:#0a4163;background: -webkit-linear-gradient(200deg, #5c8096 0%, #194a6a 43%, #2E5167 100%); background: linear-gradient(-110deg,#5c8096 0%, #194a6a 43%, #2E5167 100%);background-repeat: no-repeat; background-attachment: fixed;}
-
-#login-body:before,#login-body:after{content:''; display: block; clear:both; padding-top:1px; padding-bottom:1px}
-#login-header{margin-top:4rem;}
-#login-panel{background: #fff; margin:2rem auto; max-width: 1062px; width:100%; padding: 1.25rem.75rem;}
-#login-footer{clear:both; margin-bottom: 3rem;}

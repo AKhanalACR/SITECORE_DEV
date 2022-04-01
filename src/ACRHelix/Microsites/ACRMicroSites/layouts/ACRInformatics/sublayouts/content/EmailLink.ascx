@@ -1,2 +1,0 @@
-﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="EmailLink.ascx.cs" Inherits="ACR.layouts.ACRInformatics.sublayouts.content.EmailLink" %>
-<asp:HyperLink runat="server" ID="mailToLink" CssClass="sprite email-main"><span></span></asp:HyperLink>

@@ -1,8 +1,0 @@
-﻿<?xml version="1.0"?>
-<configuration>
-  <sitecore>
-    <settings>
-      <setting name="DefaultCatalogImageUrl" value="https://stgshop75.acr.org/images/productimages/98363237.Def.L.png"/>
-    </settings>
-  </sitecore>
-</configuration>
